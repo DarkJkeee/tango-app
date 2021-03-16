@@ -9,15 +9,31 @@ import SwiftUI
 
 @main
 struct TangoApp: App {
+    @State var showSplashScreen: Bool = true
+    
     var body: some Scene {
         WindowGroup {
-            TabbedPageView()
+            if showSplashScreen {
+                ZStack {
+                    Color.white.edgesIgnoringSafeArea(.all)
+                    Image("tango")
+                }
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                        self.showSplashScreen = false
+                    }
+                }
+                .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.5)))
+                .zIndex(1)
+            } else {
+                TabbedPageView().environmentObject(MoviesViewModel())
+            }
         }
     }
 }
 
 struct TangoApp_Previews: PreviewProvider {
     static var previews: some View {
-        TabbedPageView()
+        TabbedPageView().environmentObject(MoviesViewModel())
     }
 }

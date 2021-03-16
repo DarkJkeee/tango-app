@@ -16,5 +16,7 @@ struct Movie: Identifiable {
     var description: String
     var genre: String
     var tags: [String]
+    var duration: Int
+    
     
 }

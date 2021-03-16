@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		2A0B7DC025509182002CDCF0 /* MoviesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B7DBF25509182002CDCF0 /* MoviesAPI.swift */; };
 		2A0B7DC525522E26002CDCF0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B7DC425522E26002CDCF0 /* HomeView.swift */; };
-		2A0B7DCA25522E5A002CDCF0 /* MovieCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B7DC925522E5A002CDCF0 /* MovieCardView.swift */; };
-		2A0B7DD125523062002CDCF0 /* CardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B7DD025523062002CDCF0 /* CardListView.swift */; };
 		2A12D9B425CD6DEF00242260 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A12D9B325CD6DEF00242260 /* ProfileView.swift */; };
 		2A12D9BA25CD71F700242260 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A12D9B925CD71F700242260 /* SearchView.swift */; };
 		2A9F0285254FA81B00B011D6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F0284254FA81B00B011D6 /* User.swift */; };
@@ -23,14 +21,16 @@
 		2AD1F1C8254DB1EF0045E236 /* TangoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD1F1C7254DB1EF0045E236 /* TangoApp.swift */; };
 		2AD1F1CC254DB1F00045E236 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AD1F1CB254DB1F00045E236 /* Assets.xcassets */; };
 		2AD1F1CF254DB1F00045E236 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AD1F1CE254DB1F00045E236 /* Preview Assets.xcassets */; };
+		2ADDA8B325F50CA40060EF2C /* Dosis-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2ADDA8B225F50CA40060EF2C /* Dosis-Light.ttf */; };
+		2ADDA8BA25F50E630060EF2C /* Dosis-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2ADDA8B925F50E630060EF2C /* Dosis-Bold.ttf */; };
+		2ADDA8C425F6BBCA0060EF2C /* Dosis-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2ADDA8C325F6BBCA0060EF2C /* Dosis-Regular.ttf */; };
 		2AE8DF69258EEC4F00831558 /* MoviePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE8DF68258EEC4F00831558 /* MoviePage.swift */; };
+		2AF5570D25F97F9500343AA6 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF5570C25F97F9500343AA6 /* BorderedButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2A0B7DBF25509182002CDCF0 /* MoviesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesAPI.swift; sourceTree = "<group>"; };
 		2A0B7DC425522E26002CDCF0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		2A0B7DC925522E5A002CDCF0 /* MovieCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCardView.swift; sourceTree = "<group>"; };
-		2A0B7DD025523062002CDCF0 /* CardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListView.swift; sourceTree = "<group>"; };
 		2A12D9B325CD6DEF00242260 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		2A12D9B925CD71F700242260 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		2A9F0284254FA81B00B011D6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -45,7 +45,11 @@
 		2AD1F1CB254DB1F00045E236 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2AD1F1CE254DB1F00045E236 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2AD1F1D0254DB1F00045E236 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2ADDA8B225F50CA40060EF2C /* Dosis-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dosis-Light.ttf"; sourceTree = "<group>"; };
+		2ADDA8B925F50E630060EF2C /* Dosis-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dosis-Bold.ttf"; sourceTree = "<group>"; };
+		2ADDA8C325F6BBCA0060EF2C /* Dosis-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dosis-Regular.ttf"; sourceTree = "<group>"; };
 		2AE8DF68258EEC4F00831558 /* MoviePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePage.swift; sourceTree = "<group>"; };
+		2AF5570C25F97F9500343AA6 /* BorderedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,8 +67,6 @@
 			isa = PBXGroup;
 			children = (
 				2A0B7DC425522E26002CDCF0 /* HomeView.swift */,
-				2A0B7DC925522E5A002CDCF0 /* MovieCardView.swift */,
-				2A0B7DD025523062002CDCF0 /* CardListView.swift */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -88,7 +90,8 @@
 		2ABABEC6254E374F00F896C7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				2ABABF03254F245F00F896C7 /* Others */,
+				2AF5570B25F97F8600343AA6 /* Components */,
+				2ABABF03254F245F00F896C7 /* Pages */,
 				2ABABED8254E3DA900F896C7 /* CoreTabs */,
 				2AD1F1C7254DB1EF0045E236 /* TangoApp.swift */,
 				2ABABED5254E3B3D00F896C7 /* TabbedPageView.swift */,
@@ -116,8 +119,8 @@
 		2ABABEC9254E375C00F896C7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2ADDA8BC25F50E6C0060EF2C /* Fonts */,
 				2AD1F1CB254DB1F00045E236 /* Assets.xcassets */,
-				2A0B7DBF25509182002CDCF0 /* MoviesAPI.swift */,
 				2ACBF4972596C9820001C217 /* Colors.swift */,
 			);
 			path = "Supporting Files";
@@ -133,13 +136,13 @@
 			path = CoreTabs;
 			sourceTree = "<group>";
 		};
-		2ABABF03254F245F00F896C7 /* Others */ = {
+		2ABABF03254F245F00F896C7 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
 				2ABABF05254F24CA00F896C7 /* OnBoarding */,
 				2AE8DF68258EEC4F00831558 /* MoviePage.swift */,
 			);
-			path = Others;
+			path = Pages;
 			sourceTree = "<group>";
 		};
 		2ABABF05254F24CA00F896C7 /* OnBoarding */ = {
@@ -171,6 +174,7 @@
 		2AD1F1C6254DB1EF0045E236 /* Tango */ = {
 			isa = PBXGroup;
 			children = (
+				2ADDA8AC25F507970060EF2C /* Services */,
 				2ABABEC9254E375C00F896C7 /* Supporting Files */,
 				2ABABEC8254E375800F896C7 /* Models */,
 				2ABABEC7254E375400F896C7 /* ViewModels */,
@@ -187,6 +191,32 @@
 				2AD1F1CE254DB1F00045E236 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2ADDA8AC25F507970060EF2C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2A0B7DBF25509182002CDCF0 /* MoviesAPI.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		2ADDA8BC25F50E6C0060EF2C /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				2ADDA8C325F6BBCA0060EF2C /* Dosis-Regular.ttf */,
+				2ADDA8B225F50CA40060EF2C /* Dosis-Light.ttf */,
+				2ADDA8B925F50E630060EF2C /* Dosis-Bold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		2AF5570B25F97F8600343AA6 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				2AF5570C25F97F9500343AA6 /* BorderedButton.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -248,6 +278,9 @@
 			files = (
 				2AD1F1CF254DB1F00045E236 /* Preview Assets.xcassets in Resources */,
 				2AD1F1CC254DB1F00045E236 /* Assets.xcassets in Resources */,
+				2ADDA8BA25F50E630060EF2C /* Dosis-Bold.ttf in Resources */,
+				2ADDA8C425F6BBCA0060EF2C /* Dosis-Regular.ttf in Resources */,
+				2ADDA8B325F50CA40060EF2C /* Dosis-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,14 +291,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A0B7DD125523062002CDCF0 /* CardListView.swift in Sources */,
 				2ABABF18254F44C400F896C7 /* MoviesViewModel.swift in Sources */,
 				2ABABF07254F24DD00F896C7 /* LoginView.swift in Sources */,
 				2ABABF1B254F46A800F896C7 /* Movie.swift in Sources */,
 				2AD1F1C8254DB1EF0045E236 /* TangoApp.swift in Sources */,
 				2ABABED6254E3B3D00F896C7 /* TabbedPageView.swift in Sources */,
-				2A0B7DCA25522E5A002CDCF0 /* MovieCardView.swift in Sources */,
 				2A9F0285254FA81B00B011D6 /* User.swift in Sources */,
+				2AF5570D25F97F9500343AA6 /* BorderedButton.swift in Sources */,
 				2ACBF4982596C9820001C217 /* Colors.swift in Sources */,
 				2A0B7DC525522E26002CDCF0 /* HomeView.swift in Sources */,
 				2A12D9BA25CD71F700242260 /* SearchView.swift in Sources */,
@@ -405,7 +437,7 @@
 				DEVELOPMENT_TEAM = SXY5F8F32W;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Tango/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -427,7 +459,7 @@
 				DEVELOPMENT_TEAM = SXY5F8F32W;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Tango/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

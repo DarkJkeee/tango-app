@@ -16,5 +16,6 @@ struct User {
     var followers: [User]
     var following: [User]
     var subscriptionPlan: Int
+    var favouritesMovies: [Int]
     
 }

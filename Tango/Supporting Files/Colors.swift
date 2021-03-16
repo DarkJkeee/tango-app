@@ -8,8 +8,8 @@
 import SwiftUI
 
 extension Color {
-    public static var darkGray: Color {
-        return Color(red: 40/255, green: 40/255, blue: 40/255)
+    public static var AccentColor: Color {
+        return Color("AccentColor")
     }
     
     
