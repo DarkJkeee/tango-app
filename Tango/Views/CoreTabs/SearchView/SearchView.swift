@@ -8,37 +8,33 @@
 import SwiftUI
 
 struct SearchView: View {
+    @ObservedObject var searchVM = SearchViewModel()
     @State var text: String = ""
     @State private var isEditing = false
     
     var body: some View {
-        VStack {
-            HStack {
-                TextField("Search ...", text: $text)
-                    .padding(7)
-                    .padding(.horizontal, 25)
-                    .background(Color(.systemGray6))
-                    .cornerRadius(8)
-                    .padding(.horizontal, 10)
-                    .onTapGesture {
-                        self.isEditing = true
-                    }
-                
-                if isEditing {
-                    Button(action: {
-                        self.isEditing = false
-                        self.text = ""
-                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                        
-                    }) {
-                        Text("Cancel")
-                    }
-                    .padding(.trailing, 10)
-                    .transition(.move(edge: .trailing))
-                    .animation(.default)
+        NavigationView {
+            VStack {
+                ScrollView {
+                    TextField("Search ...", text: $text, onCommit:  {
+                        text.isEmpty ? searchVM.getSearchResponse(query: "") :                     searchVM.getSearchResponse(query: text)
+                    })
+                        .padding(7)
+                        .padding(.horizontal, 25)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(8)
+                        .padding(.horizontal, 10)
+                    ForEach(searchVM.movies) { movie in
+                        NavigationLink(
+                            destination: MoviePage(movie: movie),
+                            label: {
+                                MovieCardView(movie: movie)
+                            })
+                    }.padding()
                 }
+                Spacer()
             }
-            Spacer()
+            .navigationBarHidden(true)
         }
     }
 }

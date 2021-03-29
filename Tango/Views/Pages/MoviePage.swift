@@ -58,6 +58,7 @@ struct MovieDescription: View {
                 .font(.custom("Dosis-Regular", size: 16))
             
             BorderedButton(text: isInWishList ? "In Wishlist" : "Wishlist", systemImageName: "heart", color: .green, isOn: isInWishList, action: {
+                MoviesAPI().setMovieToWishlist(movie: movie)
                 isInWishList.toggle()
             })
             
