@@ -26,7 +26,7 @@ struct TangoApp: App {
                 .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.5)))
                 .zIndex(1)
             } else {
-                TabbedPageView().environmentObject(MoviesViewModel())
+                TabbedPageView()
             }
         }
     }
@@ -34,6 +34,6 @@ struct TangoApp: App {
 
 struct TangoApp_Previews: PreviewProvider {
     static var previews: some View {
-        TabbedPageView().environmentObject(MoviesViewModel())
+        TabbedPageView()
     }
 }

@@ -32,6 +32,6 @@ struct TabbedPageView: View {
 
 struct TabbedPageView_Previews: PreviewProvider {
     static var previews: some View {
-        TabbedPageView().environmentObject(MoviesViewModel())
+        TabbedPageView()
     }
 }

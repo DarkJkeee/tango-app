@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,13 +11,24 @@
 		2A0B7DC525522E26002CDCF0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B7DC425522E26002CDCF0 /* HomeView.swift */; };
 		2A12D9B425CD6DEF00242260 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A12D9B325CD6DEF00242260 /* ProfileView.swift */; };
 		2A12D9BA25CD71F700242260 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A12D9B925CD71F700242260 /* SearchView.swift */; };
+		2A4BCB3F260095E50016B73E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4BCB3E260095E50016B73E /* SceneDelegate.swift */; };
+		2A4BCB47260159490016B73E /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4BCB43260159490016B73E /* UIColorExtension.swift */; };
+		2A4BCB48260159490016B73E /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4BCB44260159490016B73E /* ColorExtension.swift */; };
+		2A4BCB49260159490016B73E /* LinearGradientExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4BCB45260159490016B73E /* LinearGradientExtension.swift */; };
+		2A4BCB4A260159490016B73E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4BCB46260159490016B73E /* Colors.swift */; };
+		2A5F8D782610AC9B008B7CEB /* Agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5F8D772610AC9B008B7CEB /* Agent.swift */; };
+		2A5F8D7C2610AF90008B7CEB /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5F8D7B2610AF90008B7CEB /* Spinner.swift */; };
+		2A5F8D7F2610B0FB008B7CEB /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5F8D7E2610B0FB008B7CEB /* ViewExtension.swift */; };
+		2A5F8D8C2610F10C008B7CEB /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5F8D8B2610F10C008B7CEB /* Player.swift */; };
+		2A5F8D9026115187008B7CEB /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5F8D8F26115187008B7CEB /* URLImage */; };
+		2A992AA7260B63ED00748C02 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A992AA6260B63ED00748C02 /* AccountViewModel.swift */; };
+		2A992AAF260CCDEC00748C02 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A992AAE260CCDEC00748C02 /* Person.swift */; };
 		2A9F0285254FA81B00B011D6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F0284254FA81B00B011D6 /* User.swift */; };
 		2ABABED6254E3B3D00F896C7 /* TabbedPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABABED5254E3B3D00F896C7 /* TabbedPageView.swift */; };
 		2ABABF07254F24DD00F896C7 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABABF06254F24DD00F896C7 /* LoginView.swift */; };
 		2ABABF0C254F24ED00F896C7 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABABF0B254F24ED00F896C7 /* RegistrationView.swift */; };
-		2ABABF18254F44C400F896C7 /* MoviesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABABF17254F44C400F896C7 /* MoviesViewModel.swift */; };
+		2ABABF18254F44C400F896C7 /* MoviesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABABF17254F44C400F896C7 /* MoviesListViewModel.swift */; };
 		2ABABF1B254F46A800F896C7 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABABF1A254F46A800F896C7 /* Movie.swift */; };
-		2ACBF4982596C9820001C217 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACBF4972596C9820001C217 /* Colors.swift */; };
 		2AD1F1C8254DB1EF0045E236 /* TangoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD1F1C7254DB1EF0045E236 /* TangoApp.swift */; };
 		2AD1F1CC254DB1F00045E236 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AD1F1CB254DB1F00045E236 /* Assets.xcassets */; };
 		2AD1F1CF254DB1F00045E236 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AD1F1CE254DB1F00045E236 /* Preview Assets.xcassets */; };
@@ -33,13 +44,23 @@
 		2A0B7DC425522E26002CDCF0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		2A12D9B325CD6DEF00242260 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		2A12D9B925CD71F700242260 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		2A4BCB3E260095E50016B73E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		2A4BCB43260159490016B73E /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		2A4BCB44260159490016B73E /* ColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		2A4BCB45260159490016B73E /* LinearGradientExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearGradientExtension.swift; sourceTree = "<group>"; };
+		2A4BCB46260159490016B73E /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		2A5F8D772610AC9B008B7CEB /* Agent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Agent.swift; sourceTree = "<group>"; };
+		2A5F8D7B2610AF90008B7CEB /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
+		2A5F8D7E2610B0FB008B7CEB /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		2A5F8D8B2610F10C008B7CEB /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		2A992AA6260B63ED00748C02 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
+		2A992AAE260CCDEC00748C02 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		2A9F0284254FA81B00B011D6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2ABABED5254E3B3D00F896C7 /* TabbedPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbedPageView.swift; sourceTree = "<group>"; };
 		2ABABF06254F24DD00F896C7 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		2ABABF0B254F24ED00F896C7 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
-		2ABABF17254F44C400F896C7 /* MoviesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewModel.swift; sourceTree = "<group>"; };
+		2ABABF17254F44C400F896C7 /* MoviesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesListViewModel.swift; sourceTree = "<group>"; };
 		2ABABF1A254F46A800F896C7 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
-		2ACBF4972596C9820001C217 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		2AD1F1C4254DB1EF0045E236 /* Tango.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tango.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AD1F1C7254DB1EF0045E236 /* TangoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TangoApp.swift; sourceTree = "<group>"; };
 		2AD1F1CB254DB1F00045E236 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -57,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A5F8D9026115187008B7CEB /* URLImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,14 +109,43 @@
 			path = SearchView;
 			sourceTree = "<group>";
 		};
+		2A4BCB42260159490016B73E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2A4BCB43260159490016B73E /* UIColorExtension.swift */,
+				2A4BCB44260159490016B73E /* ColorExtension.swift */,
+				2A4BCB45260159490016B73E /* LinearGradientExtension.swift */,
+				2A4BCB46260159490016B73E /* Colors.swift */,
+				2A5F8D7E2610B0FB008B7CEB /* ViewExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2A5F8D762610AC8F008B7CEB /* API */ = {
+			isa = PBXGroup;
+			children = (
+				2A0B7DBF25509182002CDCF0 /* MoviesAPI.swift */,
+				2A5F8D772610AC9B008B7CEB /* Agent.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		2A992AB2260D247D00748C02 /* Start */ = {
+			isa = PBXGroup;
+			children = (
+				2AD1F1C7254DB1EF0045E236 /* TangoApp.swift */,
+			);
+			path = Start;
+			sourceTree = "<group>";
+		};
 		2ABABEC6254E374F00F896C7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2ABABED5254E3B3D00F896C7 /* TabbedPageView.swift */,
+				2A992AB2260D247D00748C02 /* Start */,
 				2AF5570B25F97F8600343AA6 /* Components */,
 				2ABABF03254F245F00F896C7 /* Pages */,
 				2ABABED8254E3DA900F896C7 /* CoreTabs */,
-				2AD1F1C7254DB1EF0045E236 /* TangoApp.swift */,
-				2ABABED5254E3B3D00F896C7 /* TabbedPageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -102,7 +153,8 @@
 		2ABABEC7254E375400F896C7 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				2ABABF17254F44C400F896C7 /* MoviesViewModel.swift */,
+				2ABABF17254F44C400F896C7 /* MoviesListViewModel.swift */,
+				2A992AA6260B63ED00748C02 /* AccountViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -112,6 +164,7 @@
 			children = (
 				2ABABF1A254F46A800F896C7 /* Movie.swift */,
 				2A9F0284254FA81B00B011D6 /* User.swift */,
+				2A992AAE260CCDEC00748C02 /* Person.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -119,9 +172,10 @@
 		2ABABEC9254E375C00F896C7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2A4BCB42260159490016B73E /* Extensions */,
 				2ADDA8BC25F50E6C0060EF2C /* Fonts */,
 				2AD1F1CB254DB1F00045E236 /* Assets.xcassets */,
-				2ACBF4972596C9820001C217 /* Colors.swift */,
+				2A4BCB3E260095E50016B73E /* SceneDelegate.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -141,6 +195,7 @@
 			children = (
 				2ABABF05254F24CA00F896C7 /* OnBoarding */,
 				2AE8DF68258EEC4F00831558 /* MoviePage.swift */,
+				2A5F8D8B2610F10C008B7CEB /* Player.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -196,7 +251,7 @@
 		2ADDA8AC25F507970060EF2C /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				2A0B7DBF25509182002CDCF0 /* MoviesAPI.swift */,
+				2A5F8D762610AC8F008B7CEB /* API */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -215,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				2AF5570C25F97F9500343AA6 /* BorderedButton.swift */,
+				2A5F8D7B2610AF90008B7CEB /* Spinner.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -235,6 +291,9 @@
 			dependencies = (
 			);
 			name = Tango;
+			packageProductDependencies = (
+				2A5F8D8F26115187008B7CEB /* URLImage */,
+			);
 			productName = Tango;
 			productReference = 2AD1F1C4254DB1EF0045E236 /* Tango.app */;
 			productType = "com.apple.product-type.application";
@@ -262,6 +321,9 @@
 				Base,
 			);
 			mainGroup = 2AD1F1BB254DB1EF0045E236;
+			packageReferences = (
+				2A5F8D8E26115187008B7CEB /* XCRemoteSwiftPackageReference "url-image" */,
+			);
 			productRefGroup = 2AD1F1C5254DB1EF0045E236 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -291,17 +353,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2ABABF18254F44C400F896C7 /* MoviesViewModel.swift in Sources */,
+				2A5F8D782610AC9B008B7CEB /* Agent.swift in Sources */,
+				2ABABF18254F44C400F896C7 /* MoviesListViewModel.swift in Sources */,
 				2ABABF07254F24DD00F896C7 /* LoginView.swift in Sources */,
+				2A4BCB49260159490016B73E /* LinearGradientExtension.swift in Sources */,
 				2ABABF1B254F46A800F896C7 /* Movie.swift in Sources */,
 				2AD1F1C8254DB1EF0045E236 /* TangoApp.swift in Sources */,
 				2ABABED6254E3B3D00F896C7 /* TabbedPageView.swift in Sources */,
+				2A4BCB3F260095E50016B73E /* SceneDelegate.swift in Sources */,
+				2A4BCB48260159490016B73E /* ColorExtension.swift in Sources */,
 				2A9F0285254FA81B00B011D6 /* User.swift in Sources */,
 				2AF5570D25F97F9500343AA6 /* BorderedButton.swift in Sources */,
-				2ACBF4982596C9820001C217 /* Colors.swift in Sources */,
+				2A5F8D7C2610AF90008B7CEB /* Spinner.swift in Sources */,
+				2A992AAF260CCDEC00748C02 /* Person.swift in Sources */,
+				2A992AA7260B63ED00748C02 /* AccountViewModel.swift in Sources */,
 				2A0B7DC525522E26002CDCF0 /* HomeView.swift in Sources */,
+				2A4BCB4A260159490016B73E /* Colors.swift in Sources */,
 				2A12D9BA25CD71F700242260 /* SearchView.swift in Sources */,
+				2A5F8D8C2610F10C008B7CEB /* Player.swift in Sources */,
+				2A4BCB47260159490016B73E /* UIColorExtension.swift in Sources */,
 				2ABABF0C254F24ED00F896C7 /* RegistrationView.swift in Sources */,
+				2A5F8D7F2610B0FB008B7CEB /* ViewExtension.swift in Sources */,
 				2A0B7DC025509182002CDCF0 /* MoviesAPI.swift in Sources */,
 				2A12D9B425CD6DEF00242260 /* ProfileView.swift in Sources */,
 				2AE8DF69258EEC4F00831558 /* MoviePage.swift in Sources */,
@@ -437,7 +509,7 @@
 				DEVELOPMENT_TEAM = SXY5F8F32W;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Tango/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -459,7 +531,7 @@
 				DEVELOPMENT_TEAM = SXY5F8F32W;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Tango/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -493,6 +565,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2A5F8D8E26115187008B7CEB /* XCRemoteSwiftPackageReference "url-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmytro-anokhin/url-image";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2A5F8D8F26115187008B7CEB /* URLImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A5F8D8E26115187008B7CEB /* XCRemoteSwiftPackageReference "url-image" */;
+			productName = URLImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2AD1F1BC254DB1EF0045E236 /* Project object */;
 }

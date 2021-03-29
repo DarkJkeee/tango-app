@@ -15,7 +15,7 @@ struct ProfileView: View {
             VStack(spacing: 0) {
                 ForEach(profileLinkNames, id: \.self) { profileLinkName in
                     NavigationLink(destination: Text("")) {
-                        VStack { // Embed both the HStack and Divider in a VStack
+                        VStack {
                             HStack {
                                 Text(profileLinkName)
                                     .font(.body)
@@ -25,7 +25,7 @@ struct ProfileView: View {
                                     .font(.system(size: 20))
                             }
                             .padding(EdgeInsets(top: 17, leading: 21, bottom: 17, trailing: 21))
-                            Divider() // Add a divider
+                            Divider()
                         }
                     }
                 }

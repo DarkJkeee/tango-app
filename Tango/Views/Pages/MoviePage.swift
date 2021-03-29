@@ -5,27 +5,35 @@
 //  Created by Глеб Бурштейн on 20.12.2020.
 //
 
+import URLImage
 import SwiftUI
+import AVKit
 
 struct MoviePage: View {
     var movie: Movie
+    @State var isPressed = false
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 10) {
-                ZStack(alignment: .bottom) {
-                    Image(movie.preview)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                    Rectangle()
-                        .frame(height: 80)
-                        .opacity(0.25)
-                        .blur(radius: 10)
+        NavigationView {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 10) {
+                    ZStack(alignment: .bottom) {
+                        URLImage(url: URL(string: "https://image.tmdb.org/t/p/w500" + (movie.poster_path ?? "/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg"))!) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .cornerRadius(5)
+                        }
+                        Rectangle()
+                            .frame(height: 80)
+                            .opacity(0.25)
+                            .blur(radius: 10)
+                    }
+                    MovieDescription(movie: movie)
                 }
-                MovieDescription(movie: movie)
-                
+                .edgesIgnoringSafeArea(.top)
             }
-            .edgesIgnoringSafeArea(.top)
+            .navigationBarHidden(true)
         }
     }
 }
@@ -53,14 +61,14 @@ struct MovieDescription: View {
                 isInWishList.toggle()
             })
             
-            Text(movie.description)
+            Text(movie.overview)
                 .font(.custom("Dosis-Regular", size: 24))
                 .lineLimit(isExpanded ? nil : 5)
                 .background(
-                    Text(movie.description).lineLimit(5)
+                    Text(movie.overview).lineLimit(5)
                         .background(GeometryReader { displayedGeometry in
                             ZStack {
-                                Text(movie.description)
+                                Text(movie.overview)
                                     .background(GeometryReader { fullGeometry in
                                         Color.clear.onAppear {
                                             self.truncated = fullGeometry.size.height > displayedGeometry.size.height
@@ -72,10 +80,20 @@ struct MovieDescription: View {
                         .hidden()
                 )
             if truncated {
+                
                 Button(action: { self.isExpanded.toggle() }) {
                     Text(isExpanded ? "Show less" : "Show more")
                         .font(.custom("Dosis-Bold", size: 16))
                 }
+            }
+            HStack {
+                Spacer()
+                    NavigationLink(
+                        destination: Player(player: AVPlayer(url: URL(string: "https://bit.ly/swswift")!)),
+                        label: {
+                            Text("Watch")
+                        })
+                Spacer()
             }
         }
         .padding(.all)
@@ -84,8 +102,12 @@ struct MovieDescription: View {
 }
 
 
-struct MoviePage_Previews: PreviewProvider {
-    static var previews: some View {
-        MoviePage(movie: Movie(title: "Dogville", preview: "Dogville", video: "", description: "interestinterestfildsadasdasdasdasdasdasdasdasdasdasdminterestfildsadasdasdasdasdasdasdasdasdasdasdminterestfildsadasdasdasdasdasdasdasdasdasdasdminterestfildsadasdasdasdasdasdasdasdasdasdasdminterestfildsadasdasdasdasdasdasdasdasdasdasdmfildsadasdasdasdasdasdasdasdasdasdasdminterest", genre: "Drama", tags: [""], duration: 5))
-    }
-}
+
+
+
+//struct MoviePage_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MoviePage(movie: Movie(title: "Dogville", poster_path: "Dogville", video: "", overview: "interestinterestfildsadasdasdasdasdasdasdasdasdasdasdminterestfildsadasdasdasdasdasdasdasdasdasdasdminterestfildsadasdasdasdasdasdasdasdasdasdasdminterestfildsadasdasdasdasdasdasdasdasdasdasdminterestfildsadasdasdasdasdasdasdasdasdasdasdmfildsadasdasdasdasdasdasdasdasdasdasdminterest", genre_ids: [], duration: 5))
+//            .preferredColorScheme(.dark)
+//    }
+//}

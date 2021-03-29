@@ -6,37 +6,49 @@
 //
 
 import SwiftUI
+import URLImage
 
 struct HomeView: View {
-    @EnvironmentObject var homeVM: MoviesViewModel
+    @ObservedObject var homeVM = MoviesListViewModel()
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                
-                ForEach(0..<5) { _ in
-                    CardListView(movies: homeVM.movies, title: "genre")
-                }
-            }
+            content
             .navigationBarTitle("Home")
             .toolbar(content: {
                 Button(action: {
                     
                 }, label: {
-                    Image(systemName: "exit")
+                    Image(systemName: "arrow.up.and.person.rectangle.portrait")
                 })
             })
+        }
+        .onAppear() {
+            homeVM.getGenres()
+        }
+    }
+    
+    private var content: some View {
+        VStack {
+            ScrollView {
+                ForEach(homeVM.genres) { genre in
+                    CardListView(movies: homeVM.movies[genre.id] ?? [], genre: genre.name)
+                        .onAppear() {
+                            homeVM.getMovies(genre: genre.id)
+                        }
+                }
+            }
         }
     }
 }
 
 struct CardListView: View {
     let movies: [Movie]
-    let title: String
+    let genre: String
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(title)
+            Text(genre)
                 .font(.custom("Dosis-Bold", size: 26))
                 .padding(.leading)
             
@@ -48,8 +60,6 @@ struct CardListView: View {
                                         MovieCardView(movie: movie)
                                             .frame(width: 300)
                                             .padding(.trailing, 30)
-                                            .cornerRadius(10)
-                                            .clipped()
                                        }).accentColor(.primary)
                     }
                 }
@@ -64,19 +74,27 @@ struct MovieCardView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Image(movie.preview)
-                .resizable()
-                .renderingMode(.original)
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 300, height: 170)
-                .clipped()
-                .cornerRadius(5)
-                .shadow(radius: 5)
+            URLImage(url: URL(string: "https://image.tmdb.org/t/p/w500" + (movie.poster_path ?? "/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg"))!) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 300, height: 170)
+                    .clipped()
+                    .cornerRadius(10)
+                    .shadow(color: .white, radius: 2, x: -3, y: -3)
+                    .shadow(color: .lairShadowGray, radius: 2, x: 3, y: 3)
+                    .overlay(
+                      RoundedRectangle(cornerRadius: 10)
+                        .stroke(LinearGradient.lairDiagonalDarkBorder, lineWidth: 1)
+                    )
+                    .background(Color.lairBackgroundGray)
+                    .cornerRadius(10)
+            }
             VStack(alignment: .leading, spacing: 5) {
                 Text(movie.title)
                     .foregroundColor(.primary)
                     .font(.custom("Dosis-Bold", size: 20))
-                Text(movie.description)
+                Text(movie.overview)
                     .font(.custom("Dosis-Regular", size: 15))
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.leading)
@@ -89,6 +107,6 @@ struct MovieCardView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        TabbedPageView().environmentObject(MoviesViewModel())
+        TabbedPageView()
     }
 }
