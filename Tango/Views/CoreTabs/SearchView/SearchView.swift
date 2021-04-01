@@ -13,29 +13,28 @@ struct SearchView: View {
     @State private var isEditing = false
     
     var body: some View {
-        NavigationView {
-            VStack {
-                ScrollView {
-                    TextField("Search ...", text: $text, onCommit:  {
-                        text.isEmpty ? searchVM.getSearchResponse(query: "") :                     searchVM.getSearchResponse(query: text)
-                    })
-                        .padding(7)
-                        .padding(.horizontal, 25)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(8)
-                        .padding(.horizontal, 10)
-                    ForEach(searchVM.movies) { movie in
-                        NavigationLink(
-                            destination: MoviePage(movie: movie),
-                            label: {
-                                MovieCardView(movie: movie)
-                            })
-                    }.padding()
-                }
-                Spacer()
+        VStack {
+            ScrollView {
+                TextField("Search ...", text: $text, onCommit:  {
+                    text.isEmpty ? searchVM.getSearchResponse(query: "") :                     searchVM.getSearchResponse(query: text)
+                })
+                .padding(7)
+                .padding(.horizontal, 25)
+                .background(Color(.systemGray6))
+                .cornerRadius(8)
+                .padding(.horizontal, 10)
+                ForEach(searchVM.movies) { movie in
+                    NavigationLink(
+                        destination: MoviePage(movie: movie),
+                        label: {
+                            MovieCardView(movie: movie)
+                        })
+                }.padding()
             }
-            .navigationBarHidden(true)
+            Spacer()
         }
+        .padding()
+        .navigationBarHidden(true)
     }
 }
 

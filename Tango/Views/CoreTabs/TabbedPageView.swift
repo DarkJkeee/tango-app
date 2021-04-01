@@ -21,6 +21,8 @@ struct TabbedPageView: View {
                     self.showSplash = false
                 }
             }
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
             .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.5)))
             .zIndex(1)
         } else {
@@ -41,15 +43,8 @@ struct TabbedPageView: View {
                     }
                     .tag(2)
             }
-            .navigationBarTitle("Title")
-            .toolbar(content: {
-                Button(action: {
-                    
-                }, label: {
-                    Image(systemName: "arrow.up.and.person.rectangle.portrait")
-                })
-            })
             .accentColor(Color.AccentColor)
+            .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
         }
     }

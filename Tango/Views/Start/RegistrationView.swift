@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RegistrationView: View {
+    @State var selection: Int?
     @ObservedObject var sessionVM = SessionViewModel()
     
     var body: some View {
@@ -59,28 +60,34 @@ struct RegistrationView: View {
                 
             }.padding([.leading, .trailing], 27.5)
             
-            Spacer()
+            Text(sessionVM.inlineError)
+                .foregroundColor(.red)
+            
             
             NavigationLink(
                 destination: TabbedPageView(),
+                tag: 1,
+                selection: $selection,
                 label: {
-                    
-                    RoundedRectangle(cornerRadius: 10)
-                        .frame(height: 60)
-                        .overlay(
-                            Text("Sign Up")
-                                .bold()
-                                .foregroundColor(.white)
-                        )
-                        .foregroundColor(sessionVM.isValid ? .orange : .gray)
-                    
+                    Button(action: {
+                        
+                        self.selection = 1
+                    }, label: {
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(height: 60)
+                            .overlay(
+                                Text("Sign Up")
+                                    .bold()
+                                    .foregroundColor(.white)
+                            )
+                    })
                 })
                 .padding()
+                .foregroundColor(sessionVM.isValid ? .orange : .gray)
                 .disabled(!sessionVM.isValid)
             
             Spacer()
         }
-        
     }
 }
 

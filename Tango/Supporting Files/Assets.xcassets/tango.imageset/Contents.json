@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "horizontal_on_white_by_logaster.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "tango.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },

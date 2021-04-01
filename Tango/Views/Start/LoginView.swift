@@ -56,7 +56,6 @@ struct LoginView: View {
                             .font(.custom("Dosis-Light", size: 18))
                             .foregroundColor(Color.AccentColor)
                             .opacity(0.6)
-                        
                     })
             }
         }

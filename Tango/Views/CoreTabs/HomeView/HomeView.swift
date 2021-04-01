@@ -12,10 +12,13 @@ struct HomeView: View {
     @ObservedObject var homeVM = MoviesListViewModel()
     
     var body: some View {
+        // TODO: nav bar
+        
         content
-        .onAppear() {
-            homeVM.getGenres()
-        }
+            .navigationBarHidden(true)
+            .onAppear() {
+                homeVM.getGenres()
+            }
     }
     
     private var content: some View {
@@ -74,8 +77,8 @@ struct MovieCardView: View {
                     .shadow(color: .white, radius: 2, x: -3, y: -3)
                     .shadow(color: .lairShadowGray, radius: 2, x: 3, y: 3)
                     .overlay(
-                      RoundedRectangle(cornerRadius: 10)
-                        .stroke(LinearGradient.lairDiagonalDarkBorder, lineWidth: 1)
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(LinearGradient.lairDiagonalDarkBorder, lineWidth: 1)
                     )
                     .background(Color.lairBackgroundGray)
                     .cornerRadius(10)
