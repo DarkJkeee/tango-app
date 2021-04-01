@@ -12,17 +12,7 @@ struct HomeView: View {
     @ObservedObject var homeVM = MoviesListViewModel()
     
     var body: some View {
-        NavigationView {
-            content
-            .navigationBarTitle("Home")
-            .toolbar(content: {
-                Button(action: {
-                    
-                }, label: {
-                    Image(systemName: "arrow.up.and.person.rectangle.portrait")
-                })
-            })
-        }
+        content
         .onAppear() {
             homeVM.getGenres()
         }

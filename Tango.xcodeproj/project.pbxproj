@@ -11,6 +11,7 @@
 		2A0B7DC525522E26002CDCF0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B7DC425522E26002CDCF0 /* HomeView.swift */; };
 		2A12D9B425CD6DEF00242260 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A12D9B325CD6DEF00242260 /* ProfileView.swift */; };
 		2A12D9BA25CD71F700242260 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A12D9B925CD71F700242260 /* SearchView.swift */; };
+		2A14B5582616247C0084EAE9 /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A14B5572616247C0084EAE9 /* SessionViewModel.swift */; };
 		2A4BCB3F260095E50016B73E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4BCB3E260095E50016B73E /* SceneDelegate.swift */; };
 		2A4BCB47260159490016B73E /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4BCB43260159490016B73E /* UIColorExtension.swift */; };
 		2A4BCB48260159490016B73E /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4BCB44260159490016B73E /* ColorExtension.swift */; };
@@ -44,6 +45,7 @@
 		2A0B7DC425522E26002CDCF0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		2A12D9B325CD6DEF00242260 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		2A12D9B925CD71F700242260 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		2A14B5572616247C0084EAE9 /* SessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
 		2A4BCB3E260095E50016B73E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2A4BCB43260159490016B73E /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		2A4BCB44260159490016B73E /* ColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
@@ -133,6 +135,8 @@
 		2A992AB2260D247D00748C02 /* Start */ = {
 			isa = PBXGroup;
 			children = (
+				2ABABF0B254F24ED00F896C7 /* RegistrationView.swift */,
+				2ABABF06254F24DD00F896C7 /* LoginView.swift */,
 				2AD1F1C7254DB1EF0045E236 /* TangoApp.swift */,
 			);
 			path = Start;
@@ -141,7 +145,6 @@
 		2ABABEC6254E374F00F896C7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				2ABABED5254E3B3D00F896C7 /* TabbedPageView.swift */,
 				2A992AB2260D247D00748C02 /* Start */,
 				2AF5570B25F97F8600343AA6 /* Components */,
 				2ABABF03254F245F00F896C7 /* Pages */,
@@ -155,6 +158,7 @@
 			children = (
 				2ABABF17254F44C400F896C7 /* MoviesListViewModel.swift */,
 				2AE9A45A2611EF4200126243 /* SearchViewModel.swift */,
+				2A14B5572616247C0084EAE9 /* SessionViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -183,6 +187,7 @@
 		2ABABED8254E3DA900F896C7 /* CoreTabs */ = {
 			isa = PBXGroup;
 			children = (
+				2ABABED5254E3B3D00F896C7 /* TabbedPageView.swift */,
 				2A12D9B825CD71EB00242260 /* SearchView */,
 				2A12D9B225CD6DC800242260 /* ProfileView */,
 				2A0B7DC225522DA4002CDCF0 /* HomeView */,
@@ -193,20 +198,10 @@
 		2ABABF03254F245F00F896C7 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
-				2ABABF05254F24CA00F896C7 /* OnBoarding */,
 				2AE8DF68258EEC4F00831558 /* MoviePage.swift */,
 				2A5F8D8B2610F10C008B7CEB /* Player.swift */,
 			);
 			path = Pages;
-			sourceTree = "<group>";
-		};
-		2ABABF05254F24CA00F896C7 /* OnBoarding */ = {
-			isa = PBXGroup;
-			children = (
-				2ABABF06254F24DD00F896C7 /* LoginView.swift */,
-				2ABABF0B254F24ED00F896C7 /* RegistrationView.swift */,
-			);
-			path = OnBoarding;
 			sourceTree = "<group>";
 		};
 		2AD1F1BB254DB1EF0045E236 = {
@@ -369,6 +364,7 @@
 				2A0B7DC525522E26002CDCF0 /* HomeView.swift in Sources */,
 				2A4BCB4A260159490016B73E /* Colors.swift in Sources */,
 				2A12D9BA25CD71F700242260 /* SearchView.swift in Sources */,
+				2A14B5582616247C0084EAE9 /* SessionViewModel.swift in Sources */,
 				2A5F8D8C2610F10C008B7CEB /* Player.swift in Sources */,
 				2A4BCB47260159490016B73E /* UIColorExtension.swift in Sources */,
 				2ABABF0C254F24ED00F896C7 /* RegistrationView.swift in Sources */,
