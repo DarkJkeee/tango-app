@@ -12,24 +12,38 @@ struct HomeView: View {
     @ObservedObject var homeVM = MoviesListViewModel()
     
     var body: some View {
-        // TODO: nav bar
-        
-        content
-            .navigationBarHidden(true)
-            .onAppear() {
-                homeVM.getGenres()
-            }
+        VStack {
+            topbar
+            content
+                .navigationBarHidden(true)
+                .onAppear() {
+                    homeVM.getGenres()
+                }
+        }
+        .background(Color("Background"))
+        .edgesIgnoringSafeArea(.all)
+    }
+    
+    private var topbar: some View {
+        HStack {
+            Text("Home")
+                .font(.custom("Dosis-Bold", size: 40))
+                .foregroundColor(Color("Accent"))
+            Spacer()
+            // TODO: topbar buttons...
+        }
+        .padding(.top, 40)
+        .padding(.leading, 20)
+        .padding(.bottom, 5)
     }
     
     private var content: some View {
-        VStack {
-            ScrollView {
-                ForEach(homeVM.genres) { genre in
-                    CardListView(movies: homeVM.movies[genre.id] ?? [], genre: genre.name)
-                        .onAppear() {
-                            homeVM.getMovies(genre: genre.id)
-                        }
-                }
+        ScrollView {
+            ForEach(homeVM.genres) { genre in
+                CardListView(movies: homeVM.movies[genre.id] ?? [], genre: genre.name)
+                    .onAppear() {
+                        homeVM.getMovies(genre: genre.id)
+                    }
             }
         }
     }
@@ -43,6 +57,7 @@ struct CardListView: View {
         VStack(alignment: .leading) {
             Text(genre)
                 .font(.custom("Dosis-Bold", size: 26))
+                .foregroundColor(Color("Accent"))
                 .padding(.leading)
             
             ScrollView(.horizontal, showsIndicators: false) {
@@ -53,7 +68,7 @@ struct CardListView: View {
                                         MovieCardView(movie: movie)
                                             .frame(width: 300)
                                             .padding(.trailing, 30)
-                                       }).accentColor(.primary)
+                                       })
                     }
                 }
             }
@@ -85,7 +100,7 @@ struct MovieCardView: View {
             }
             VStack(alignment: .leading, spacing: 5) {
                 Text(movie.title)
-                    .foregroundColor(.primary)
+                    .foregroundColor(Color("Accent"))
                     .font(.custom("Dosis-Bold", size: 20))
                 Text(movie.overview)
                     .font(.custom("Dosis-Regular", size: 15))
@@ -100,6 +115,7 @@ struct MovieCardView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        TabbedPageView()
+        HomeView()
+            .preferredColorScheme(.dark)
     }
 }

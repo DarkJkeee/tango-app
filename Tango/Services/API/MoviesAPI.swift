@@ -6,13 +6,19 @@
 //
 
 import Foundation
+import Combine
 
 class MoviesAPI {
-    private let url = URL(string: "")
+    public static let shared = MoviesAPI()
+    private init() {}
+    private let apiKey = "d41526ac20f18575a8131958e3298822"
+    private let url = "https://api.themoviedb.org/3"
+    private let subscriptions = Set<AnyCancellable>()
+    
     
     func getSessionId(completion: @escaping (Response) -> ()) {
         
-        guard let url = URL(string: "https://api.themoviedb.org/3/authentication/guest_session/new?api_key=d41526ac20f18575a8131958e3298822") else { return }
+        guard let url = URL(string: "\(url)/authentication/guest_session/new?api_key=\(apiKey)") else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             let response = try! JSONDecoder().decode(Response.self, from: data!)
@@ -25,7 +31,7 @@ class MoviesAPI {
     }
     
     func getMoviesFromGenre(genre: Int, completion: @escaping ([Movie]) -> ()) {
-        guard let url = URL(string: "https://api.themoviedb.org/3/discover/movie?api_key=d41526ac20f18575a8131958e3298822&with_genres=" + String(genre)) else { return }
+        guard let url = URL(string: "\(url)/discover/movie?api_key=\(apiKey)&with_genres=\(genre)") else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             let movieResponse = try! JSONDecoder().decode(MovieResponse.self, from: data!)
@@ -38,7 +44,7 @@ class MoviesAPI {
     }
     
     func getGenres(completion: @escaping ([Genre]) -> ()) {
-        guard let url = URL(string: "https://api.themoviedb.org/3/genre/movie/list?api_key=d41526ac20f18575a8131958e3298822&language=en-US") else { return }
+        guard let url = URL(string: "\(url)/genre/movie/list?api_key=\(apiKey)&language=en-US") else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, _) in
             let genreResponse = try! JSONDecoder().decode(GenreResponse.self, from: data!)
@@ -51,7 +57,7 @@ class MoviesAPI {
     }
     
     func getSearchRepsonse(query: String, completion: @escaping ([Movie]) -> ()) {
-        guard let url = URL(string: "https://api.themoviedb.org/3/search/movie?api_key=d41526ac20f18575a8131958e3298822&language=en-US&query=" + query + "&page=1&include_adult=false")
+        guard let url = URL(string: "\(url)/search/movie?api_key=\(apiKey)&language=en-US&query=\(query)&page=1&include_adult=false")
         else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, _) in
@@ -95,8 +101,8 @@ class MoviesAPI {
     struct MovieResponse: Codable {
         var page: Int?
         var results: [Movie]?
-        var total_pages: Int?
-        var total_results: Int?
+        var totalPages: Int?
+        var totalResults: Int?
     }
     
     struct GenreResponse: Codable {

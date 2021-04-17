@@ -11,8 +11,38 @@ struct ProfileView: View {
     let profileLinkNames: [String] = ["Favourite movies", "Followers", "Following"]
     
     var body: some View {
-        // TODO: nav bar
-        
+        VStack {
+            topbar
+            content
+        }
+        .background(Color("Background"))
+        .edgesIgnoringSafeArea(.all)
+        .navigationBarHidden(true)
+    }
+    
+    private var topbar: some View {
+        HStack {
+            Text("Profile")
+                .font(.custom("Dosis-Bold", size: 40))
+                .foregroundColor(Color("Accent"))
+                .padding(.leading, 20)
+            Spacer()
+            
+            Button(action: {
+                
+            }, label: {
+                Image(systemName: "arrow.up.and.person.rectangle.portrait")
+                    .resizable()
+                    .foregroundColor(Color("Accent"))
+                    .frame(width: 30, height: 30)
+                    .padding(.trailing, 20)
+            })
+        }
+        .padding(.top, 40)
+        .padding(.bottom, 5)
+    }
+    
+    private var content: some View {
         VStack(spacing: 0) {
             ForEach(profileLinkNames, id: \.self) { profileLinkName in
                 NavigationLink(destination: Text("")) {
@@ -32,7 +62,6 @@ struct ProfileView: View {
             }
             Spacer()
         }
-        .navigationBarHidden(true)
     }
 }
 

@@ -12,7 +12,7 @@ final class SearchViewModel: ObservableObject {
     @Published var movies = [Movie]()
     
     public func getSearchResponse(query: String) {
-        MoviesAPI().getSearchRepsonse(query: query) { (movies) in
+        MoviesAPI.shared.getSearchRepsonse(query: query) { (movies) in
             self.movies = movies
         }
     }

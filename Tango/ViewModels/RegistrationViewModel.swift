@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class SessionViewModel : ObservableObject {
+class RegistrationViewModel : ObservableObject {
     @Published var username: String = ""
     @Published var email: String = ""
     @Published var password: String = ""
@@ -45,13 +45,13 @@ class SessionViewModel : ObservableObject {
             }
             .assign(to: \.inlineError, on: self)
             .store(in: &cancellables)
-        
-        
     }
+    
     
 }
 
-extension SessionViewModel {
+extension RegistrationViewModel {
+    
     private var isUsernameValidPublisher: AnyPublisher<Bool, Never> {
         $username
             .debounce(for: 0.8, scheduler: RunLoop.main)
@@ -109,7 +109,7 @@ extension SessionViewModel {
     }
 }
 
-extension SessionViewModel {
+extension RegistrationViewModel {
     enum PasswordStatus {
         case empty
         case notStrongEnough

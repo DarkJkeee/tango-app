@@ -31,8 +31,9 @@ struct MoviePage: View {
                     }
                     MovieDescription(movie: movie)
                 }
-                .edgesIgnoringSafeArea(.top)
             }
+            .background(Color("Background"))
+            .edgesIgnoringSafeArea(.all)
             .navigationBarHidden(true)
         }
     }
@@ -50,7 +51,7 @@ struct MovieDescription: View {
         VStack(alignment: .leading, spacing: 15) {
             
             Text(movie.title)
-                .foregroundColor(.primary)
+                .foregroundColor(Color("Accent"))
                 .font(.custom("Dosis-Bold", size: 35))
                 .fontWeight(.semibold)
             Text("1h 44m | Drama | 3 July 2003")
@@ -58,7 +59,7 @@ struct MovieDescription: View {
                 .font(.custom("Dosis-Regular", size: 16))
             
             BorderedButton(text: isInWishList ? "In Wishlist" : "Wishlist", systemImageName: "heart", color: .green, isOn: isInWishList, action: {
-                MoviesAPI().setMovieToWishlist(movie: movie)
+                MoviesAPI.shared.setMovieToWishlist(movie: movie)
                 isInWishList.toggle()
             })
             
@@ -106,9 +107,9 @@ struct MovieDescription: View {
 
 
 
-//struct MoviePage_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MoviePage(movie: Movie(title: "Dogville", poster_path: "Dogville", video: "", overview: "interestinterestfildsadasdasdasdasdasdasdasdasdasdasdminterestfildsadasdasdasdasdasdasdasdasdasdasdminterestfildsadasdasdasdasdasdasdasdasdasdasdminterestfildsadasdasdasdasdasdasdasdasdasdasdminterestfildsadasdasdasdasdasdasdasdasdasdasdmfildsadasdasdasdasdasdasdasdasdasdasdminterest", genre_ids: [], duration: 5))
-//            .preferredColorScheme(.dark)
-//    }
-//}
+struct MoviePage_Previews: PreviewProvider {
+    static var previews: some View {
+        MoviePage(movie: Movie(id: 1, title: "Alo", poster_path: "", vote_count: nil, overview: "", genre_ids: []))
+            .preferredColorScheme(.dark)
+    }
+}

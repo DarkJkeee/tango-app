@@ -15,8 +15,7 @@ struct SearchView: View {
     var body: some View {
         VStack {
             ScrollView {
-                TextField("Search ...", text: $text, onCommit:  {
-                    text.isEmpty ? searchVM.getSearchResponse(query: "") :                     searchVM.getSearchResponse(query: text)
+                TextField("Search ...", text: $text, onCommit: {                  searchVM.getSearchResponse(query: text)
                 })
                 .padding(7)
                 .padding(.horizontal, 25)
@@ -31,9 +30,12 @@ struct SearchView: View {
                         })
                 }.padding()
             }
+            .padding(.top, 40)
             Spacer()
         }
         .padding()
+        .background(Color("Background"))
+        .edgesIgnoringSafeArea(.all)
         .navigationBarHidden(true)
     }
 }
@@ -41,5 +43,6 @@ struct SearchView: View {
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView()
+            .preferredColorScheme(.dark)
     }
 }

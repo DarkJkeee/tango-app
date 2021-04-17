@@ -9,11 +9,9 @@ import SwiftUI
 
 @main
 struct TangoApp: App {
-    @State var showSplashScreen: Bool = true
-    
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            RegistrationView()
         }
     }
 }

@@ -13,22 +13,16 @@ final class MoviesListViewModel: ObservableObject {
     @Published var genres = [Genre]()
     
     @Published var movies = [Int: [Movie]]()
-//        [Movie(title: "Clockwork Orange", poster_path: "https://image.tmdb.org/t/p/w500/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg", video: "https://bit.ly/swswift", overview: "Interesting film", genre_ids: [], duration: 5),
-//         Movie(title: "Satantango", poster_path: "Satantango", video: "https://bit.ly/swswift", overview: "Our main film ;)", genre_ids: [], duration: 5),
-//         Movie(title: "Dogville", poster_path: "Dogville", video: "https://bit.ly/swswift", overview: "Dogville is a 2003 avant-garde crime tragedy film written and directed by Lars von TrierDogville is a 2003 avant-garde crime tragedy film written and directed by Lars von TrierDogville is a 2003 avant-garde crime tragedy film written and directed by Lars von TrierDogville is a 2003 avant-garde crime tragedy film written and directed by Lars von TrierDogville is a 2003 avant-garde crime tragedy film written and directed by Lars von Trier", genre_ids: [], duration: 5),
-//         Movie(title: "Satantango", poster_path: "Satantango", video: "https://bit.ly/swswift", overview: "Our main film ;)", genre_ids: [], duration: 5),
-//         Movie(title: "Satantango", poster_path: "Satantango", video: "https://bit.ly/swswift", overview: "Our main film ;)", genre_ids: [], duration: 5),]
-    
     
     
     public func getGenres() {
-        MoviesAPI().getGenres { (genres) in
+        MoviesAPI.shared.getGenres { (genres) in
             self.genres = genres
         }
     }
     
     public func getMovies(genre: Int) {
-        MoviesAPI().getMoviesFromGenre(genre: genre) { (movies) in
+        MoviesAPI.shared.getMoviesFromGenre(genre: genre) { (movies) in
             self.movies[genre] = movies
         }
     }
