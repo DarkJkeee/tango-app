@@ -1,2 +1,3 @@
 # TangoApp
-Arthouse streaming application on SwiftUI
+🎥 Application for people who are interested in arthouse cinema.
+Social media and streaming service.
