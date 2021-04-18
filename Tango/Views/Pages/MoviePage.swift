@@ -11,14 +11,13 @@ import AVKit
 
 struct MoviePage: View {
     var movie: Movie
-    @State var isPressed = false
     
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
                     ZStack(alignment: .bottom) {
-                        URLImage(url: URL(string: "https://image.tmdb.org/t/p/w500" + (movie.poster_path ?? "/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg"))!) { image in
+                        URLImage(url: URL(string: "https://image.tmdb.org/t/p/w500" + (movie.posterPath ?? "/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg"))!) { image in
                             image
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
@@ -54,12 +53,11 @@ struct MovieDescription: View {
                 .foregroundColor(Color("Accent"))
                 .font(.custom("Dosis-Bold", size: 35))
                 .fontWeight(.semibold)
-            Text("1h 44m | Drama | 3 July 2003")
+            Text("1h 44m | Drama | \(movie.getReleaseDate)")
                 .foregroundColor(.secondary)
                 .font(.custom("Dosis-Regular", size: 16))
             
             BorderedButton(text: isInWishList ? "In Wishlist" : "Wishlist", systemImageName: "heart", color: .green, isOn: isInWishList, action: {
-                MoviesAPI.shared.setMovieToWishlist(movie: movie)
                 isInWishList.toggle()
             })
             
@@ -107,9 +105,9 @@ struct MovieDescription: View {
 
 
 
-struct MoviePage_Previews: PreviewProvider {
-    static var previews: some View {
-        MoviePage(movie: Movie(id: 1, title: "Alo", poster_path: "", vote_count: nil, overview: "", genre_ids: []))
-            .preferredColorScheme(.dark)
-    }
-}
+//struct MoviePage_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MoviePage(movie: Movie(id: 1, title: "Alo", poster_path: "", vote_count: nil, overview: "", genre_ids: []))
+//            .preferredColorScheme(.dark)
+//    }
+//}

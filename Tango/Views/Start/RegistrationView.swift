@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RegistrationView: View {
     @State var isShowing: Bool = false
+    
     @ObservedObject var sessionVM = RegistrationViewModel()
     
     var body: some View {
@@ -60,10 +61,11 @@ struct RegistrationView: View {
                     .cornerRadius(20)
                     
                 }.padding([.leading, .trailing], 27.5)
-                
-                Text(sessionVM.inlineError)
+
+                Text(sessionVM.usernameError)
                     .foregroundColor(.red)
-                
+                Text(sessionVM.passwordError)
+                    .foregroundColor(.red)
                 
                 NavigationLink(
                     destination: TabbedPageView(),
@@ -83,6 +85,7 @@ struct RegistrationView: View {
                     .padding()
                     .foregroundColor(sessionVM.isValid ? .orange : .gray)
                     .disabled(!sessionVM.isValid)
+                
                 NavigationLink(
                     destination: LoginView(),
                     label: {

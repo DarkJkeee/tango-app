@@ -6,14 +6,25 @@
 //
 
 import Foundation
+import Combine
 
 final class MoviesListViewModel: ObservableObject {
-//    @Published private(set) var state = State.idle
+    @Published private(set) var state = State.loading
     
     @Published var genres = [Genre]()
-    
     @Published var movies = [Int: [Movie]]()
     
+    private var cancellables = Set<AnyCancellable>()
+    
+    
+    private func getMovies(from genre: Int) {
+        MoviesAPI.shared.getMovies(from: genre)
+            .replaceError(with: [])
+            .sink(receiveValue: { movies in
+                self.movies[genre] = movies
+            })
+            .store(in: &cancellables)
+    }
     
     public func getGenres() {
         MoviesAPI.shared.getGenres { (genres) in
@@ -21,25 +32,32 @@ final class MoviesListViewModel: ObservableObject {
         }
     }
     
-    public func getMovies(genre: Int) {
-        MoviesAPI.shared.getMoviesFromGenre(genre: genre) { (movies) in
-            self.movies[genre] = movies
+    public func getMovies() {
+        self.state = .loading
+        for genre in genres {
+            getMovies(from: genre.id)
         }
+        self.state = .loaded(movies)
     }
+    
+    
 }
+
+
+
 
 extension MoviesListViewModel {
     enum State {
         case idle
         case loading
-        case loaded([Movie])
+        case loaded([Int: [Movie]])
         case error(Error)
     }
 
     enum Event {
         case onAppear
         case onSelectMovie(Int)
-        case onMoviesLoaded([Movie])
+        case onMoviesLoaded([Int: [Movie]])
         case onFailedToLoadMovies(Error)
     }
 }

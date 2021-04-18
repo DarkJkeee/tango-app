@@ -14,8 +14,8 @@ class RegistrationViewModel : ObservableObject {
     @Published var password: String = ""
     @Published var passwordAgain: String = ""
     
-    @Published var inlineError = ""
-    
+    @Published var usernameError = ""
+    @Published var passwordError = ""
     @Published var isValid = false
     
     private var cancellables = Set<AnyCancellable>()
@@ -26,6 +26,19 @@ class RegistrationViewModel : ObservableObject {
         isFormValidPublisher
             .receive(on: RunLoop.main)
             .assign(to: \.isValid, on: self)
+            .store(in: &cancellables)
+        
+        isUsernameValidPublisher
+            .dropFirst()
+            .receive(on: RunLoop.main)
+            .map {
+                if $0 == .tooShort {
+                    return "Username is too short!"
+                } else {
+                    return ""
+                }
+            }
+            .assign(to: \.usernameError, on: self)
             .store(in: &cancellables)
         
         isPasswordValidPublisher
@@ -43,20 +56,25 @@ class RegistrationViewModel : ObservableObject {
                     return ""
                 }
             }
-            .assign(to: \.inlineError, on: self)
+            .assign(to: \.passwordError, on: self)
             .store(in: &cancellables)
     }
-    
-    
 }
 
 extension RegistrationViewModel {
     
-    private var isUsernameValidPublisher: AnyPublisher<Bool, Never> {
+    private var isUsernameValidPublisher: AnyPublisher<UsernameStatus, Never> {
         $username
             .debounce(for: 0.8, scheduler: RunLoop.main)
             .removeDuplicates()
-            .map { $0.count >= 3 }
+            .map {
+                if ($0.count >= 3) {
+                    return UsernameStatus.valid
+                }
+                else {
+                    return UsernameStatus.tooShort
+                }
+            }
             .eraseToAnyPublisher()
     }
     
@@ -104,12 +122,17 @@ extension RegistrationViewModel {
     
     private var isFormValidPublisher: AnyPublisher<Bool, Never> {
         Publishers.CombineLatest(isUsernameValidPublisher, isPasswordValidPublisher)
-            .map { $0 && $1 == .valid }
+            .map { $0 == .valid && $1 == .valid }
             .eraseToAnyPublisher()
     }
 }
 
 extension RegistrationViewModel {
+    enum UsernameStatus {
+        case tooShort
+        case valid
+    }
+    
     enum PasswordStatus {
         case empty
         case notStrongEnough

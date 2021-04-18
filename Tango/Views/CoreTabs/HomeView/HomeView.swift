@@ -16,9 +16,9 @@ struct HomeView: View {
             topbar
             content
                 .navigationBarHidden(true)
-                .onAppear() {
-                    homeVM.getGenres()
-                }
+        }
+        .onAppear() {
+            homeVM.getGenres()
         }
         .background(Color("Background"))
         .edgesIgnoringSafeArea(.all)
@@ -38,14 +38,23 @@ struct HomeView: View {
     }
     
     private var content: some View {
-        ScrollView {
-            ForEach(homeVM.genres) { genre in
-                CardListView(movies: homeVM.movies[genre.id] ?? [], genre: genre.name)
-                    .onAppear() {
-                        homeVM.getMovies(genre: genre.id)
-                    }
+//        switch homeVM.state {
+//        case .idle:
+//            return Color.clear.eraseToAnyView()
+//        case .loading:
+//            return Spinner(isAnimating: true, style: .large).eraseToAnyView()
+//        case .error(let error):
+//            return Text(error.localizedDescription).eraseToAnyView()
+//        case .loaded(_):
+            ScrollView {
+                ForEach(homeVM.genres) { genre in
+                    CardListView(movies: homeVM.movies[genre.id] ?? [], genre: genre.name)
+                        .onAppear() {
+                            homeVM.getMovies()
+                        }
+                }
             }
-        }
+//        }
     }
 }
 
@@ -82,7 +91,7 @@ struct MovieCardView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            URLImage(url: URL(string: "https://image.tmdb.org/t/p/w500" + (movie.poster_path ?? "/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg"))!) { image in
+            URLImage(url: URL(string: "https://image.tmdb.org/t/p/w500" + (movie.posterPath ?? "/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg"))!) { image in
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)

@@ -7,15 +7,32 @@
 
 import Foundation
 
+struct MovieResponse: Codable {
+    var page: Int?
+    var results: [Movie]
+    var totalPages: Int?
+    var totalResults: Int?
+}
+
+struct GenreResponse: Codable {
+    var genres: [Genre]
+}
+
 struct Movie: Codable, Identifiable {
     var id: Int
     var title: String
-    var poster_path: String?
-    var vote_count: Int?
+    var posterPath: String?
+    var voteCount: Int?
 //    var video: String
+    var releaseDate: Date
     var overview: String
-    var genre_ids: [Int]
+    var genreIds: [Int]
     
+    var getReleaseDate: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d MMM y"
+        return formatter.string(from: releaseDate)
+    }
 //    var duration: Int
     
 }

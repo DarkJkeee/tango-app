@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     @State var isShowing: Bool = false
+    
     @State private var email = ""
     @State private var password = ""
     
@@ -41,19 +42,21 @@ struct LoginView: View {
             NavigationLink(
                 destination: TabbedPageView(),
                 isActive: $isShowing) {
-                Button(action: {
-                    
-                    self.isShowing = true
-                }) {
-                    Text("Sign In")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(width: 300, height: 50)
-                        .background(Color.orange)
-                        .cornerRadius(15.0)
-                }.padding()
-            }
+                    Button(action: {
+                        self.isShowing = true
+                    }, label: {
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(height: 60)
+                            .overlay(
+                                Text("Sign Up")
+                                    .bold()
+                                    .foregroundColor(.white)
+                            )
+                    })
+                }
+                .foregroundColor(.orange)
+                .padding()
+            
             Spacer()
         }
         .background(Color("Background"))
