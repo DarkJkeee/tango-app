@@ -23,7 +23,7 @@ struct LoginView: View {
             VStack(alignment: .leading, spacing: 15) {
                 HStack {
                     Image(systemName: "envelope.fill")
-                        .foregroundColor(Color.orange)
+                        .foregroundColor(Color("Accent"))
                     TextField("Email", text: $email)
                 }
                 .padding()
@@ -31,7 +31,7 @@ struct LoginView: View {
                 
                 HStack {
                     Image(systemName: "eye.slash.fill")
-                        .foregroundColor(Color.orange)
+                        .foregroundColor(Color("Accent"))
                     SecureField("Password", text: $password)
                 }
                 .padding()

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @State var isShowingSettings = false
     let profileLinkNames: [String] = ["Favourite movies", "Followers", "Following"]
     
     var body: some View {
@@ -16,6 +17,9 @@ struct ProfileView: View {
             content
         }
         .background(Color("Background"))
+        .sheet(isPresented: $isShowingSettings, content: {
+            SettingsPage()
+        })
         .edgesIgnoringSafeArea(.all)
         .navigationBarHidden(true)
     }
@@ -29,7 +33,7 @@ struct ProfileView: View {
             Spacer()
             
             Button(action: {
-                
+                isShowingSettings.toggle()
             }, label: {
                 Image(systemName: "arrow.up.and.person.rectangle.portrait")
                     .resizable()

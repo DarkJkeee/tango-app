@@ -65,7 +65,7 @@ struct TabBar: View {
                 }
                 .tag(4)
         }
-        .accentColor(Color.AccentColor)
+        .accentColor(Color("Accent"))
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
     }

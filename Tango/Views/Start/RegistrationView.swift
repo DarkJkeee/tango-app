@@ -10,24 +10,25 @@ import SwiftUI
 struct RegistrationView: View {
     @State var isShowing: Bool = false
     
-    @ObservedObject var sessionVM = RegistrationViewModel()
+    @ObservedObject var viewModel = RegistrationViewModel()
     
     var body: some View {
         NavigationView {
             VStack {
+                Spacer()
                 Text("Tangö")
                     .font(.custom("Dosis-Bold", size: 50))
-                    .padding(.top, 50)
                 Text("Create New Account")
-                    .padding([.top, .bottom], 30)
+                    .padding(.top, 10)
                     .font(.custom("Dosis-Bold", size: 25))
                 
+                Spacer()
                 
                 VStack(alignment: .leading, spacing: 15) {
                     HStack {
                         Image(systemName: "person.fill")
-                            .foregroundColor(Color.orange)
-                        TextField("Username", text: $sessionVM.username)
+                            .foregroundColor(Color("Accent"))
+                        TextField("Username", text: $viewModel.username)
                             .autocapitalization(.none)
                     }
                     .padding()
@@ -35,8 +36,8 @@ struct RegistrationView: View {
                     
                     HStack {
                         Image(systemName: "envelope.fill")
-                            .foregroundColor(Color.orange)
-                        TextField("Email", text: $sessionVM.email)
+                            .foregroundColor(Color("Accent"))
+                        TextField("Email", text: $viewModel.email)
                             .autocapitalization(.none)
                     }
                     .padding()
@@ -44,8 +45,8 @@ struct RegistrationView: View {
                     
                     HStack {
                         Image(systemName: "eye.slash.fill")
-                            .foregroundColor(Color.orange)
-                        SecureField("Password", text: $sessionVM.password)
+                            .foregroundColor(Color("Accent"))
+                        SecureField("Password", text: $viewModel.password)
                             .autocapitalization(.none)
                     }
                     .padding()
@@ -53,8 +54,8 @@ struct RegistrationView: View {
                     
                     HStack {
                         Image(systemName: "eye.slash.fill")
-                            .foregroundColor(Color.orange)
-                        SecureField("Repeat password", text: $sessionVM.passwordAgain)
+                            .foregroundColor(Color("Accent"))
+                        SecureField("Repeat password", text: $viewModel.passwordAgain)
                             .autocapitalization(.none)
                     }
                     .padding()
@@ -62,9 +63,9 @@ struct RegistrationView: View {
                     
                 }.padding([.leading, .trailing], 27.5)
 
-                Text(sessionVM.usernameError)
+                Text(viewModel.usernameError)
                     .foregroundColor(.red)
-                Text(sessionVM.passwordError)
+                Text(viewModel.passwordError)
                     .foregroundColor(.red)
                 
                 NavigationLink(
@@ -83,8 +84,8 @@ struct RegistrationView: View {
                         })
                     }
                     .padding()
-                    .foregroundColor(sessionVM.isValid ? .orange : .gray)
-                    .disabled(!sessionVM.isValid)
+                    .foregroundColor(viewModel.isValid ? .orange : .gray)
+                    .disabled(!viewModel.isValid)
                 
                 NavigationLink(
                     destination: LoginView(),
@@ -106,7 +107,11 @@ struct RegistrationView: View {
 
 struct RegistrationView_Previews: PreviewProvider {
     static var previews: some View {
-        RegistrationView()
-            .preferredColorScheme(.light)
+        Group {
+            RegistrationView().previewDevice("iPhone 12 Pro Max")
+                .preferredColorScheme(.dark)
+            RegistrationView().previewDevice("iPhone SE (2nd generation)")
+            RegistrationView().previewDevice("iPod touch (7th generation)")
+        }
     }
 }

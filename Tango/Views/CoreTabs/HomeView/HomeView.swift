@@ -32,9 +32,9 @@ struct HomeView: View {
             Spacer()
             // TODO: topbar buttons...
         }
-        .padding(.top, 40)
+        .padding(.top, 35)
         .padding(.leading, 20)
-        .padding(.bottom, 5)
+        .padding(.bottom, 1)
     }
     
     private var content: some View {

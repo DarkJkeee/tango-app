@@ -32,6 +32,7 @@
 		2AD1F1C8254DB1EF0045E236 /* TangoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD1F1C7254DB1EF0045E236 /* TangoApp.swift */; };
 		2AD1F1CC254DB1F00045E236 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AD1F1CB254DB1F00045E236 /* Assets.xcassets */; };
 		2AD1F1CF254DB1F00045E236 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AD1F1CE254DB1F00045E236 /* Preview Assets.xcassets */; };
+		2ADBEC56262E07700011008F /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADBEC55262E07700011008F /* SettingsPage.swift */; };
 		2ADDA8B325F50CA40060EF2C /* Dosis-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2ADDA8B225F50CA40060EF2C /* Dosis-Light.ttf */; };
 		2ADDA8BA25F50E630060EF2C /* Dosis-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2ADDA8B925F50E630060EF2C /* Dosis-Bold.ttf */; };
 		2ADDA8C425F6BBCA0060EF2C /* Dosis-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2ADDA8C325F6BBCA0060EF2C /* Dosis-Regular.ttf */; };
@@ -67,6 +68,7 @@
 		2AD1F1CB254DB1F00045E236 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2AD1F1CE254DB1F00045E236 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2AD1F1D0254DB1F00045E236 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2ADBEC55262E07700011008F /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		2ADDA8B225F50CA40060EF2C /* Dosis-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dosis-Light.ttf"; sourceTree = "<group>"; };
 		2ADDA8B925F50E630060EF2C /* Dosis-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dosis-Bold.ttf"; sourceTree = "<group>"; };
 		2ADDA8C325F6BBCA0060EF2C /* Dosis-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dosis-Regular.ttf"; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				2AE8DF68258EEC4F00831558 /* MoviePage.swift */,
 				2A5F8D8B2610F10C008B7CEB /* Player.swift */,
 				2A9F9A5B2617DD5F00F6BEF6 /* ChatView.swift */,
+				2ADBEC55262E07700011008F /* SettingsPage.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A5F8D782610AC9B008B7CEB /* Agent.swift in Sources */,
+				2ADBEC56262E07700011008F /* SettingsPage.swift in Sources */,
 				2ABABF18254F44C400F896C7 /* MoviesListViewModel.swift in Sources */,
 				2ABABF07254F24DD00F896C7 /* LoginView.swift in Sources */,
 				2A4BCB49260159490016B73E /* LinearGradientExtension.swift in Sources */,

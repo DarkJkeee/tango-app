@@ -25,7 +25,6 @@ struct ChatListView: View {
                 Text("Messages")
                     .font(.custom("Dosis-Bold", size: 40))
                     .foregroundColor(Color("Accent"))
-                    .padding(.leading, 20)
                 Spacer()
                 
                 Button(action: {
@@ -35,11 +34,11 @@ struct ChatListView: View {
                         .resizable()
                         .foregroundColor(Color("Accent"))
                         .frame(width: 30, height: 30)
-                        .padding(.trailing, 20)
                 })
             }
-            .padding(.top, 40)
-            .padding(.bottom, 5)
+            .padding([.trailing, .leading], 20)
+            .padding(.top, 35)
+            .padding(.bottom, 1)
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
