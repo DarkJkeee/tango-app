@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @State var isShowingSettings = false
-    let profileLinkNames: [String] = ["Favourite movies", "Followers", "Following"]
+    let profileLinkNames = ["Favourite movies", "Followers", "Following"]
     
     var body: some View {
         VStack {
@@ -28,22 +28,22 @@ struct ProfileView: View {
         HStack {
             Text("Profile")
                 .font(.custom("Dosis-Bold", size: 40))
-                .foregroundColor(Color("Accent"))
+                .foregroundColor(Color("AccentColor"))
                 .padding(.leading, 20)
             Spacer()
             
             Button(action: {
                 isShowingSettings.toggle()
             }, label: {
-                Image(systemName: "arrow.up.and.person.rectangle.portrait")
+                Image(systemName: "gear")
                     .resizable()
-                    .foregroundColor(Color("Accent"))
+                    .foregroundColor(Color("AccentColor"))
                     .frame(width: 30, height: 30)
                     .padding(.trailing, 20)
             })
         }
-        .padding(.top, 40)
-        .padding(.bottom, 5)
+        .padding(.top, UIScreen.main.bounds.height * 0.05)
+        .padding(.bottom, 1)
     }
     
     private var content: some View {
@@ -52,8 +52,9 @@ struct ProfileView: View {
                 NavigationLink(destination: Text("")) {
                     VStack {
                         HStack {
+//                            Image(systemName: "favorite")
                             Text(profileLinkName)
-                                .font(.body)
+                                .font(.custom("Dosis-Regular", size: 24))
                             Spacer()
                             Image(systemName: "chevron.right")
                                 .foregroundColor(Color(.systemGray3))
@@ -65,6 +66,20 @@ struct ProfileView: View {
                 }
             }
             Spacer()
+            
+            Button(action: {
+                
+            }, label: {
+                HStack {
+                    Image(systemName: "arrowshape.turn.up.left")
+                        .resizable()
+                        .foregroundColor(Color("AccentColor"))
+                        .frame(width: 30, height: 30)
+                    Text("Logout")
+                        .font(.custom("Dosis-Bold", size: 30))
+                }
+            })
+            .padding()
         }
     }
 }

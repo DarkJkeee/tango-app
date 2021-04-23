@@ -27,7 +27,7 @@ struct RegistrationView: View {
                 VStack(alignment: .leading, spacing: 15) {
                     HStack {
                         Image(systemName: "person.fill")
-                            .foregroundColor(Color("Accent"))
+                            .foregroundColor(Color("AccentColor"))
                         TextField("Username", text: $viewModel.username)
                             .autocapitalization(.none)
                     }
@@ -36,7 +36,7 @@ struct RegistrationView: View {
                     
                     HStack {
                         Image(systemName: "envelope.fill")
-                            .foregroundColor(Color("Accent"))
+                            .foregroundColor(Color("AccentColor"))
                         TextField("Email", text: $viewModel.email)
                             .autocapitalization(.none)
                     }
@@ -45,7 +45,7 @@ struct RegistrationView: View {
                     
                     HStack {
                         Image(systemName: "eye.slash.fill")
-                            .foregroundColor(Color("Accent"))
+                            .foregroundColor(Color("AccentColor"))
                         SecureField("Password", text: $viewModel.password)
                             .autocapitalization(.none)
                     }
@@ -54,7 +54,7 @@ struct RegistrationView: View {
                     
                     HStack {
                         Image(systemName: "eye.slash.fill")
-                            .foregroundColor(Color("Accent"))
+                            .foregroundColor(Color("AccentColor"))
                         SecureField("Repeat password", text: $viewModel.passwordAgain)
                             .autocapitalization(.none)
                     }
@@ -78,7 +78,7 @@ struct RegistrationView: View {
                                 .frame(height: 60)
                                 .overlay(
                                     Text("Sign Up")
-                                        .bold()
+                                        .font(.custom("Dosis-Bold", size: 20))
                                         .foregroundColor(.white)
                                 )
                         })
@@ -92,8 +92,8 @@ struct RegistrationView: View {
                     label: {
                         Text("Already have an account? Sign in")
                             .font(.custom("Dosis-Light", size: 18))
-                            .foregroundColor(Color("Accent"))
-                            .opacity(0.6)
+                            .foregroundColor(Color("AccentColor"))
+                            .opacity(0.7)
                     })
                 
                 Spacer()

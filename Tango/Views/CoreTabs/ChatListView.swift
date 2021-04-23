@@ -24,7 +24,7 @@ struct ChatListView: View {
             HStack {
                 Text("Messages")
                     .font(.custom("Dosis-Bold", size: 40))
-                    .foregroundColor(Color("Accent"))
+                    .foregroundColor(Color("AccentColor"))
                 Spacer()
                 
                 Button(action: {
@@ -32,12 +32,12 @@ struct ChatListView: View {
                 }, label: {
                     Image(systemName: "person.fill")
                         .resizable()
-                        .foregroundColor(Color("Accent"))
+                        .foregroundColor(Color("AccentColor"))
                         .frame(width: 30, height: 30)
                 })
             }
             .padding([.trailing, .leading], 20)
-            .padding(.top, 35)
+            .padding(.top, UIScreen.main.bounds.height * 0.05)
             .padding(.bottom, 1)
             
             ScrollView(.horizontal, showsIndicators: false) {
@@ -73,7 +73,7 @@ struct ChatListView: View {
                 Image(systemName: "magnifyingglass")
                     .resizable()
                     .frame(width: 18, height: 18)
-                    .foregroundColor(Color("Accent").opacity(0.3))
+                    .foregroundColor(Color("AccentColor").opacity(0.3))
                 
                 TextField("Search", text: $searchText)
             }
@@ -116,17 +116,17 @@ struct CellView: View {
                 Text("Glebadsdasdasdasdasdasd")
                     .lineLimit(1)
                     .font(.custom("Dosis-Bold", size: 20))
-                    .foregroundColor(Color("Accent"))
+                    .foregroundColor(Color("AccentColor"))
                 Text("Message...")
                     .lineLimit(2)
                     .font(.custom("Dosis-Regular", size: 15))
-                    .foregroundColor(Color("Accent"))
+                    .foregroundColor(Color("AccentColor"))
                     .font(.caption)
             }
             Spacer()
             Text("12/07/2021")
                 .font(.custom("Dosis-Regular", size: 14))
-                .foregroundColor(Color("Accent"))
+                .foregroundColor(Color("AccentColor"))
         }
         .padding()
     }

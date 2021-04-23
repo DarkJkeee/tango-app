@@ -10,36 +10,50 @@ import SwiftUI
 struct SettingsPage: View {
     @AppStorage("isDarkMode") private var isDarkMode = false
     
-    var body: some View {
-        ZStack {
-            Color.red.edgesIgnoringSafeArea(.all)
-            List {
-                Section(header: Text("Profile").font(.custom("Dosis-Regular", size: 20))) {
-                    Button(action: {
-                        
-                    }, label: {
-                        SettingsCell(imageName: "person.fill", title: "Username")
-                    })
-                    
-                }
-                .padding()
-                
-                Section(header: Text("Themes").font(.custom("Dosis-Regular", size: 20))) {
-                    Picker("Mode", selection: $isDarkMode) {
-                        Text("Light")
-                            .tag(false)
-                        Text("Dark")
-                            .tag(true)
-                    }
-                    .pickerStyle(SegmentedPickerStyle())
-                }
-                .padding()
-            }
-            .background(Color("Background"))
-            .listStyle(InsetGroupedListStyle())
-        }
-    }
+    //    init() {
+    //       UITableView.appearance().separatorStyle = .none
+    //       UITableViewCell.appearance().backgroundColor = UIColor(Color("Background"))
+    //       UITableView.appearance().backgroundColor = UIColor(Color("Background"))
+    //    }
+    //
     
+    
+    var body: some View {
+        VStack {
+            Section(header: Text("Profile").font(.custom("Dosis-Bold", size: 20))) {
+                Button(action: {
+                    
+                }, label: {
+                    SettingsCell(imageName: "mail.stack", title: "Change Email")
+                })
+                Button(action: {
+                    
+                }, label: {
+                    SettingsCell(imageName: "person", title: "Change Username")
+                })
+                Button(action: {
+                    
+                }, label: {
+                    SettingsCell(imageName: "pencil", title: "Change Password")
+                })
+            }
+            .padding()
+            
+            Section(header: Text("Themes").font(.custom("Dosis-Bold", size: 20))) {
+                Picker("Mode", selection: $isDarkMode) {
+                    Image(systemName: "sun.min")
+                        .tag(false)
+                    Image(systemName: "moon.fill")
+                        .tag(true)
+                }
+                .pickerStyle(SegmentedPickerStyle())
+            }
+            .padding()
+            Spacer()
+        }
+        .background(Color("Background"))
+        .edgesIgnoringSafeArea(.all)
+    }
 }
 
 struct SettingsCell: View {
@@ -49,6 +63,7 @@ struct SettingsCell: View {
     var body: some View {
         HStack {
             Image(systemName: imageName)
+                .padding(.trailing, 5)
             
             Text(title)
                 .font(.custom("Dosis-Regular", size: 20))
@@ -66,3 +81,4 @@ struct SettingsPage_Previews: PreviewProvider {
             .preferredColorScheme(.dark)
     }
 }
+

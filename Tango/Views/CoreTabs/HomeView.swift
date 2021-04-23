@@ -13,13 +13,37 @@ struct HomeView: View {
     
     var body: some View {
         VStack {
-            topbar
-            content
-                .navigationBarHidden(true)
+            switch homeVM.state {
+            case .idle:
+                Color("Background")
+                    .onAppear() {
+                        homeVM.fetchData()
+                    }
+                    .eraseToAnyView()
+            case .loading:
+                ZStack {
+                    Color("Background")
+                    ProgressView("Loading...")
+                }
+                .eraseToAnyView()
+            case .error(let error):
+//                ScrollView {
+//                    PullToRefresh(coordinateSpaceName: "refresh", onRefresh: {
+//                        print("hello")
+//                    })
+//                }
+//                .coordinateSpace(name: "refresh")
+                AlertView(error: error)
+            case .loaded(let movies):
+                topbar
+                ScrollView {
+                    ForEach(homeVM.genres) { genre in
+                        CardListView(movies: movies[genre.id] ?? [], genre: genre.name)
+                    }
+                }
+            }
         }
-        .onAppear() {
-            homeVM.getGenres()
-        }
+        .navigationBarHidden(true)
         .background(Color("Background"))
         .edgesIgnoringSafeArea(.all)
     }
@@ -28,34 +52,15 @@ struct HomeView: View {
         HStack {
             Text("Home")
                 .font(.custom("Dosis-Bold", size: 40))
-                .foregroundColor(Color("Accent"))
+                .foregroundColor(Color("AccentColor"))
             Spacer()
             // TODO: topbar buttons...
         }
-        .padding(.top, 35)
+        .padding(.top, UIScreen.main.bounds.height * 0.05)
         .padding(.leading, 20)
         .padding(.bottom, 1)
     }
     
-    private var content: some View {
-//        switch homeVM.state {
-//        case .idle:
-//            return Color.clear.eraseToAnyView()
-//        case .loading:
-//            return Spinner(isAnimating: true, style: .large).eraseToAnyView()
-//        case .error(let error):
-//            return Text(error.localizedDescription).eraseToAnyView()
-//        case .loaded(_):
-            ScrollView {
-                ForEach(homeVM.genres) { genre in
-                    CardListView(movies: homeVM.movies[genre.id] ?? [], genre: genre.name)
-                        .onAppear() {
-                            homeVM.getMovies()
-                        }
-                }
-            }
-//        }
-    }
 }
 
 struct CardListView: View {
@@ -66,7 +71,7 @@ struct CardListView: View {
         VStack(alignment: .leading) {
             Text(genre)
                 .font(.custom("Dosis-Bold", size: 26))
-                .foregroundColor(Color("Accent"))
+                .foregroundColor(Color("AccentColor"))
                 .padding(.leading)
             
             ScrollView(.horizontal, showsIndicators: false) {
@@ -109,7 +114,7 @@ struct MovieCardView: View {
             }
             VStack(alignment: .leading, spacing: 5) {
                 Text(movie.title)
-                    .foregroundColor(Color("Accent"))
+                    .foregroundColor(Color("AccentColor"))
                     .font(.custom("Dosis-Bold", size: 20))
                 Text(movie.overview)
                     .font(.custom("Dosis-Regular", size: 15))

@@ -50,7 +50,7 @@ struct MovieDescription: View {
         VStack(alignment: .leading, spacing: 15) {
             
             Text(movie.title)
-                .foregroundColor(Color("Accent"))
+                .foregroundColor(Color("AccentColor"))
                 .font(.custom("Dosis-Bold", size: 35))
                 .fontWeight(.semibold)
             Text("1h 44m | Drama | \(movie.getReleaseDate)")
@@ -83,16 +83,17 @@ struct MovieDescription: View {
                 
                 Button(action: { self.isExpanded.toggle() }) {
                     Text(isExpanded ? "Show less" : "Show more")
+                        .foregroundColor(Color("AccentColor"))
                         .font(.custom("Dosis-Bold", size: 16))
                 }
             }
             HStack {
                 Spacer()
-                    NavigationLink(
-                        destination: Player(player: AVPlayer(url: URL(string: "https://bit.ly/swswift")!)),
-                        label: {
-                            Text("Watch")
-                        })
+//                    NavigationLink(
+//                        destination:),
+//                        label: {
+//                            Text("Watch")
+//                        })
                 Spacer()
             }
         }

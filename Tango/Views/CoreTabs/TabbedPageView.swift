@@ -65,7 +65,7 @@ struct TabBar: View {
                 }
                 .tag(4)
         }
-        .accentColor(Color("Accent"))
+        .accentColor(Color("AccentColor"))
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
     }
@@ -74,5 +74,6 @@ struct TabBar: View {
 struct TabbedPageView_Previews: PreviewProvider {
     static var previews: some View {
         TabbedPageView()
+            .preferredColorScheme(.dark)
     }
 }

@@ -7,44 +7,64 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 final class MoviesListViewModel: ObservableObject {
-    @Published private(set) var state = State.loading
+    @Published var state = State.idle
     
     @Published var genres = [Genre]()
     @Published var movies = [Int: [Movie]]()
     
     private var cancellables = Set<AnyCancellable>()
     
-    
     private func getMovies(from genre: Int) {
         MoviesAPI.shared.getMovies(from: genre)
-            .replaceError(with: [])
-            .sink(receiveValue: { movies in
+            .sink(receiveCompletion: { completion in
+                if case let .failure(error) = completion {
+                    self.state = .error(error)
+                } else {
+                    if self.genres[self.genres.count - 1].id == genre {
+                        self.state = .loaded(self.movies)
+                    }
+                }
+            }, receiveValue: { movies in
                 self.movies[genre] = movies
             })
             .store(in: &cancellables)
     }
     
-    public func getGenres() {
-        MoviesAPI.shared.getGenres { (genres) in
-            self.genres = genres
-        }
+    private func getGenres() {
+        MoviesAPI.shared.getGenres()
+            .sink(receiveCompletion: { completion in
+                if case let .failure(error) = completion {
+                    self.state = .error(error)
+                } else {
+                    self.getMovies()
+                }
+            }) { genres in
+                self.genres = genres
+            }
+            .store(in: &cancellables)
     }
     
-    public func getMovies() {
-        self.state = .loading
+    private func getMovies() {
         for genre in genres {
             getMovies(from: genre.id)
         }
-        self.state = .loaded(movies)
     }
     
     
+    public func fetchData() {
+        self.state = .loading
+        getGenres()
+    }
+    
+    deinit {
+        for cancel in cancellables {
+            cancel.cancel()
+        }
+    }
 }
-
-
-
 
 extension MoviesListViewModel {
     enum State {
@@ -53,43 +73,5 @@ extension MoviesListViewModel {
         case loaded([Int: [Movie]])
         case error(Error)
     }
-
-    enum Event {
-        case onAppear
-        case onSelectMovie(Int)
-        case onMoviesLoaded([Int: [Movie]])
-        case onFailedToLoadMovies(Error)
-    }
 }
-
-extension MoviesListViewModel {
-    static func reduce(_ state: State, _ event: Event) -> State {
-        switch state {
-            case .idle:
-                switch event {
-                case .onAppear:
-                    return .loading
-                default:
-                    return state
-                }
-
-            case .loading:
-                switch event {
-                case .onFailedToLoadMovies(let error):
-                    return .error(error)
-                case .onMoviesLoaded(let movies):
-                    return .loaded(movies)
-                default:
-                    return state
-                }
-
-            case .loaded:
-                return state
-            case .error:
-                return state
-        }
-    }
-}
-
-
 

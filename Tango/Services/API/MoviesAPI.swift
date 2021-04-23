@@ -56,23 +56,43 @@ class MoviesAPI {
                     promise(.success($0.results))
                 })
                 .store(in: &subscriptions)
-                
-            
         }
     }
     
     
-    func getGenres(completion: @escaping ([Genre]) -> ()) {
-        guard let url = URL(string: "\(url)/genre/movie/list?api_key=\(apiKey)&language=en-US") else { return }
-        
-        URLSession.shared.dataTask(with: url) { (data, _, _) in
-            let genreResponse = try! JSONDecoder().decode(GenreResponse.self, from: data!)
-            
-            DispatchQueue.main.async {
-                completion(genreResponse.genres)
+    func getGenres() -> Future<[Genre], MoviesAPIError> {
+        return Future<[Genre], MoviesAPIError> { [unowned self] promise in
+            guard let url = URL(string: "\(url)/genre/movie/list?api_key=\(apiKey)&language=en-US") else {
+                return promise(.failure(.urlError(URLError(.unsupportedURL))))
             }
+            
+            URLSession.shared.dataTaskPublisher(for: url)
+                .tryMap { (data, response) -> Data in
+                    guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
+                        throw MoviesAPIError.responseError((response as? HTTPURLResponse)?.statusCode ?? 500)
+                    }
+                    return data
+                }
+                .decode(type: GenreResponse.self, decoder: jsonDecoder)
+                .receive(on: RunLoop.main)
+                .sink { (completion) in
+                    if case let .failure(error) = completion {
+                        switch error {
+                        case let urlError as URLError:
+                            promise(.failure(.urlError(urlError)))
+                        case let decodingError as DecodingError:
+                            promise(.failure(.decodingError(decodingError)))
+                        case let apiError as MoviesAPIError:
+                            promise(.failure(apiError))
+                        default:
+                            promise(.failure(.genericError))
+                        }
+                    }
+                } receiveValue: {
+                    promise(.success($0.genres))
+                }
+                .store(in: &subscriptions)
         }
-        .resume()
     }
     
     func getSearchRepsonse(query: String, completion: @escaping ([Movie]) -> ()) {
@@ -80,13 +100,19 @@ class MoviesAPI {
         else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, _) in
-            let movieResponse = try! JSONDecoder().decode(MovieResponse.self, from: data!)
+            let movieResponse = try! self.jsonDecoder.decode(MovieResponse.self, from: data!)
             
             DispatchQueue.main.async {
                 completion(movieResponse.results)
             }
         }
         .resume()
+    }
+    
+    deinit {
+        for subscription in subscriptions {
+            subscription.cancel()
+        }
     }
     
 //    func setMovieToWishlist(movie: Movie) {
@@ -118,11 +144,22 @@ class MoviesAPI {
     
 }
 
-extension MoviesAPI {
-    enum MoviesAPIError: Error {
-        case urlError(URLError)
-        case responseError(Int)
-        case decodingError(DecodingError)
-        case genericError
+public enum MoviesAPIError: Error {
+    case urlError(URLError)
+    case responseError(Int)
+    case decodingError(DecodingError)
+    case genericError
+    
+    var localizedDescription: String {
+        switch self {
+        case .urlError(let error):
+            return error.localizedDescription
+        case .decodingError(let error):
+            return error.localizedDescription
+        case .responseError(let status):
+            return "Bad response code: \(status)"
+        case .genericError:
+            return "An unknown error has been occured"
+        }
     }
 }
