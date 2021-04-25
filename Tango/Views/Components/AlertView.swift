@@ -13,20 +13,17 @@ struct AlertView: View {
     @State private var isAlert = false
     
     var body: some View {
-        ZStack {
-            Color("Background")
-            Button(action: {
-                isAlert = true
-            }) {
-                Text("Failed to load data!\nClick to more info")
-                    .foregroundColor(Color("Background"))
-            }
-            .padding()
-            .background(Color("AccentColor"))
-            .cornerRadius(10)
-            .alert(isPresented: $isAlert) { () -> Alert in
-                Alert(title: Text("Error"), message: Text(error.localizedDescription), dismissButton: Alert.Button.default(Text("Okay")))
-            }
+        Button(action: {
+            isAlert = true
+        }) {
+            Text("Failed to load data!\nClick to more info")
+                .foregroundColor(Color("Background"))
+        }
+        .padding()
+        .background(Color("AccentColor"))
+        .cornerRadius(10)
+        .alert(isPresented: $isAlert) { () -> Alert in
+            Alert(title: Text("Error"), message: Text(error.localizedDescription), dismissButton: Alert.Button.default(Text("Okay")))
         }
     }
 }

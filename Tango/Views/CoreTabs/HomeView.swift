@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
-import URLImage
 
 struct HomeView: View {
+    @State var text = ""
     @ObservedObject var homeVM = MoviesListViewModel()
     
+    @State var isShowing = false
     var body: some View {
         VStack {
             switch homeVM.state {
@@ -27,17 +28,26 @@ struct HomeView: View {
                 }
                 .eraseToAnyView()
             case .error(let error):
-//                ScrollView {
-//                    PullToRefresh(coordinateSpaceName: "refresh", onRefresh: {
-//                        print("hello")
-//                    })
-//                }
-//                .coordinateSpace(name: "refresh")
-                AlertView(error: error)
+                ZStack {
+                    Color("Background")
+                    VStack {
+                        AlertView(error: error)
+                        Button(action: {
+                            homeVM.fetchData()
+                        }, label: {
+                            Text("Retry")
+                        })
+                        .padding()
+                    }
+                }
             case .loaded(let movies):
                 topbar
+                //                TextField("Search ...", text: $text, onCommit: {
+                //
+                //                })
                 ScrollView {
                     ForEach(homeVM.genres) { genre in
+                        Divider()
                         CardListView(movies: movies[genre.id] ?? [], genre: genre.name)
                     }
                 }
@@ -96,22 +106,20 @@ struct MovieCardView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            URLImage(url: URL(string: "https://image.tmdb.org/t/p/w500" + (movie.posterPath ?? "/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg"))!) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 300, height: 170)
-                    .clipped()
-                    .cornerRadius(10)
-                    .shadow(color: .white, radius: 2, x: -3, y: -3)
-                    .shadow(color: .lairShadowGray, radius: 2, x: 3, y: 3)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(LinearGradient.lairDiagonalDarkBorder, lineWidth: 1)
-                    )
-                    .background(Color.lairBackgroundGray)
-                    .cornerRadius(10)
+            Poster(poster: movie.posterPath, size: .medium) {
+                ProgressView()
             }
+            .aspectRatio(contentMode: .fill)
+            .frame(width: 300, height: 170)
+            .clipped()
+            .shadow(color: .white, radius: 2, x: -3, y: -3)
+            .shadow(color: .lairShadowGray, radius: 2, x: 3, y: 3)
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(LinearGradient.lairDiagonalDarkBorder, lineWidth: 1)
+            )
+            .background(Color.lairBackgroundGray)
+            .cornerRadius(10)
             VStack(alignment: .leading, spacing: 5) {
                 Text(movie.title)
                     .foregroundColor(Color("AccentColor"))

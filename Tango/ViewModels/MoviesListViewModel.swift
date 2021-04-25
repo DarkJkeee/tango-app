@@ -22,10 +22,8 @@ final class MoviesListViewModel: ObservableObject {
             .sink(receiveCompletion: { completion in
                 if case let .failure(error) = completion {
                     self.state = .error(error)
-                } else {
-                    if self.genres[self.genres.count - 1].id == genre {
-                        self.state = .loaded(self.movies)
-                    }
+                } else if self.genres[self.genres.count - 1].id == genre {
+                    self.state = .loaded(self.movies)
                 }
             }, receiveValue: { movies in
                 self.movies[genre] = movies
@@ -52,7 +50,6 @@ final class MoviesListViewModel: ObservableObject {
             getMovies(from: genre.id)
         }
     }
-    
     
     public func fetchData() {
         self.state = .loading

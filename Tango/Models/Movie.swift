@@ -14,10 +14,6 @@ struct MovieResponse: Codable {
     var totalResults: Int?
 }
 
-struct GenreResponse: Codable {
-    var genres: [Genre]
-}
-
 struct Movie: Codable, Identifiable {
     var id: Int
     var title: String
@@ -35,9 +31,4 @@ struct Movie: Codable, Identifiable {
     }
 //    var duration: Int
     
-}
-
-struct Genre: Codable, Identifiable {
-    var id: Int
-    var name: String
 }

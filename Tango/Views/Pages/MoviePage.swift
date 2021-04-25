@@ -5,7 +5,6 @@
 //  Created by Глеб Бурштейн on 20.12.2020.
 //
 
-import URLImage
 import SwiftUI
 import AVKit
 
@@ -17,12 +16,11 @@ struct MoviePage: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
                     ZStack(alignment: .bottom) {
-                        URLImage(url: URL(string: "https://image.tmdb.org/t/p/w500" + (movie.posterPath ?? "/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg"))!) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .cornerRadius(5)
+                        Poster(poster: movie.posterPath, size: .medium) {
+                            ProgressView()
                         }
+                            .aspectRatio(contentMode: .fit)
+                            .cornerRadius(5)
                         Rectangle()
                             .frame(height: 80)
                             .opacity(0.25)
