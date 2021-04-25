@@ -80,7 +80,6 @@ extension RegistrationViewModel {
     
     private var isPasswordEmptyPublisher: AnyPublisher<Bool, Never> {
         $password
-            .debounce(for: 0.8, scheduler: RunLoop.main)
             .removeDuplicates()
             .map { $0.isEmpty }
             .eraseToAnyPublisher()
@@ -88,14 +87,12 @@ extension RegistrationViewModel {
     
     private var arePasswordsMatches: AnyPublisher<Bool, Never> {
         Publishers.CombineLatest($password, $passwordAgain)
-            .debounce(for: 0.2, scheduler: RunLoop.main)
             .map { $0 == $1 }
             .eraseToAnyPublisher()
     }
     
     private var isPasswordStrongPublisher: AnyPublisher<Bool, Never> {
         $password
-            .debounce(for: 0.2, scheduler: RunLoop.main)
             .removeDuplicates()
             .map {
                 self.predicate.evaluate(with: $0)

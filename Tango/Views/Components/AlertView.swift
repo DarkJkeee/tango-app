@@ -17,10 +17,10 @@ struct AlertView: View {
             isAlert = true
         }) {
             Text("Failed to load data!\nClick to more info")
-                .foregroundColor(Color("Background"))
+                .foregroundColor(Color.BackgroundColor)
         }
         .padding()
-        .background(Color("AccentColor"))
+        .background(Color.AccentColor)
         .cornerRadius(10)
         .alert(isPresented: $isAlert) { () -> Alert in
             Alert(title: Text("Error"), message: Text(error.localizedDescription), dismissButton: Alert.Button.default(Text("Okay")))

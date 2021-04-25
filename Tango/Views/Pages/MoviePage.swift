@@ -29,7 +29,7 @@ struct MoviePage: View {
                     MovieDescription(movie: movie)
                 }
             }
-            .background(Color("Background"))
+            .background(Color.BackgroundColor)
             .edgesIgnoringSafeArea(.all)
             .navigationBarHidden(true)
         }
@@ -48,7 +48,7 @@ struct MovieDescription: View {
         VStack(alignment: .leading, spacing: 15) {
             
             Text(movie.title)
-                .foregroundColor(Color("AccentColor"))
+                .foregroundColor(Color.AccentColor)
                 .font(.custom("Dosis-Bold", size: 35))
                 .fontWeight(.semibold)
             Text("1h 44m | Drama | \(movie.getReleaseDate)")
@@ -81,7 +81,7 @@ struct MovieDescription: View {
                 
                 Button(action: { self.isExpanded.toggle() }) {
                     Text(isExpanded ? "Show less" : "Show more")
-                        .foregroundColor(Color("AccentColor"))
+                        .foregroundColor(Color.AccentColor)
                         .font(.custom("Dosis-Bold", size: 16))
                 }
             }

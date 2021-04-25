@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import Combine
 
 struct RegistrationView: View {
-    @State var isShowing: Bool = false
+    @State private var isShowing: Bool = false
+    @State private var keyboardHeight: CGFloat = 0
     
     @ObservedObject var viewModel = RegistrationViewModel()
     
@@ -27,7 +29,7 @@ struct RegistrationView: View {
                 VStack(alignment: .leading, spacing: 15) {
                     HStack {
                         Image(systemName: "person.fill")
-                            .foregroundColor(Color("AccentColor"))
+                            .foregroundColor(Color.AccentColor)
                         TextField("Username", text: $viewModel.username)
                             .autocapitalization(.none)
                     }
@@ -36,7 +38,7 @@ struct RegistrationView: View {
                     
                     HStack {
                         Image(systemName: "envelope.fill")
-                            .foregroundColor(Color("AccentColor"))
+                            .foregroundColor(Color.AccentColor)
                         TextField("Email", text: $viewModel.email)
                             .autocapitalization(.none)
                     }
@@ -45,7 +47,7 @@ struct RegistrationView: View {
                     
                     HStack {
                         Image(systemName: "eye.slash.fill")
-                            .foregroundColor(Color("AccentColor"))
+                            .foregroundColor(Color.AccentColor)
                         SecureField("Password", text: $viewModel.password)
                             .autocapitalization(.none)
                     }
@@ -54,7 +56,7 @@ struct RegistrationView: View {
                     
                     HStack {
                         Image(systemName: "eye.slash.fill")
-                            .foregroundColor(Color("AccentColor"))
+                            .foregroundColor(Color.AccentColor)
                         SecureField("Repeat password", text: $viewModel.passwordAgain)
                             .autocapitalization(.none)
                     }
@@ -92,15 +94,17 @@ struct RegistrationView: View {
                     label: {
                         Text("Already have an account? Sign in")
                             .font(.custom("Dosis-Light", size: 18))
-                            .foregroundColor(Color("AccentColor"))
+                            .foregroundColor(Color.AccentColor)
                             .opacity(0.7)
                     })
                 
                 Spacer()
             }
-            .background(Color("Background"))
+            .padding(.bottom, keyboardHeight)
+            .background(Color.BackgroundColor)
             .edgesIgnoringSafeArea(.all)
             .navigationBarHidden(true)
+            .onReceive(Publishers.keyboardHeight) { self.keyboardHeight = $0 }
         }
     }
 }

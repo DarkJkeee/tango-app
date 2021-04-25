@@ -12,8 +12,8 @@ struct SettingsPage: View {
     
     //    init() {
     //       UITableView.appearance().separatorStyle = .none
-    //       UITableViewCell.appearance().backgroundColor = UIColor(Color("Background"))
-    //       UITableView.appearance().backgroundColor = UIColor(Color("Background"))
+    //       UITableViewCell.appearance().backgroundColor = UIColor(Color.BackgroundColor)
+    //       UITableView.appearance().backgroundColor = UIColor(Color.BackgroundColor)
     //    }
     //
     
@@ -51,7 +51,7 @@ struct SettingsPage: View {
             .padding()
             Spacer()
         }
-        .background(Color("Background"))
+        .background(Color.BackgroundColor)
         .edgesIgnoringSafeArea(.all)
     }
 }

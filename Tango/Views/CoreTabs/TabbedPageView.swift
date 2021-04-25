@@ -11,23 +11,7 @@ struct TabbedPageView: View {
     @State var showSplash = true
     
     var body: some View {
-//        if showSplash {
-//            ZStack {
-//                Color.white.edgesIgnoringSafeArea(.all)
-//                Image("tango")
-//            }
-//            .onAppear {
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                    self.showSplash = false
-//                }
-//            }
-//            .navigationBarHidden(true)
-//            .navigationBarBackButtonHidden(true)
-//            .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.5)))
-//            .zIndex(1)
-//        } else {
             TabBar()
-//        }
     }
 }
 
@@ -35,7 +19,7 @@ struct TabBar: View {
     
     init() {
         UITabBar.appearance().isTranslucent = false
-        UITabBar.appearance().barTintColor = UIColor(Color("Background"))
+        UITabBar.appearance().barTintColor = UIColor(Color.BackgroundColor)
     }
     var body: some View {
         TabView {
@@ -44,7 +28,7 @@ struct TabBar: View {
                     Image(systemName: "house.fill")
                 }
                 .tag(0)
-            SearchView()
+            Text("Soon...")
                 .tabItem {
                     Image(systemName: "magnifyingglass")
                 }
@@ -65,7 +49,7 @@ struct TabBar: View {
                 }
                 .tag(4)
         }
-        .accentColor(Color("AccentColor"))
+        .accentColor(Color.AccentColor)
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
     }

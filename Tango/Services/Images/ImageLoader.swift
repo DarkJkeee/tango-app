@@ -5,20 +5,28 @@
 //  Created by Глеб Бурштейн on 24.04.2021.
 //
 
-import Foundation
 import Combine
+import SwiftUI
 import UIKit
 
-protocol ImageCache {
-    subscript(_ url: URL) -> UIImage? { get set }
+class ImageCache {
+    var cache = NSCache<NSURL, UIImage>()
+    
+    func get(forKey: NSURL) -> UIImage? {
+        return cache.object(forKey: forKey)
+    }
+    
+    func set(forKey: NSURL, image: UIImage?) {
+        if let image = image {
+            cache.setObject(image, forKey: forKey)
+        }
+    }
 }
 
-struct TemporaryImageCache: ImageCache {
-    private let cache = NSCache<NSURL, UIImage>()
-    
-    subscript(_ key: URL) -> UIImage? {
-        get { cache.object(forKey: key as NSURL) }
-        set { newValue == nil ? cache.removeObject(forKey: key as NSURL) : cache.setObject(newValue!, forKey: key as NSURL) }
+extension ImageCache {
+    private static var imageCache = ImageCache()
+    static func getImageCache() -> ImageCache {
+        return imageCache
     }
 }
 
@@ -34,30 +42,33 @@ enum Size: String {
 }
 
 class ImageLoader : ObservableObject {
-    private var cache: ImageCache?
+    private var cache: ImageCache = ImageCache.getImageCache()
     private var cancellable: AnyCancellable?
     
-    let size: Size
-    let path: String?
+    let url: URL
     
     @Published var image: UIImage?
-    init(path: String?, size: Size, cache: ImageCache? = nil) {
-        self.size = size
-        self.path = path
-        self.cache = cache
+    init(poster: String, size: Size) {
+        self.url = size.path(poster: poster)
     }
     
     public func loadImage() {
-        guard let poster = path, image == nil else {
+        
+        if let image = cache.get(forKey: url as NSURL) {
+            self.image = image
+            print("Cache hit!")
             return
         }
         
-        cancellable = URLSession.shared.dataTaskPublisher(for: size.path(poster: poster))
+        print("Cache miss!")
+        cancellable = URLSession.shared.dataTaskPublisher(for: url)
             .map { UIImage(data: $0.data) }
             .replaceError(with: nil)
             .receive(on: DispatchQueue.main)
-            .assign(to: \.image, on: self)
-        
+            .sink(receiveValue: {
+                self.cache.set(forKey: self.url as NSURL, image: $0)
+                self.image = $0
+            })
     }
     
     deinit {

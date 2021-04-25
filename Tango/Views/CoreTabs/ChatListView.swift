@@ -24,7 +24,7 @@ struct ChatListView: View {
             HStack {
                 Text("Messages")
                     .font(.custom("Dosis-Bold", size: 40))
-                    .foregroundColor(Color("AccentColor"))
+                    .foregroundColor(Color.AccentColor)
                 Spacer()
                 
                 Button(action: {
@@ -32,7 +32,7 @@ struct ChatListView: View {
                 }, label: {
                     Image(systemName: "person.fill")
                         .resizable()
-                        .foregroundColor(Color("AccentColor"))
+                        .foregroundColor(Color.AccentColor)
                         .frame(width: 30, height: 30)
                 })
             }
@@ -73,14 +73,14 @@ struct ChatListView: View {
                 Image(systemName: "magnifyingglass")
                     .resizable()
                     .frame(width: 18, height: 18)
-                    .foregroundColor(Color("AccentColor").opacity(0.3))
+                    .foregroundColor(Color.AccentColor.opacity(0.3))
                 
                 TextField("Search", text: $searchText)
             }
             .padding()
             .cornerRadius(8)
         }
-        .background(Color("Background"))
+        .background(Color.BackgroundColor)
         .cornerRadius(15)
     }
     
@@ -116,17 +116,17 @@ struct CellView: View {
                 Text("Glebadsdasdasdasdasdasd")
                     .lineLimit(1)
                     .font(.custom("Dosis-Bold", size: 20))
-                    .foregroundColor(Color("AccentColor"))
+                    .foregroundColor(Color.AccentColor)
                 Text("Message...")
                     .lineLimit(2)
                     .font(.custom("Dosis-Regular", size: 15))
-                    .foregroundColor(Color("AccentColor"))
+                    .foregroundColor(Color.AccentColor)
                     .font(.caption)
             }
             Spacer()
             Text("12/07/2021")
                 .font(.custom("Dosis-Regular", size: 14))
-                .foregroundColor(Color("AccentColor"))
+                .foregroundColor(Color.AccentColor)
         }
         .padding()
     }

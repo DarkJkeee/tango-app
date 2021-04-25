@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import Combine
 
 struct LoginView: View {
-    @State var isShowing: Bool = false
+    @State private var isShowing: Bool = false
+    @State private var keyboardHeight: CGFloat = 0
     
     @State private var email = ""
     @State private var password = ""
@@ -23,7 +25,7 @@ struct LoginView: View {
             VStack(alignment: .leading, spacing: 15) {
                 HStack {
                     Image(systemName: "envelope.fill")
-                        .foregroundColor(Color("AccentColor"))
+                        .foregroundColor(Color.AccentColor)
                     TextField("Email", text: $email)
                 }
                 .padding()
@@ -31,7 +33,7 @@ struct LoginView: View {
                 
                 HStack {
                     Image(systemName: "eye.slash.fill")
-                        .foregroundColor(Color("AccentColor"))
+                        .foregroundColor(Color.AccentColor)
                     SecureField("Password", text: $password)
                 }
                 .padding()
@@ -59,8 +61,12 @@ struct LoginView: View {
             
             Spacer()
         }
-        .background(Color("Background"))
+        .padding(.bottom, keyboardHeight)
+        .background(Color.BackgroundColor)
         .edgesIgnoringSafeArea(.all)
+        .onReceive(Publishers.keyboardHeight) {
+            self.keyboardHeight = $0
+        }
     }
 }
 

@@ -18,7 +18,8 @@ struct Movie: Codable, Identifiable {
     var id: Int
     var title: String
     var posterPath: String?
-    var voteCount: Int?
+    var voteCount: Int
+    var voteAverage: Double
 //    var video: String
     var releaseDate: Date
     var overview: String

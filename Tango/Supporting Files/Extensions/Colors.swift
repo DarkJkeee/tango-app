@@ -12,4 +12,8 @@ extension Color {
         return Color("AccentColor")
     }
     
+    public static var BackgroundColor: Color {
+        return Color("Background")
+    }
+    
 }

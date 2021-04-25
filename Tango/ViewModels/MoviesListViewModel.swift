@@ -11,11 +11,37 @@ import SwiftUI
 
 final class MoviesListViewModel: ObservableObject {
     @Published var state = State.idle
+    @Published var searchState = SearchState.idle
+    @Published var searchText: String = ""
+    
     
     @Published var genres = [Genre]()
-    @Published var movies = [Int: [Movie]]()
+    private var movies = [Int: [Movie]]()
+    private var fetchedMovies = [Movie]()
     
     private var cancellables = Set<AnyCancellable>()
+    
+    init () {
+        $searchText
+            .dropFirst()
+            .removeDuplicates()
+            .map { str -> String? in
+                if (str.count < 1) {
+                    self.searchState = .idle
+                    return nil
+                }
+            
+                return str
+            }
+            .compactMap { $0 }
+            .sink { (completion) in
+                
+            } receiveValue: { (query) in
+                self.searchData(query: query)
+            }
+            .store(in: &cancellables)
+
+    }
     
     private func getMovies(from genre: Int) {
         MoviesAPI.shared.getMovies(from: genre)
@@ -51,6 +77,20 @@ final class MoviesListViewModel: ObservableObject {
         }
     }
     
+    private func searchData(query: String) {
+        MoviesAPI.shared.getSearchRepsonse(query: query)
+            .sink { (completion) in
+                if case .failure(let error) = completion {
+                    self.searchState = .error(error)
+                } else {
+                    self.searchState = .loaded(self.fetchedMovies)
+                }
+            } receiveValue: { (movies) in
+                self.fetchedMovies = movies
+            }
+            .store(in: &cancellables)
+    }
+    
     public func fetchData() {
         self.state = .loading
         getGenres()
@@ -68,6 +108,11 @@ extension MoviesListViewModel {
         case idle
         case loading
         case loaded([Int: [Movie]])
+        case error(Error)
+    }
+    enum SearchState {
+        case idle
+        case loaded([Movie])
         case error(Error)
     }
 }
