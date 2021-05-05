@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ChatListView: View {
+    @Environment(\.colorScheme) var colorScheme
     @State var searchText = ""
     // TODO: VM
     
@@ -16,6 +17,7 @@ struct ChatListView: View {
             topbar
             content
         }
+        .navigationBarHidden(true)
         .edgesIgnoringSafeArea(.all)
     }
     
@@ -24,7 +26,7 @@ struct ChatListView: View {
             HStack {
                 Text("Messages")
                     .font(.custom("Dosis-Bold", size: 40))
-                    .foregroundColor(Color.AccentColor)
+                    .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                 Spacer()
                 
                 Button(action: {
@@ -32,7 +34,7 @@ struct ChatListView: View {
                 }, label: {
                     Image(systemName: "person.fill")
                         .resizable()
-                        .foregroundColor(Color.AccentColor)
+                        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                         .frame(width: 30, height: 30)
                 })
             }
@@ -69,18 +71,9 @@ struct ChatListView: View {
                 .padding()
             }
             
-            HStack(spacing: 15) {
-                Image(systemName: "magnifyingglass")
-                    .resizable()
-                    .frame(width: 18, height: 18)
-                    .foregroundColor(Color.AccentColor.opacity(0.3))
-                
-                TextField("Search", text: $searchText)
-            }
-            .padding()
-            .cornerRadius(8)
+            SearchBar(text: $searchText)
         }
-        .background(Color.BackgroundColor)
+        .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
         .cornerRadius(15)
     }
     
@@ -93,7 +86,6 @@ struct ChatListView: View {
                             CellView()
                         })
                 }
-            
             .onDelete(perform: { indexSet in
                 
             })
@@ -103,7 +95,7 @@ struct ChatListView: View {
 
 
 struct CellView: View {
-    
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         HStack(spacing: 12) {
@@ -116,17 +108,17 @@ struct CellView: View {
                 Text("Glebadsdasdasdasdasdasd")
                     .lineLimit(1)
                     .font(.custom("Dosis-Bold", size: 20))
-                    .foregroundColor(Color.AccentColor)
+                    .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                 Text("Message...")
                     .lineLimit(2)
                     .font(.custom("Dosis-Regular", size: 15))
-                    .foregroundColor(Color.AccentColor)
+                    .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                     .font(.caption)
             }
             Spacer()
             Text("12/07/2021")
                 .font(.custom("Dosis-Regular", size: 14))
-                .foregroundColor(Color.AccentColor)
+                .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
         }
         .padding()
     }

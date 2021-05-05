@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct MovieCardView: View {
-    @AppStorage("isDarkMode") private var isDarkMode = false
+    @Environment(\.colorScheme) var colorScheme
+//    @AppStorage("isDarkMode") private var isDarkMode = false
     let movie: Movie
     
     var lairDiagonalDarkBorder: LinearGradient {
@@ -39,13 +40,21 @@ struct MovieCardView: View {
             .shadow(color: .lairShadowGray, radius: 2, x: 3, y: 3)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(isDarkMode ? lairDiagonalLightBorder : lairDiagonalDarkBorder, lineWidth: 1)
+//                    .stroke(isDarkMode ? lairDiagonalLightBorder : lairDiagonalDarkBorder, lineWidth: 1)
+                    .stroke(lairDiagonalDarkBorder, lineWidth: 1)
             )
             .background(Color.lairBackgroundGray)
             .cornerRadius(10)
+            .contextMenu {
+                Button(action: {
+                    
+                }, label: {
+                    Text("Add to wishlist")
+                })
+            }
             VStack(alignment: .leading, spacing: 5) {
                 Text(movie.title)
-                    .foregroundColor(Color.AccentColor)
+                    .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                     .font(.custom("Dosis-Bold", size: 20))
                 Text(movie.overview)
                     .font(.custom("Dosis-Regular", size: 15))

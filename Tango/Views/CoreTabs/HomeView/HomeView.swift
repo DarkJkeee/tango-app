@@ -8,33 +8,27 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State var text = ""
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject var homeVM = MoviesListViewModel()
     
     var body: some View {
         VStack {
             switch homeVM.state {
             case .idle:
-                Color.BackgroundColor
+                (colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
                     .onAppear() {
                         homeVM.fetchData()
                     }
             case .loading:
                 ZStack {
-                    Color.BackgroundColor
+                    colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight
                     ProgressView("Loading...")
                 }
             case .error(let error):
                 ZStack {
-                    Color.BackgroundColor
+                    colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight
                     VStack {
-                        AlertView(error: error)
-                        Button(action: {
-                            homeVM.fetchData()
-                        }, label: {
-                            Text("Retry")
-                        })
-                        .padding()
+                        AlertView(error: error, retryAction: { homeVM.fetchData() })
                     }
                 }
             case .loaded(let movies):
@@ -42,14 +36,15 @@ struct HomeView: View {
             }
         }
         .navigationBarHidden(true)
-        .background(Color.BackgroundColor)
+        .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
         .edgesIgnoringSafeArea(.all)
     }
     
     private func content(movies: [Int: [Movie]]) -> some View {
         return VStack {
             topbar
-            searchField
+            SearchBar(text: $homeVM.searchText)
+                .cornerRadius(15)
             switch homeVM.searchState {
             case .idle:
                 ScrollView {
@@ -64,6 +59,7 @@ struct HomeView: View {
             case .loaded(let movies):
                 ScrollView {
                     ForEach(movies) { movie in
+                        Divider()
                         MovieSearchCard(movie: movie)
                     }
                 }
@@ -71,27 +67,18 @@ struct HomeView: View {
                 .padding()
             case .error(_):
                 ZStack {
-                    Color.BackgroundColor
+                    colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight
                     Text("There are no appropriate films!")
                 }
             }
         }
     }
     
-    private var searchField: some View {
-        TextField("Search...", text: $homeVM.searchText)
-            .padding(7)
-            .padding(.horizontal, 25)
-            .background(Color(.systemGray6))
-            .cornerRadius(8)
-            .padding(.horizontal, 10)
-    }
-    
     private var topbar: some View {
         HStack {
             Text("Home")
                 .font(.custom("Dosis-Bold", size: 40))
-                .foregroundColor(Color.AccentColor)
+                .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
             Spacer()
             // TODO: topbar buttons...
         }
@@ -99,7 +86,6 @@ struct HomeView: View {
         .padding(.leading, 20)
         .padding(.bottom, 1)
     }
-    
 }
 
 

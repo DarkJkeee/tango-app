@@ -16,6 +16,7 @@ struct MovieSearchCard: View {
                 Poster(poster: movie.posterPath, size: .medium) {
                     ProgressView()
                 }
+                .aspectRatio(contentMode: .fill)
                 .frame(width: 100, height: 150)
                 .cornerRadius(5)
                 .shadow(radius: 8)

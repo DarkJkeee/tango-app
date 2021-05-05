@@ -99,7 +99,7 @@ class MoviesAPI {
         
         return Future<[Movie], MoviesAPIError> { [unowned self] promise in
             guard let url = URL(string: "\(url)/search/movie?api_key=\(apiKey)&language=en-US&query=\(query)&page=1&include_adult=false")
-            else { return }
+            else { return promise(.failure(.urlError(URLError(.unsupportedURL)))) }
             
             URLSession.shared.dataTaskPublisher(for: url)
                 .tryMap { (data, response) -> Data in
@@ -175,9 +175,9 @@ public enum MoviesAPIError: Error {
     var localizedDescription: String {
         switch self {
         case .urlError(let error):
-            return error.localizedDescription
+            return "Some problem with url: \(error.localizedDescription)"
         case .decodingError(let error):
-            return error.localizedDescription
+            return "Some error with decoding: \(error.localizedDescription)"
         case .responseError(let status):
             return "Bad response code: \(status)"
         case .genericError:

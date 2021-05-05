@@ -8,19 +8,18 @@
 import SwiftUI
 
 struct TabbedPageView: View {
-    @State var showSplash = true
-    
     var body: some View {
-            TabBar()
+        TabBar()
     }
 }
 
 struct TabBar: View {
+    @Environment(\.colorScheme) var colorScheme
     
     init() {
         UITabBar.appearance().isTranslucent = false
-        UITabBar.appearance().barTintColor = UIColor(Color.BackgroundColor)
     }
+    
     var body: some View {
         TabView {
             HomeView()
@@ -28,28 +27,18 @@ struct TabBar: View {
                     Image(systemName: "house.fill")
                 }
                 .tag(0)
-            Text("Soon...")
-                .tabItem {
-                    Image(systemName: "magnifyingglass")
-                }
-                .tag(1)
-            Text("Plus")
-                .tabItem {
-                    Image(systemName: "plus")
-                }
-                .tag(2)
             ChatListView()
                 .tabItem {
                     Image(systemName: "message")
                 }
-                .tag(3)
+                .tag(1)
             ProfileView()
                 .tabItem {
                     Image(systemName: "person.fill")
                 }
-                .tag(4)
+                .tag(2)
         }
-        .accentColor(Color.AccentColor)
+        .accentColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
     }

@@ -20,17 +20,19 @@ struct SettingsPage: View {
     
     var body: some View {
         VStack {
-            Section(header: Text("Profile").font(.custom("Dosis-Bold", size: 20))) {
+            Section(header: Text("Profile").font(.custom("Dosis-Bold", size: 20)).foregroundColor(isDarkMode ? Color.AccentColorLight : Color.AccentColorDark)) {
                 Button(action: {
                     
                 }, label: {
                     SettingsCell(imageName: "mail.stack", title: "Change Email")
                 })
+                
                 Button(action: {
                     
                 }, label: {
                     SettingsCell(imageName: "person", title: "Change Username")
                 })
+                
                 Button(action: {
                     
                 }, label: {
@@ -38,8 +40,8 @@ struct SettingsPage: View {
                 })
             }
             .padding()
-            
-            Section(header: Text("Themes").font(.custom("Dosis-Bold", size: 20))) {
+//
+            Section(header: Text("Themes").font(.custom("Dosis-Bold", size: 20)).foregroundColor(isDarkMode ? Color.AccentColorLight : Color.AccentColorDark)) {
                 Picker("Mode", selection: $isDarkMode) {
                     Image(systemName: "sun.min")
                         .tag(false)
@@ -51,7 +53,8 @@ struct SettingsPage: View {
             .padding()
             Spacer()
         }
-        .background(Color.BackgroundColor)
+        .accentColor(isDarkMode ? Color.AccentColorLight : Color.AccentColorDark)
+        .background(isDarkMode ? Color.backgroundColorDark : Color.backgroundColorLight)
         .edgesIgnoringSafeArea(.all)
     }
 }

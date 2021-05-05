@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A08C15C2637A44400924429 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A08C15B2637A44400924429 /* SearchBar.swift */; };
 		2A0B7DC025509182002CDCF0 /* MoviesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B7DBF25509182002CDCF0 /* MoviesAPI.swift */; };
 		2A0B7DC525522E26002CDCF0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B7DC425522E26002CDCF0 /* HomeView.swift */; };
 		2A12D9B425CD6DEF00242260 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A12D9B325CD6DEF00242260 /* ProfileView.swift */; };
@@ -23,8 +24,11 @@
 		2A4BCB48260159490016B73E /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4BCB44260159490016B73E /* ColorExtension.swift */; };
 		2A4BCB4A260159490016B73E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4BCB46260159490016B73E /* Colors.swift */; };
 		2A666C5526361C1C00FB9309 /* CardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A666C5426361C1C00FB9309 /* CardListView.swift */; };
+		2A88A15F263E40C400A2AAD7 /* SessionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88A15E263E40C400A2AAD7 /* SessionAPI.swift */; };
 		2A9F0285254FA81B00B011D6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F0284254FA81B00B011D6 /* User.swift */; };
 		2A9F9A5C2617DD5F00F6BEF6 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F9A5B2617DD5F00F6BEF6 /* ChatView.swift */; };
+		2AA2C05A2641A7DA00BFDF6C /* TextBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA2C0592641A7DA00BFDF6C /* TextBar.swift */; };
+		2AAB0CBF263C423C00B0B952 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAB0CBE263C423C00B0B952 /* LoginViewModel.swift */; };
 		2ABABED6254E3B3D00F896C7 /* TabbedPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABABED5254E3B3D00F896C7 /* TabbedPageView.swift */; };
 		2ABABF07254F24DD00F896C7 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABABF06254F24DD00F896C7 /* LoginView.swift */; };
 		2ABABF0C254F24ED00F896C7 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABABF0B254F24ED00F896C7 /* RegistrationView.swift */; };
@@ -43,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A08C15B2637A44400924429 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		2A0B7DBF25509182002CDCF0 /* MoviesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesAPI.swift; sourceTree = "<group>"; };
 		2A0B7DC425522E26002CDCF0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		2A12D9B325CD6DEF00242260 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -59,8 +64,11 @@
 		2A4BCB44260159490016B73E /* ColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		2A4BCB46260159490016B73E /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		2A666C5426361C1C00FB9309 /* CardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListView.swift; sourceTree = "<group>"; };
+		2A88A15E263E40C400A2AAD7 /* SessionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionAPI.swift; sourceTree = "<group>"; };
 		2A9F0284254FA81B00B011D6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2A9F9A5B2617DD5F00F6BEF6 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		2AA2C0592641A7DA00BFDF6C /* TextBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBar.swift; sourceTree = "<group>"; };
+		2AAB0CBE263C423C00B0B952 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		2ABABED5254E3B3D00F896C7 /* TabbedPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbedPageView.swift; sourceTree = "<group>"; };
 		2ABABF06254F24DD00F896C7 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		2ABABF0B254F24ED00F896C7 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
@@ -125,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				2A0B7DBF25509182002CDCF0 /* MoviesAPI.swift */,
+				2A88A15E263E40C400A2AAD7 /* SessionAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -155,6 +164,7 @@
 			children = (
 				2ABABF17254F44C400F896C7 /* MoviesListViewModel.swift */,
 				2A14B5572616247C0084EAE9 /* RegistrationViewModel.swift */,
+				2AAB0CBE263C423C00B0B952 /* LoginViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -265,6 +275,8 @@
 				2AD4DD6A263345B20057CA78 /* AlertView.swift */,
 				2A4936702634E11100DD803E /* Poster.swift */,
 				2A1CF6AB2636187100CBED14 /* PopularityBadge.swift */,
+				2A08C15B2637A44400924429 /* SearchBar.swift */,
+				2AA2C0592641A7DA00BFDF6C /* TextBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -345,7 +357,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A88A15F263E40C400A2AAD7 /* SessionAPI.swift in Sources */,
 				2ADBEC56262E07700011008F /* SettingsPage.swift in Sources */,
+				2AA2C05A2641A7DA00BFDF6C /* TextBar.swift in Sources */,
 				2ABABF18254F44C400F896C7 /* MoviesListViewModel.swift in Sources */,
 				2ABABF07254F24DD00F896C7 /* LoginView.swift in Sources */,
 				2A1CF6A92636122900CBED14 /* PublishersExtension.swift in Sources */,
@@ -353,6 +367,7 @@
 				2ABABF1B254F46A800F896C7 /* Movie.swift in Sources */,
 				2A247DF12634AABA00CEFB7B /* ImageLoader.swift in Sources */,
 				2AD4DD6B263345B20057CA78 /* AlertView.swift in Sources */,
+				2AAB0CBF263C423C00B0B952 /* LoginViewModel.swift in Sources */,
 				2AD1F1C8254DB1EF0045E236 /* TangoApp.swift in Sources */,
 				2A9F9A5C2617DD5F00F6BEF6 /* ChatView.swift in Sources */,
 				2A35DA6D26176E3500FF7D31 /* ChatListView.swift in Sources */,
@@ -363,6 +378,7 @@
 				2A1CF6B426361A2C00CBED14 /* MovieSearchCard.swift in Sources */,
 				2AF5570D25F97F9500343AA6 /* BorderedButton.swift in Sources */,
 				2A0B7DC525522E26002CDCF0 /* HomeView.swift in Sources */,
+				2A08C15C2637A44400924429 /* SearchBar.swift in Sources */,
 				2A4BCB4A260159490016B73E /* Colors.swift in Sources */,
 				2A1CF6B026361A1100CBED14 /* MovieCardView.swift in Sources */,
 				2A14B5582616247C0084EAE9 /* RegistrationViewModel.swift in Sources */,
@@ -500,6 +516,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Tango/Preview Content\"";
 				DEVELOPMENT_TEAM = SXY5F8F32W;
@@ -512,6 +529,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.burstein.Tango;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -522,6 +540,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Tango/Preview Content\"";
 				DEVELOPMENT_TEAM = SXY5F8F32W;
@@ -534,6 +553,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.burstein.Tango;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

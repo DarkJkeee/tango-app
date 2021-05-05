@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CardListView: View {
+    @Environment(\.colorScheme) var colorScheme
     let movies: [Movie]
     let genre: String
     
@@ -15,7 +16,7 @@ struct CardListView: View {
         VStack(alignment: .leading) {
             Text(genre)
                 .font(.custom("Dosis-Bold", size: 26))
-                .foregroundColor(Color.AccentColor)
+                .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                 .padding(.leading)
             
             ScrollView(.horizontal, showsIndicators: false) {

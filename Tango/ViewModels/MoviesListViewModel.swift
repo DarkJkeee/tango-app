@@ -12,10 +12,10 @@ import SwiftUI
 final class MoviesListViewModel: ObservableObject {
     @Published var state = State.idle
     @Published var searchState = SearchState.idle
+    
     @Published var searchText: String = ""
-    
-    
     @Published var genres = [Genre]()
+    
     private var movies = [Int: [Movie]]()
     private var fetchedMovies = [Movie]()
     
@@ -40,7 +40,6 @@ final class MoviesListViewModel: ObservableObject {
                 self.searchData(query: query)
             }
             .store(in: &cancellables)
-
     }
     
     private func getMovies(from genre: Int) {

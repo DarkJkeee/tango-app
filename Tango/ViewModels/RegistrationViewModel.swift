@@ -20,6 +20,7 @@ class RegistrationViewModel : ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     
+    
     private let predicate = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?&]).{6,}$")
     
     init() {
@@ -58,6 +59,12 @@ class RegistrationViewModel : ObservableObject {
             }
             .assign(to: \.passwordError, on: self)
             .store(in: &cancellables)
+    }
+    
+    deinit {
+        for subscription in cancellables {
+            subscription.cancel()
+        }
     }
 }
 

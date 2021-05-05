@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     @State var isShowingSettings = false
     let profileLinkNames = ["Favourite movies", "Followers", "Following"]
     
@@ -16,7 +18,7 @@ struct ProfileView: View {
             topbar
             content
         }
-        .background(Color.BackgroundColor)
+        .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
         .sheet(isPresented: $isShowingSettings, content: {
             SettingsPage()
         })
@@ -28,7 +30,7 @@ struct ProfileView: View {
         HStack {
             Text("Profile")
                 .font(.custom("Dosis-Bold", size: 40))
-                .foregroundColor(Color.AccentColor)
+                .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                 .padding(.leading, 20)
             Spacer()
             
@@ -37,7 +39,7 @@ struct ProfileView: View {
             }, label: {
                 Image(systemName: "gear")
                     .resizable()
-                    .foregroundColor(Color.AccentColor)
+                    .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                     .frame(width: 30, height: 30)
                     .padding(.trailing, 20)
             })
@@ -73,7 +75,7 @@ struct ProfileView: View {
                 HStack {
                     Image(systemName: "arrowshape.turn.up.left")
                         .resizable()
-                        .foregroundColor(Color.AccentColor)
+                        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                         .frame(width: 30, height: 30)
                     Text("Logout")
                         .font(.custom("Dosis-Bold", size: 30))

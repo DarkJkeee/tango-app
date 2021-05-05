@@ -9,6 +9,7 @@ import SwiftUI
 import AVKit
 
 struct MoviePage: View {
+    @Environment(\.colorScheme) var colorScheme
     var movie: Movie
     
     var body: some View {
@@ -29,7 +30,7 @@ struct MoviePage: View {
                     MovieDescription(movie: movie)
                 }
             }
-            .background(Color.BackgroundColor)
+            .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
             .edgesIgnoringSafeArea(.all)
             .navigationBarHidden(true)
         }
@@ -37,6 +38,7 @@ struct MoviePage: View {
 }
 
 struct MovieDescription: View {
+    @Environment(\.colorScheme) var colorScheme
     let movie: Movie
     
     @State var isExpanded: Bool = false
@@ -48,7 +50,7 @@ struct MovieDescription: View {
         VStack(alignment: .leading, spacing: 15) {
             
             Text(movie.title)
-                .foregroundColor(Color.AccentColor)
+                .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                 .font(.custom("Dosis-Bold", size: 35))
                 .fontWeight(.semibold)
             Text("1h 44m | Drama | \(movie.getReleaseDate)")
@@ -81,7 +83,7 @@ struct MovieDescription: View {
                 
                 Button(action: { self.isExpanded.toggle() }) {
                     Text(isExpanded ? "Show less" : "Show more")
-                        .foregroundColor(Color.AccentColor)
+                        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                         .font(.custom("Dosis-Bold", size: 16))
                 }
             }
@@ -99,14 +101,3 @@ struct MovieDescription: View {
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
     }
 }
-
-
-
-
-
-//struct MoviePage_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MoviePage(movie: Movie(id: 1, title: "Alo", poster_path: "", vote_count: nil, overview: "", genre_ids: []))
-//            .preferredColorScheme(.dark)
-//    }
-//}
