@@ -15,7 +15,7 @@ struct RegistrationView: View {
     @ObservedObject var loginVM: LoginViewModel
     @StateObject var viewModel = RegistrationViewModel()
     
-    @State private var isShowing: Bool = true
+    @State private var isShowing: Bool = false
     @State private var keyboardHeight: CGFloat = 0
     
     var body: some View {

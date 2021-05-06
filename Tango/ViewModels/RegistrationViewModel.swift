@@ -73,7 +73,6 @@ extension RegistrationViewModel {
     
     private var isUsernameValidPublisher: AnyPublisher<UsernameStatus, Never> {
         $username
-            .debounce(for: 0.8, scheduler: RunLoop.main)
             .removeDuplicates()
             .map {
                 if ($0.count >= 3) {

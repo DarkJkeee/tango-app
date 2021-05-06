@@ -13,24 +13,26 @@ struct ChatListView: View {
     // TODO: VM
     
     var body: some View {
-        VStack {
-            topbar
-            content
+        NavigationView {
+            VStack {
+                topbar
+                content
+            }
+            .navigationBarHidden(true)
+            .edgesIgnoringSafeArea(.all)
         }
-        .navigationBarHidden(true)
-        .edgesIgnoringSafeArea(.all)
     }
     
     private var topbar: some View {
-        VStack {
+        VStack(spacing: 0) {
             HStack {
                 Text("Messages")
                     .font(.custom("Dosis-Bold", size: 40))
                     .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                 Spacer()
-                
+
                 Button(action: {
-                    
+
                 }, label: {
                     Image(systemName: "person.fill")
                         .resizable()
@@ -39,7 +41,7 @@ struct ChatListView: View {
                 })
             }
             .padding([.trailing, .leading], 20)
-            .padding(.top, UIScreen.main.bounds.height * 0.05)
+            .padding(.top, UIScreen.main.bounds.height * 0.04)
             .padding(.bottom, 1)
             
             ScrollView(.horizontal, showsIndicators: false) {
@@ -78,7 +80,7 @@ struct ChatListView: View {
     }
     
     private var content: some View {
-        List {
+        ScrollView {
             ForEach(1..<14) { index in
                     NavigationLink(
                         destination: ChatView(),

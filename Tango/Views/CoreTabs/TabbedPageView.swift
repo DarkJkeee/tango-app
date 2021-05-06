@@ -16,39 +16,108 @@ struct TabbedPageView: View {
 }
 
 struct TabBar: View {
+    @State var selectedTab = "Home"
+    @Namespace private var animation
+    
+    
+    // For not reloading tabs...
+    @State var isHomeLoad = false
+    
     @Environment(\.colorScheme) var colorScheme
     
-    init() {
-        UITabBar.appearance().isTranslucent = false
+    var body: some View {
+        VStack(spacing: 0) {
+            GeometryReader { _ in
+                ZStack {
+                    HomeView()
+                        .opacity(selectedTab == "Home" ? 1 : 0)
+                    ChatListView()
+                        .opacity(selectedTab == "Chat" ? 1 : 0)
+                    ProfileView()
+                        .opacity(selectedTab == "Profile" ? 1 : 0)
+                }
+            }
+            .onChange(of: selectedTab) { _ in
+                switch selectedTab {
+                    case "Home":
+                        if !isHomeLoad {
+                            isHomeLoad = true
+                        }
+                    default: ()
+                }
+            }
+            
+            HStack {
+                TabButton(title: "Home", image: "house.fill", selectedTab: $selectedTab, animation: animation)
+                Spacer()
+                TabButton(title: "Chat", image: "message", selectedTab: $selectedTab, animation: animation)
+                Spacer()
+                TabButton(title: "Profile", image: "person.fill", selectedTab: $selectedTab, animation: animation)
+            }
+            .padding(.horizontal, 40)
+            .padding(.bottom, UIApplication.shared.windows.first?.safeAreaInsets.bottom == 0 ? 15 : 20)
+            .background(colorScheme == .dark ? Color.backgroundColorDark: Color.backgroundColorLight)
+        }
+        .background(colorScheme == .dark ? Color.backgroundColorDark: Color.backgroundColorLight)
+        .ignoresSafeArea(.all, edges: .bottom)
     }
+}
+
+struct TabButton: View {
+    @Environment(\.colorScheme) var colorScheme
+    
+    var title: String
+    var image: String
+    
+    @Binding var selectedTab: String
+    var animation: Namespace.ID
     
     var body: some View {
-        TabView {
-            HomeView()
-                .tabItem {
-                    Image(systemName: "house.fill")
+        Button(action: {
+            withAnimation {
+                selectedTab = title
+            }
+        }, label: {
+            VStack(spacing: 6) {
+                ZStack {
+                    CustomShape()
+                        .fill(Color.clear)
+                        .frame(width: 45, height: 6)
+                    
+                    if selectedTab == title {
+                        CustomShape()
+                            .fill(colorScheme == .dark ? Color.AccentColorLight : Color.AccentColorDark)
+                            .frame(width: 45, height: 3)
+                            .matchedGeometryEffect(id: "ID", in: animation)
+                    }
+                    
                 }
-                .tag(0)
-            ChatListView()
-                .tabItem {
-                    Image(systemName: "message")
-                }
-                .tag(1)
-            ProfileView()
-                .tabItem {
-                    Image(systemName: "person.fill")
-                }
-                .tag(2)
-        }
-        .accentColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
-        .navigationBarHidden(true)
-        .navigationBarBackButtonHidden(true)
+                
+                Image(systemName: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(selectedTab == title ? colorScheme == .dark ? Color.AccentColorLight : Color.AccentColorDark : colorScheme == .dark ? Color.AccentColorLight.opacity(0.4) : Color.AccentColorDark.opacity(0.4))
+                    .frame(width: 24, height: 24)
+                
+                Text(title)
+                    .font(.custom("Dosis-Regular", size: 16))
+                    .fontWeight(.bold)
+                    .opacity(selectedTab == title ? 1 : 0.4)
+            }
+        })
+    }
+}
+
+struct CustomShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: 10, height: 10))
+        return Path(path.cgPath)
     }
 }
 
 struct TabbedPageView_Previews: PreviewProvider {
     static var previews: some View {
         TabbedPageView()
-            .preferredColorScheme(.dark)
+            .preferredColorScheme(.light)
     }
 }

@@ -34,7 +34,7 @@ struct SearchBar: View {
                 }, label: {
                     Image(systemName: "x.circle.fill")
                 })
-                .padding(.trailing, 10)
+                .padding(.trailing, 15)
                 .transition(.move(edge: .trailing))
                 .animation(.default)
             }

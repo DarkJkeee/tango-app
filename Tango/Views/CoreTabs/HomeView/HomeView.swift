@@ -35,7 +35,6 @@ struct HomeView: View {
                 content(movies: movies)
             }
         }
-        .navigationBarHidden(true)
         .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
         .edgesIgnoringSafeArea(.all)
     }
@@ -48,19 +47,23 @@ struct HomeView: View {
             switch homeVM.searchState {
             case .idle:
                 ScrollView {
-                    ForEach(homeVM.genres) { genre in
-                        if movies[genre.id] != nil {
-                            Divider()
-                            CardListView(movies: movies[genre.id] ?? [], genre: genre.name)
+                    LazyVStack {
+                        ForEach(homeVM.genres) { genre in
+                            if movies[genre.id] != nil {
+                                Divider()
+                                CardListView(movies: movies[genre.id] ?? [], genre: genre.name)
+                            }
                         }
                     }
                 }
                 .animation(Animation.easeInOut.speed(1))
             case .loaded(let movies):
                 ScrollView {
-                    ForEach(movies) { movie in
-                        Divider()
-                        MovieSearchCard(movie: movie)
+                    LazyVStack {
+                        ForEach(movies) { movie in
+                            Divider()
+                            MovieSearchCard(movie: movie)
+                        }
                     }
                 }
                 .animation(Animation.easeInOut.speed(1))

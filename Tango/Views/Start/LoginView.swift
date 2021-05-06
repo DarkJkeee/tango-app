@@ -28,7 +28,7 @@ struct LoginView: View {
             }
         }
         .alert(isPresented: $loginVM.isFailed) { () -> Alert in
-            Alert(title: Text("Invalid authorization data"), message: Text("Wrong email or password"), dismissButton: Alert.Button.default(Text("Okay")))
+            Alert(title: Text("Invalid authorization data"), message: Text("Wrong email or password"), dismissButton: Alert.Button.default(Text("Try again")))
         }
     }
     
@@ -63,6 +63,16 @@ struct LoginView: View {
             .padding()
             
             NavigationLink(
+                destination: Text("Hello"),
+                label: {
+                    Text("Forgot your password?")
+                        .font(.custom("Dosis-Light", size: 18))
+                        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
+                        .opacity(0.7)
+                })
+                .padding()
+            
+            NavigationLink(
                 destination: RegistrationView(loginVM: loginVM),
                 label: {
                     Text("Don't have an account? Sign up")
@@ -70,6 +80,7 @@ struct LoginView: View {
                         .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                         .opacity(0.7)
                 })
+                .padding()
             
             Spacer()
         }

@@ -20,7 +20,7 @@ struct CardListView: View {
                 .padding(.leading)
             
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .top) {
+                LazyHStack(alignment: .top) {
                     ForEach(movies) { movie in
                         NavigationLink(destination: MoviePage(movie: movie),
                                        label: {
