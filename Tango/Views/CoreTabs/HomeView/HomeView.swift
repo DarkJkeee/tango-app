@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment(\.colorScheme) var colorScheme
-    @ObservedObject var homeVM = MoviesListViewModel()
+    @StateObject var homeVM = MoviesListViewModel()
     
     var body: some View {
         VStack {
@@ -65,10 +65,10 @@ struct HomeView: View {
                 }
                 .animation(Animation.easeInOut.speed(1))
                 .padding()
-            case .error(_):
+            case .error(let error):
                 ZStack {
                     colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight
-                    Text("There are no appropriate films!")
+                    Text("There are some error with query: \(error.localizedDescription)")
                 }
             }
         }

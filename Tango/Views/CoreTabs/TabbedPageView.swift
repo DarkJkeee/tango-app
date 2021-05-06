@@ -9,7 +9,9 @@ import SwiftUI
 
 struct TabbedPageView: View {
     var body: some View {
-        TabBar()
+        NavigationView {
+            TabBar()
+        }
     }
 }
 

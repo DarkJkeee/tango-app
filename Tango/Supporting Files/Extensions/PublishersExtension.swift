@@ -27,6 +27,6 @@ extension Publishers {
 
 extension Notification {
     var keyboardHeight: CGFloat {
-        return ((userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect)?.height ?? 0) / 2
+        return ((userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect)?.height ?? 0) / 1.5
     }
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @EnvironmentObject var loginVM: LoginViewModel
     @Environment(\.colorScheme) var colorScheme
     
     @State var isShowingSettings = false
@@ -70,7 +71,7 @@ struct ProfileView: View {
             Spacer()
             
             Button(action: {
-                
+                loginVM.isLogged.toggle()
             }, label: {
                 HStack {
                     Image(systemName: "arrowshape.turn.up.left")

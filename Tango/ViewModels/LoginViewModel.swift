@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class LoginViewModel : ObservableObject {
-    @Published var state = LoginViewModel.State.idle
+    @Published var state = State.idle
     @Published var isLogged = false
     @Published var isFailed = false
     
@@ -19,25 +19,26 @@ class LoginViewModel : ObservableObject {
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
-//        $state
-//            .receive(on: RunLoop.main)
-//            .map {
-//                $0 == .loggedIn
-//            }
-//            .assign(to: \.isLogged, on: self)
-//            .store(in: &subscriptions)
-//        $state
-//            .receive(on: RunLoop.main)
-//            .map {
-//                $0 == .failed
-//            }
-//            .assign(to: \.isFailed, on: self)
-//            .store(in: &subscriptions)
+        $state
+            .receive(on: RunLoop.main)
+            .map {
+                $0 == .loggedIn
+            }
+            .assign(to: \.isLogged, on: self)
+            .store(in: &subscriptions)
+        $state
+            .receive(on: RunLoop.main)
+            .map {
+                $0 == .failed
+            }
+            .assign(to: \.isFailed, on: self)
+            .store(in: &subscriptions)
     }
     
     func login() {
-//        state = .logging
-//        SessionAPI.shared.login(email: email, password: password)
+        state = .logging
+        SessionAPI.shared.login(email: email, password: password)
+        
     }
     
     deinit {

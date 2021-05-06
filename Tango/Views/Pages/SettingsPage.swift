@@ -10,14 +10,6 @@ import SwiftUI
 struct SettingsPage: View {
     @AppStorage("isDarkMode") private var isDarkMode = false
     
-    //    init() {
-    //       UITableView.appearance().separatorStyle = .none
-    //       UITableViewCell.appearance().backgroundColor = UIColor(Color.BackgroundColor)
-    //       UITableView.appearance().backgroundColor = UIColor(Color.BackgroundColor)
-    //    }
-    //
-    
-    
     var body: some View {
         VStack {
             Section(header: Text("Profile").font(.custom("Dosis-Bold", size: 20)).foregroundColor(isDarkMode ? Color.AccentColorLight : Color.AccentColorDark)) {
