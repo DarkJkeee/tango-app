@@ -110,7 +110,7 @@ class MoviesAPI {
                 }
                 .decode(type: MovieResponse.self, decoder: jsonDecoder)
                 .receive(on: RunLoop.main)
-                .sink { (completion) in
+                .sink { completion in
                     if case let .failure(error) = completion {
                         switch error {
                         case let urlError as URLError:

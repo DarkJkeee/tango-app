@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct MovieCardView: View {
     @Environment(\.colorScheme) var colorScheme
-//    @AppStorage("isDarkMode") private var isDarkMode = false
     let movie: Movie
     
     var lairDiagonalDarkBorder: LinearGradient {
@@ -30,9 +30,9 @@ struct MovieCardView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Poster(poster: movie.posterPath, size: .medium) {
-                ProgressView()
-            }
+            KFImage(URL(string: "https://image.tmdb.org/t/p/w500" + (movie.posterPath ?? ""))!)
+            .placeholder({ProgressView()})
+            .resizable()
             .aspectRatio(contentMode: .fill)
             .frame(width: 300, height: 170)
             .clipped()
@@ -40,7 +40,7 @@ struct MovieCardView: View {
             .shadow(color: .lairShadowGray, radius: 2, x: 3, y: 3)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-//                    .stroke(isDarkMode ? lairDiagonalLightBorder : lairDiagonalDarkBorder, lineWidth: 1)
+//                    .stroke(colorScheme == .dark ? lairDiagonalLightBorder : lairDiagonalDarkBorder, lineWidth: 1)
                     .stroke(lairDiagonalDarkBorder, lineWidth: 1)
             )
             .background(Color.lairBackgroundGray)

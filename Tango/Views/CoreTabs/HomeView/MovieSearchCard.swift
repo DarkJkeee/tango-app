@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct MovieSearchCard: View {
     let movie: Movie
@@ -13,9 +14,8 @@ struct MovieSearchCard: View {
         NavigationLink(
             destination: MoviePage(movie: movie),
             label: {
-                Poster(poster: movie.posterPath, size: .medium) {
-                    ProgressView()
-                }
+                KFImage(URL(string: "https://image.tmdb.org/t/p/w500" + (movie.posterPath ?? ""))!)
+                .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 100, height: 150)
                 .cornerRadius(5)

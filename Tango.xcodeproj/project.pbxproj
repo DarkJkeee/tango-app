@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A0518582644B93000D6C446 /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0518572644B93000D6C446 /* LazyView.swift */; };
+		2A05185B2644ED6500D6C446 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 2A05185A2644ED6500D6C446 /* Kingfisher */; };
+		2A05185D2645EF0E00D6C446 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A05185C2645EF0E00D6C446 /* ImagePicker.swift */; };
 		2A08C15C2637A44400924429 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A08C15B2637A44400924429 /* SearchBar.swift */; };
 		2A0B7DC025509182002CDCF0 /* MoviesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B7DBF25509182002CDCF0 /* MoviesAPI.swift */; };
 		2A0B7DC525522E26002CDCF0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B7DC425522E26002CDCF0 /* HomeView.swift */; };
@@ -47,6 +50,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A0518572644B93000D6C446 /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
+		2A05185C2645EF0E00D6C446 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		2A08C15B2637A44400924429 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		2A0B7DBF25509182002CDCF0 /* MoviesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesAPI.swift; sourceTree = "<group>"; };
 		2A0B7DC425522E26002CDCF0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -93,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A05185B2644ED6500D6C446 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,6 +191,7 @@
 				2A4BCB42260159490016B73E /* Extensions */,
 				2ADDA8BC25F50E6C0060EF2C /* Fonts */,
 				2AD1F1CB254DB1F00045E236 /* Assets.xcassets */,
+				2A0518572644B93000D6C446 /* LazyView.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -277,6 +284,7 @@
 				2A1CF6AB2636187100CBED14 /* PopularityBadge.swift */,
 				2A08C15B2637A44400924429 /* SearchBar.swift */,
 				2AA2C0592641A7DA00BFDF6C /* TextBar.swift */,
+				2A05185C2645EF0E00D6C446 /* ImagePicker.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -298,6 +306,7 @@
 			);
 			name = Tango;
 			packageProductDependencies = (
+				2A05185A2644ED6500D6C446 /* Kingfisher */,
 			);
 			productName = Tango;
 			productReference = 2AD1F1C4254DB1EF0045E236 /* Tango.app */;
@@ -327,6 +336,7 @@
 			);
 			mainGroup = 2AD1F1BB254DB1EF0045E236;
 			packageReferences = (
+				2A0518592644ED6500D6C446 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 2AD1F1C5254DB1EF0045E236 /* Products */;
 			projectDirPath = "";
@@ -360,6 +370,7 @@
 				2A88A15F263E40C400A2AAD7 /* SessionAPI.swift in Sources */,
 				2ADBEC56262E07700011008F /* SettingsPage.swift in Sources */,
 				2AA2C05A2641A7DA00BFDF6C /* TextBar.swift in Sources */,
+				2A05185D2645EF0E00D6C446 /* ImagePicker.swift in Sources */,
 				2ABABF18254F44C400F896C7 /* MoviesListViewModel.swift in Sources */,
 				2ABABF07254F24DD00F896C7 /* LoginView.swift in Sources */,
 				2A1CF6A92636122900CBED14 /* PublishersExtension.swift in Sources */,
@@ -375,6 +386,7 @@
 				2ABABED6254E3B3D00F896C7 /* TabbedPageView.swift in Sources */,
 				2A4BCB48260159490016B73E /* ColorExtension.swift in Sources */,
 				2A9F0285254FA81B00B011D6 /* User.swift in Sources */,
+				2A0518582644B93000D6C446 /* LazyView.swift in Sources */,
 				2A1CF6B426361A2C00CBED14 /* MovieSearchCard.swift in Sources */,
 				2AF5570D25F97F9500343AA6 /* BorderedButton.swift in Sources */,
 				2A0B7DC525522E26002CDCF0 /* HomeView.swift in Sources */,
@@ -581,6 +593,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2A0518592644ED6500D6C446 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2A05185A2644ED6500D6C446 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A0518592644ED6500D6C446 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2AD1F1BC254DB1EF0045E236 /* Project object */;
 }

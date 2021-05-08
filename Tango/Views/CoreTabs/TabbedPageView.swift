@@ -9,9 +9,7 @@ import SwiftUI
 
 struct TabbedPageView: View {
     var body: some View {
-        NavigationView {
-            TabBar()
-        }
+        TabBar()
     }
 }
 
@@ -19,13 +17,33 @@ struct TabBar: View {
     @State var selectedTab = "Home"
     @Namespace private var animation
     
-    
-    // For not reloading tabs...
-    @State var isHomeLoad = false
+    //     For not reloading tabs...
+//    @StateObject var tabs = ViewModel()
     
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
+        
+//        TabView {
+//            HomeView()
+//                .tabItem {
+//                    Image(systemName: "house.fill")
+//                }
+//                .tag(0)
+//            ChatListView()
+//                .tabItem {
+//                    Image(systemName: "message")
+//                }
+//                .tag(1)
+//            ProfileView()
+//                .tabItem {
+//                    Image(systemName: "person.fill")
+//                }
+//                .tag(2)
+//        }
+//        .accentColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
+//        .navigationBarHidden(true)
+//        .navigationBarBackButtonHidden(true)
         VStack(spacing: 0) {
             GeometryReader { _ in
                 ZStack {
@@ -35,15 +53,6 @@ struct TabBar: View {
                         .opacity(selectedTab == "Chat" ? 1 : 0)
                     ProfileView()
                         .opacity(selectedTab == "Profile" ? 1 : 0)
-                }
-            }
-            .onChange(of: selectedTab) { _ in
-                switch selectedTab {
-                    case "Home":
-                        if !isHomeLoad {
-                            isHomeLoad = true
-                        }
-                    default: ()
                 }
             }
             
@@ -114,6 +123,24 @@ struct CustomShape: Shape {
         return Path(path.cgPath)
     }
 }
+
+//class ViewModel: ObservableObject {
+//    @Published var isHomeLoad = false
+//    @Published var isChatListLoad = false
+//    @Published var isProfileLoad = false
+//
+//    func loadHome() {
+//        isHomeLoad = true
+//    }
+//
+//    func loadChatList() {
+//        isChatListLoad = true
+//    }
+//
+//    func loadProfile() {
+//        isProfileLoad = true
+//    }
+//}
 
 struct TabbedPageView_Previews: PreviewProvider {
     static var previews: some View {

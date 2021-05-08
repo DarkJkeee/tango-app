@@ -6,25 +6,30 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ProfileView: View {
     @EnvironmentObject var loginVM: LoginViewModel
     @Environment(\.colorScheme) var colorScheme
     
+    @State var avatar: UIImage?
     @State var isShowingSettings = false
+    @State var isShowingImagePicker = false
     let profileLinkNames = ["Favourite movies", "Followers", "Following"]
     
     var body: some View {
-        VStack {
-            topbar
-            content
+        NavigationView {
+            VStack {
+                topbar
+                content
+            }
+            .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
+            .sheet(isPresented: $isShowingSettings, content: {
+                SettingsPage()
+            })
+            .edgesIgnoringSafeArea(.all)
+            .navigationBarHidden(true)
         }
-        .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
-        .sheet(isPresented: $isShowingSettings, content: {
-            SettingsPage()
-        })
-        .edgesIgnoringSafeArea(.all)
-        .navigationBarHidden(true)
     }
     
     private var topbar: some View {
@@ -51,6 +56,24 @@ struct ProfileView: View {
     
     private var content: some View {
         VStack(spacing: 0) {
+            ZStack {
+                KFImage(URL(string: ""))
+                    .placeholder({ Image("avatar") })
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 150, height: 150)
+                    .clipShape(Circle())
+            }
+            .onTapGesture {
+                isShowingImagePicker = true
+            }
+            
+            HStack {
+                Text("Username")
+                    .font(.custom("Dosis-Bold", size: 24))
+            }
+            .padding()
+            
             ForEach(profileLinkNames, id: \.self) { profileLinkName in
                 NavigationLink(destination: Text("")) {
                     VStack {
@@ -68,22 +91,28 @@ struct ProfileView: View {
                     }
                 }
             }
+            
             Spacer()
             
             Button(action: {
-                loginVM.isLogged.toggle()
+                loginVM.logout()
             }, label: {
-                HStack {
-                    Image(systemName: "arrowshape.turn.up.left")
-                        .resizable()
-                        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
-                        .frame(width: 30, height: 30)
-                    Text("Logout")
-                        .font(.custom("Dosis-Bold", size: 30))
-                }
+                RoundedRectangle(cornerRadius: 10)
+                    .frame(height: 60)
+                    .overlay(
+                        Text("Logout")
+                            .font(.custom("Dosis-Bold", size: 20))
+                            .foregroundColor(.white)
+                    )
             })
+            .foregroundColor(colorScheme == .dark ? Color("AccentLight") : Color("AccentDark"))
             .padding()
         }
+        .sheet(isPresented: $isShowingImagePicker) {
+//            ImagePicker(image: $avatar)
+//            loginVM.changeAvatar(avatar: avatar ?? nil)
+        }
+        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
     }
 }
 

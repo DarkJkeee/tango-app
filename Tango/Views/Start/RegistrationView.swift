@@ -30,11 +30,7 @@ struct RegistrationView: View {
             Spacer()
             Text("Tangö")
                 .font(.custom("Dosis-Bold", size: 50))
-            Text("Create New Account")
-                .padding(.top, 10)
-                .font(.custom("Dosis-Bold", size: 25))
-            
-            Spacer()
+                .padding()
             
             VStack(alignment: .leading, spacing: 15) {
                 TextBar(text: $viewModel.username, placeholder: "Username", imageName: "person.fill", isSecureField: false)
@@ -68,7 +64,7 @@ struct RegistrationView: View {
                     )
             })
             .padding()
-            .foregroundColor(viewModel.isValid ? .orange : .gray)
+            .foregroundColor(viewModel.isValid ? colorScheme == .dark ? Color("AccentLight") : Color("AccentDark") : .gray)
             .disabled(!viewModel.isValid)
             
             Spacer()
@@ -105,7 +101,7 @@ struct RegistrationView: View {
                             .foregroundColor(.AccentColorLight)
                     )
             })
-            .foregroundColor(.orange)
+            .foregroundColor(colorScheme == .dark ? Color("AccentLight") : Color("AccentDark"))
             .padding()
             
             Spacer()

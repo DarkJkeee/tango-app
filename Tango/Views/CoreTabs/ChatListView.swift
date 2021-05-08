@@ -41,7 +41,7 @@ struct ChatListView: View {
                 })
             }
             .padding([.trailing, .leading], 20)
-            .padding(.top, UIScreen.main.bounds.height * 0.04)
+            .padding(.top, UIScreen.main.bounds.height * 0.05)
             .padding(.bottom, 1)
             
             ScrollView(.horizontal, showsIndicators: false) {

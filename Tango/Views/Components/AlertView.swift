@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AlertView: View {
-    @AppStorage("isDarkMode") var isDarkMode = false
+    @Environment(\.colorScheme) var colorScheme
     var error: Error
     var retryAction: () -> Void
     
@@ -20,10 +20,10 @@ struct AlertView: View {
                 isAlert = true
             }) {
                 Text("Failed to load data!\nClick to more info")
-                    .foregroundColor(isDarkMode ? Color.backgroundColorDark : Color.backgroundColorLight)
+                    .foregroundColor(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
             }
             .padding()
-            .background(isDarkMode ? Color.AccentColorLight : Color.AccentColorDark)
+            .background(colorScheme == .dark ? Color.AccentColorLight : Color.AccentColorDark)
             .cornerRadius(10)
             .alert(isPresented: $isAlert) { () -> Alert in
                 Alert(title: Text("Error"), message: Text(error.localizedDescription), dismissButton: Alert.Button.default(Text("Okay")))

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Poster<Placeholder: View> : View {
-    
+    @State var failed = false
     @ObservedObject private var loader: ImageLoader
     private let placeholder: Placeholder
     
@@ -21,6 +21,11 @@ struct Poster<Placeholder: View> : View {
         content
             .onAppear() {
                 loader.loadImage()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    if loader.image == nil {
+                        failed = true
+                    }
+                }
             }
     }
     
@@ -28,6 +33,9 @@ struct Poster<Placeholder: View> : View {
         Group {
             if loader.image != nil {
                 Image(uiImage: loader.image!)
+                    .resizable()
+            } else if failed {
+                Image("tango")
                     .resizable()
             } else {
                 placeholder

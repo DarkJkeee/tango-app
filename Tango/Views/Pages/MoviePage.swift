@@ -6,20 +6,21 @@
 //
 
 import SwiftUI
+import Kingfisher
 import AVKit
 
 struct MoviePage: View {
+    @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) var colorScheme
     var movie: Movie
     
     var body: some View {
-        NavigationView {
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
                     ZStack(alignment: .bottom) {
-                        Poster(poster: movie.posterPath, size: .medium) {
-                            ProgressView()
-                        }
+                        KFImage(URL(string: "https://image.tmdb.org/t/p/w500" + (movie.posterPath ?? ""))!)
+                            .placeholder({ProgressView()})
+                            .resizable()
                             .aspectRatio(contentMode: .fit)
                             .cornerRadius(5)
                         Rectangle()
@@ -32,8 +33,14 @@ struct MoviePage: View {
             }
             .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
             .edgesIgnoringSafeArea(.all)
-            .navigationBarHidden(true)
-        }
+//            .navigationBarItems(leading: Button(action: {
+//                presentationMode.wrappedValue.dismiss()
+//            }, label: {
+//                HStack {
+//                    Image(systemName: "arrow.left")
+//                    Text("Back")
+//                }
+//            }))
     }
 }
 
@@ -57,7 +64,8 @@ struct MovieDescription: View {
                 .foregroundColor(.secondary)
                 .font(.custom("Dosis-Regular", size: 16))
             
-            BorderedButton(text: isInWishList ? "In Wishlist" : "Wishlist", systemImageName: "heart", color: .green, isOn: isInWishList, action: {
+            BorderedButton(text: isInWishList ? "In Wishlist" : "Wishlist", systemImageName: "heart", color: colorScheme == .dark ? Color("AccentLight") : Color("AccentDark"), isOn: isInWishList, action: {
+                // TODO: adds to wl.
                 isInWishList.toggle()
             })
             

@@ -12,31 +12,34 @@ struct HomeView: View {
     @StateObject var homeVM = MoviesListViewModel()
     
     var body: some View {
-        VStack {
-            switch homeVM.state {
-            case .idle:
-                (colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
-                    .onAppear() {
-                        homeVM.fetchData()
+        NavigationView {
+            VStack {
+                switch homeVM.state {
+                case .idle:
+                    (colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
+                        .onAppear() {
+                            homeVM.fetchData()
+                        }
+                case .loading:
+                    ZStack {
+                        colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight
+                        ProgressView("Loading...")
                     }
-            case .loading:
-                ZStack {
-                    colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight
-                    ProgressView("Loading...")
-                }
-            case .error(let error):
-                ZStack {
-                    colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight
-                    VStack {
-                        AlertView(error: error, retryAction: { homeVM.fetchData() })
+                case .error(let error):
+                    ZStack {
+                        colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight
+                        VStack {
+                            AlertView(error: error, retryAction: { homeVM.fetchData() })
+                        }
                     }
+                case .loaded(let movies):
+                    content(movies: movies)
                 }
-            case .loaded(let movies):
-                content(movies: movies)
             }
+            .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
+            .edgesIgnoringSafeArea(.all)
+            .navigationBarHidden(true)
         }
-        .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
-        .edgesIgnoringSafeArea(.all)
     }
     
     private func content(movies: [Int: [Movie]]) -> some View {

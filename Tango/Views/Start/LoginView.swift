@@ -15,20 +15,17 @@ struct LoginView: View {
     @ObservedObject var loginVM: LoginViewModel
     
     var body: some View {
-        ZStack {
-            NavigationView {
+        NavigationView {
+            ZStack {
                 content
+                if loginVM.state == .logging {
+                    Rectangle()
+                        .frame(width: 200, height: 100, alignment: .center)
+                        .foregroundColor(colorScheme == .dark ? Color.AccentColorDark : Color.AccentColorLight)
+                        .cornerRadius(10)
+                    ProgressView("Loading...")
+                }
             }
-            if loginVM.state == .logging {
-                Rectangle()
-                    .frame(width: 200, height: 100, alignment: .center)
-                    .foregroundColor(colorScheme == .dark ? Color.AccentColorDark : Color.AccentColorLight)
-                    .cornerRadius(10)
-                ProgressView("Loading...")
-            }
-        }
-        .alert(isPresented: $loginVM.isFailed) { () -> Alert in
-            Alert(title: Text("Invalid authorization data"), message: Text("Wrong email or password"), dismissButton: Alert.Button.default(Text("Try again")))
         }
     }
     
@@ -39,6 +36,9 @@ struct LoginView: View {
                 .font(.custom("Dosis-Bold", size: 50))
                 .padding([.top, .bottom], 40)
             
+            Text(loginVM.errorMsg)
+                .foregroundColor(.red)
+            
             VStack(alignment: .leading, spacing: 15) {
                 TextBar(text: $loginVM.email, placeholder: "Email", imageName: "envelope.fill", isSecureField: false)
                 
@@ -48,8 +48,7 @@ struct LoginView: View {
             .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
             
             Button(action: {
-                loginVM.isLogged.toggle()
-                // loginVM.login()
+                loginVM.login()
             }, label: {
                 RoundedRectangle(cornerRadius: 10)
                     .frame(height: 60)
@@ -59,15 +58,15 @@ struct LoginView: View {
                             .foregroundColor(.white)
                     )
             })
-            .foregroundColor(.orange)
+            .foregroundColor(colorScheme == .dark ? Color("AccentLight") : Color("AccentDark"))
             .padding()
             
             NavigationLink(
                 destination: Text("Hello"),
                 label: {
-                    Text("Forgot your password?")
+                    Text("Forget your password?")
                         .font(.custom("Dosis-Light", size: 18))
-                        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
+                        .foregroundColor(colorScheme == .dark ? Color("AccentLight") : Color("AccentDark"))
                         .opacity(0.7)
                 })
                 .padding()
