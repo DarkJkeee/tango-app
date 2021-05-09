@@ -17,33 +17,9 @@ struct TabBar: View {
     @State var selectedTab = "Home"
     @Namespace private var animation
     
-    //     For not reloading tabs...
-//    @StateObject var tabs = ViewModel()
-    
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        
-//        TabView {
-//            HomeView()
-//                .tabItem {
-//                    Image(systemName: "house.fill")
-//                }
-//                .tag(0)
-//            ChatListView()
-//                .tabItem {
-//                    Image(systemName: "message")
-//                }
-//                .tag(1)
-//            ProfileView()
-//                .tabItem {
-//                    Image(systemName: "person.fill")
-//                }
-//                .tag(2)
-//        }
-//        .accentColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
-//        .navigationBarHidden(true)
-//        .navigationBarBackButtonHidden(true)
         VStack(spacing: 0) {
             GeometryReader { _ in
                 ZStack {
@@ -99,7 +75,6 @@ struct TabButton: View {
                             .frame(width: 45, height: 3)
                             .matchedGeometryEffect(id: "ID", in: animation)
                     }
-                    
                 }
                 
                 Image(systemName: image)
@@ -123,24 +98,6 @@ struct CustomShape: Shape {
         return Path(path.cgPath)
     }
 }
-
-//class ViewModel: ObservableObject {
-//    @Published var isHomeLoad = false
-//    @Published var isChatListLoad = false
-//    @Published var isProfileLoad = false
-//
-//    func loadHome() {
-//        isHomeLoad = true
-//    }
-//
-//    func loadChatList() {
-//        isChatListLoad = true
-//    }
-//
-//    func loadProfile() {
-//        isProfileLoad = true
-//    }
-//}
 
 struct TabbedPageView_Previews: PreviewProvider {
     static var previews: some View {

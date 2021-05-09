@@ -34,9 +34,7 @@ final class MoviesListViewModel: ObservableObject {
                 return str
             }
             .compactMap { $0 }
-            .sink { completion in
-                
-            } receiveValue: { query in
+            .sink { query in
                 self.searchData(query: query)
             }
             .store(in: &cancellables)

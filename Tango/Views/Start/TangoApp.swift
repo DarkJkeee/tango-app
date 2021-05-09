@@ -10,26 +10,31 @@ import SwiftUI
 
 @main
 struct TangoApp: App {
-    @AppStorage("jwt_token") private var token = ""
     @AppStorage("isDarkMode") private var isDarkMode = false
-    @StateObject var loginVM = LoginViewModel()
+    
+    @StateObject var sessionVM = SessionViewModel()
+    @StateObject var profileVM = ProfileViewModel()
     
     var body: some Scene {
         WindowGroup {
             VStack {
-                if !loginVM.isLogged {
-                    LoginView(loginVM: loginVM)
+                if !sessionVM.isLogged {
+                    LoginView()
                 } else {
                     TabbedPageView()
-                        .environmentObject(loginVM)
+                        .onAppear() {
+                            profileVM.loadProfileWith(id: sessionVM.userId)
+                        }
                 }
             }
+            .environmentObject(sessionVM)
+            .environmentObject(profileVM)
             .preferredColorScheme(isDarkMode ? .dark : .light)
             .accentColor(isDarkMode ? .AccentColorLight : .AccentColorDark)
             .onAppear() {
                 UIApplication.shared.addTapGestureRecognizer()
-                if token != "" {
-                    loginVM.authenticateWithoutPass()
+                if sessionVM.token != "" {
+                    sessionVM.authenticateWithoutPass()
                 }
             }
         }

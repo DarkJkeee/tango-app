@@ -62,6 +62,10 @@ class RegistrationViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    func register() {
+        
+    }
+    
     deinit {
         for subscription in cancellables {
             subscription.cancel()

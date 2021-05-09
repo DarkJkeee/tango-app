@@ -8,6 +8,7 @@
 import SwiftUI
 
 public struct BorderedButton : View {
+    @Environment(\.colorScheme) var colorScheme
     public let text: String
     public let systemImageName: String
     public let color: Color
@@ -27,8 +28,8 @@ public struct BorderedButton : View {
             self.action()
         }, label: {
             HStack(alignment: .center, spacing: 4) {
-                Image(systemName: systemImageName).foregroundColor(isOn ? .white : color)
-                Text(text).foregroundColor(isOn ? .white : color)
+                Image(systemName: systemImageName).foregroundColor(isOn ? colorScheme == .dark ? .AccentColorDark : .AccentColorLight : color)
+                Text(text).foregroundColor(isOn ? colorScheme == .dark ? .AccentColorDark : .AccentColorLight : color)
             }
             })
             .buttonStyle(BorderlessButtonStyle())

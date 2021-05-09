@@ -95,15 +95,7 @@ struct MovieDescription: View {
                         .font(.custom("Dosis-Bold", size: 16))
                 }
             }
-            HStack {
-                Spacer()
-//                    NavigationLink(
-//                        destination:),
-//                        label: {
-//                            Text("Watch")
-//                        })
-                Spacer()
-            }
+            
         }
         .padding(.all)
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)

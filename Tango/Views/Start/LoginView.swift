@@ -12,13 +12,13 @@ struct LoginView: View {
     @Environment(\.colorScheme) var colorScheme
     
     @State private var keyboardHeight: CGFloat = 0
-    @ObservedObject var loginVM: LoginViewModel
+    @EnvironmentObject var sessionVM: SessionViewModel
     
     var body: some View {
         NavigationView {
             ZStack {
                 content
-                if loginVM.state == .logging {
+                if sessionVM.state == .logging {
                     Rectangle()
                         .frame(width: 200, height: 100, alignment: .center)
                         .foregroundColor(colorScheme == .dark ? Color.AccentColorDark : Color.AccentColorLight)
@@ -36,30 +36,21 @@ struct LoginView: View {
                 .font(.custom("Dosis-Bold", size: 50))
                 .padding([.top, .bottom], 40)
             
-            Text(loginVM.errorMsg)
+            Text(sessionVM.errorMsg)
                 .foregroundColor(.red)
             
             VStack(alignment: .leading, spacing: 15) {
-                TextBar(text: $loginVM.email, placeholder: "Email", imageName: "envelope.fill", isSecureField: false)
+                TextBar(text: $sessionVM.email, placeholder: "Email", imageName: "envelope.fill", isSecureField: false)
                 
-                TextBar(text: $loginVM.password, placeholder: "Password", imageName: "eye.slash.fill", isSecureField: true)
+                TextBar(text: $sessionVM.password, placeholder: "Password", imageName: "eye.slash.fill", isSecureField: true)
             }
             .padding([.leading, .trailing], 27.5)
             .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
             
-            Button(action: {
-                loginVM.login()
-            }, label: {
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(height: 60)
-                    .overlay(
-                        Text("Sign Up")
-                            .font(.custom("Dosis-Bold", size: 20))
-                            .foregroundColor(.white)
-                    )
-            })
+            AccentButton(title: "Sign Up", height: 60) {
+                sessionVM.login()
+            }
             .foregroundColor(colorScheme == .dark ? Color("AccentLight") : Color("AccentDark"))
-            .padding()
             
             NavigationLink(
                 destination: Text("Hello"),
@@ -72,7 +63,7 @@ struct LoginView: View {
                 .padding()
             
             NavigationLink(
-                destination: RegistrationView(loginVM: loginVM),
+                destination: RegistrationView(),
                 label: {
                     Text("Don't have an account? Sign up")
                         .font(.custom("Dosis-Light", size: 18))
@@ -93,7 +84,9 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(loginVM: LoginViewModel())
+        LoginView()
+            .environmentObject(SessionViewModel())
+            .environmentObject(ProfileViewModel())
             .preferredColorScheme(.light)
     }
 }

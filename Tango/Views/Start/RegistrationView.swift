@@ -12,7 +12,8 @@ struct RegistrationView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) var colorScheme
     
-    @ObservedObject var loginVM: LoginViewModel
+    @EnvironmentObject var sessionVM: SessionViewModel
+    
     @StateObject var viewModel = RegistrationViewModel()
     
     @State private var isShowing: Bool = false
@@ -50,20 +51,11 @@ struct RegistrationView: View {
             Text(viewModel.passwordError)
                 .foregroundColor(.red)
             
-            Button(action: {
+            AccentButton(title: "Sign Up", height: 60) {
+                // TODO: Registration
                 
-                // todo: register...
                 isShowing.toggle()
-            }, label: {
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(height: 60)
-                    .overlay(
-                        Text("Sign Up")
-                            .font(.custom("Dosis-Bold", size: 20))
-                            .foregroundColor(.white)
-                    )
-            })
-            .padding()
+            }
             .foregroundColor(viewModel.isValid ? colorScheme == .dark ? Color("AccentLight") : Color("AccentDark") : .gray)
             .disabled(!viewModel.isValid)
             
@@ -89,18 +81,10 @@ struct RegistrationView: View {
             
             Spacer()
             
-            Button(action: {
+            AccentButton(title: "Login", height: 60) {
                 isShowing.toggle()
                 presentationMode.wrappedValue.dismiss()
-            }, label: {
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(height: 60)
-                    .overlay(
-                        Text("Login")
-                            .font(.custom("Dosis-Bold", size: 20))
-                            .foregroundColor(.AccentColorLight)
-                    )
-            })
+            }
             .foregroundColor(colorScheme == .dark ? Color("AccentLight") : Color("AccentDark"))
             .padding()
             
@@ -145,10 +129,10 @@ struct RegistrationView: View {
 struct RegistrationView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            RegistrationView(loginVM: LoginViewModel()).previewDevice("iPhone 12 Pro Max")
+            RegistrationView().previewDevice("iPhone 12 Pro Max")
                 .preferredColorScheme(.dark)
-            RegistrationView(loginVM: LoginViewModel()).previewDevice("iPhone SE (2nd generation)")
-            RegistrationView(loginVM: LoginViewModel()).previewDevice("iPod touch (7th generation)")
+            RegistrationView().previewDevice("iPhone SE (2nd generation)")
+            RegistrationView().previewDevice("iPod touch (7th generation)")
         }
     }
 }

@@ -9,9 +9,7 @@ import Foundation
 
 struct User {
     
-    var userName: String
-    var email: String
-    var password: String
+    var username: String
     var dateOfBirth: Date
 //    var followers: [User]
 //    var following: [User]

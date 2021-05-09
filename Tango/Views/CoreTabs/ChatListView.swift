@@ -34,7 +34,7 @@ struct ChatListView: View {
                 Button(action: {
 
                 }, label: {
-                    Image(systemName: "person.fill")
+                    Image(systemName: "plus")
                         .resizable()
                         .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                         .frame(width: 30, height: 30)
