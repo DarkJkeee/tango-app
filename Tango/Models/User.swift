@@ -7,13 +7,23 @@
 
 import Foundation
 
-struct User {
+struct User: Codable {
     
+    var userId: Int
     var username: String
-    var dateOfBirth: Date
+    var email: String
+    var age: Int
+    var userRoles: [Role]
+    
+//    var dateOfBirth: Date
 //    var followers: [User]
 //    var following: [User]
-    var subscriptionPlan: Int
-    var favouritesMovies: [Int]
+//    var subscriptionPlan: Int
+//    var favouritesMovies: [Int]
     
+    
+}
+
+struct Role: Codable {
+    var name: String
 }

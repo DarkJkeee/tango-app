@@ -13,17 +13,24 @@ struct RegistrationView: View {
     @Environment(\.colorScheme) var colorScheme
     
     @EnvironmentObject var sessionVM: SessionViewModel
-    
     @StateObject var viewModel = RegistrationViewModel()
     
-    @State private var isShowing: Bool = false
     @State private var keyboardHeight: CGFloat = 0
     
     var body: some View {
-        content
-            .sheet(isPresented: $isShowing, content: {
-                verificationView
-            })
+        ZStack {
+            content
+                .sheet(isPresented: $viewModel.isValid, content: {
+                    verificationView
+                })
+            if viewModel.isLoading {
+                Rectangle()
+                    .frame(width: 200, height: 100, alignment: .center)
+                    .foregroundColor(colorScheme == .dark ? Color.AccentColorDark : Color.AccentColorLight)
+                    .cornerRadius(10)
+                ProgressView("Loading...")
+            }
+        }
     }
     
     private var content: some View {
@@ -32,6 +39,11 @@ struct RegistrationView: View {
             Text("Tangö")
                 .font(.custom("Dosis-Bold", size: 50))
                 .padding()
+            
+            if viewModel.isExist {
+                Text("Username already exist!")
+                    .foregroundColor(.red)
+            }
             
             VStack(alignment: .leading, spacing: 15) {
                 TextBar(text: $viewModel.username, placeholder: "Username", imageName: "person.fill", isSecureField: false)
@@ -44,7 +56,6 @@ struct RegistrationView: View {
                 
             }
             .padding([.leading, .trailing], 27.5)
-            .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
 
             Text(viewModel.usernameError)
                 .foregroundColor(.red)
@@ -53,15 +64,15 @@ struct RegistrationView: View {
             
             AccentButton(title: "Sign Up", height: 60) {
                 // TODO: Registration
-                
-                isShowing.toggle()
+                viewModel.register()
             }
-            .foregroundColor(viewModel.isValid ? colorScheme == .dark ? Color("AccentLight") : Color("AccentDark") : .gray)
-            .disabled(!viewModel.isValid)
+            .foregroundColor(viewModel.isFormValid ? colorScheme == .dark ? .AccentLight: .AccentDark : .gray)
+            .disabled(!viewModel.isFormValid)
             
             Spacer()
         }
         .padding(.bottom, keyboardHeight)
+        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
         .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
         .edgesIgnoringSafeArea(.all)
         .onReceive(Publishers.keyboardHeight) { self.keyboardHeight = $0 }
@@ -71,21 +82,19 @@ struct RegistrationView: View {
         VStack {
             Text("Continue with email")
                 .font(.custom("Dosis-Bold", size: 28))
-                .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                 .padding()
             
             Text("You will get an email. Follow the link in the letter to register an account.")
                 .font(.custom("Dosis-Regular", size: 24))
-                .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                 .padding()
             
             Spacer()
             
             AccentButton(title: "Login", height: 60) {
-                isShowing.toggle()
+                viewModel.isValid = false
                 presentationMode.wrappedValue.dismiss()
             }
-            .foregroundColor(colorScheme == .dark ? Color("AccentLight") : Color("AccentDark"))
+            .foregroundColor(colorScheme == .dark ? .AccentLight : .AccentDark)
             .padding()
             
             Spacer()
@@ -104,6 +113,7 @@ struct RegistrationView: View {
             
             Spacer()
         }
+        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
         .accentColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
         .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
     }

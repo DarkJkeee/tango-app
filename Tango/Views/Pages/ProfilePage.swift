@@ -9,8 +9,9 @@ import SwiftUI
 import Kingfisher
 
 struct ProfilePage: View {
-//    let user: User
+    var id: Int
     let profileLinkNames = ["Favourite movies", "Followers", "Following"]
+    @EnvironmentObject var profileVM: ProfileViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -24,7 +25,7 @@ struct ProfilePage: View {
             }
             
             HStack {
-                Text("Username")
+                Text(profileVM.currentUser.username)
                     .font(.custom("Dosis-Bold", size: 24))
             }
             .padding()
@@ -49,11 +50,9 @@ struct ProfilePage: View {
             
             Spacer()
         }
+        .onAppear() {
+            profileVM.loadProfileWith(id: id)
+        }
     }
 }
 
-struct ProfilePage_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfilePage()
-    }
-}

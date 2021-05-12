@@ -7,8 +7,11 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class RegistrationViewModel: ObservableObject {
+//    @AppStorage("jwt_token") private var token = ""
+//    @AppStorage("user_id") private(set) var userId = -1
     
     @Published var username: String = ""
     @Published var email: String = ""
@@ -17,17 +20,21 @@ class RegistrationViewModel: ObservableObject {
     
     @Published var usernameError = ""
     @Published var passwordError = ""
+    
+    @Published var isFormValid = false
+    @Published var isExist = false
+    
+    @Published var isLoading = false
     @Published var isValid = false
     
     private var cancellables = Set<AnyCancellable>()
-    
     
     private let predicate = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?&]).{6,}$")
     
     init() {
         isFormValidPublisher
             .receive(on: RunLoop.main)
-            .assign(to: \.isValid, on: self)
+            .assign(to: \.isFormValid, on: self)
             .store(in: &cancellables)
         
         isUsernameValidPublisher
@@ -63,7 +70,31 @@ class RegistrationViewModel: ObservableObject {
     }
     
     func register() {
-        
+        isLoading = true
+        Session.shared.register(email: email, username: username, password: password)
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    switch error {
+                        case .custom(let msg):
+                            print(msg)
+                        case .usernameExist:
+                            self.isExist = true
+                        default:
+                            print("something went wrong")
+                    }
+                } else {
+                    self.isValid = true
+                }
+                self.isLoading = false
+            } receiveValue: { value in
+                
+            }
+            .store(in: &cancellables)
+//        username = ""
+//        password = ""
+//        passwordAgain = ""
+//        email = ""
     }
     
     deinit {
@@ -79,6 +110,7 @@ extension RegistrationViewModel {
         $username
             .removeDuplicates()
             .map {
+                self.isExist = false
                 if ($0.count >= 3) {
                     return UsernameStatus.valid
                 }

@@ -57,7 +57,6 @@ struct MovieDescription: View {
         VStack(alignment: .leading, spacing: 15) {
             
             Text(movie.title)
-                .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                 .font(.custom("Dosis-Bold", size: 35))
                 .fontWeight(.semibold)
             Text("1h 44m | Drama | \(movie.getReleaseDate)")
@@ -88,15 +87,14 @@ struct MovieDescription: View {
                         .hidden()
                 )
             if truncated {
-                
                 Button(action: { self.isExpanded.toggle() }) {
                     Text(isExpanded ? "Show less" : "Show more")
-                        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                         .font(.custom("Dosis-Bold", size: 16))
                 }
             }
             
         }
+        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
         .padding(.all)
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
     }

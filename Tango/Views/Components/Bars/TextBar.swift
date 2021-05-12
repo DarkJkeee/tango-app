@@ -17,12 +17,15 @@ struct TextBar: View {
     var body: some View {
         HStack {
             Image(systemName: imageName)
-            if isSecureField {
-                SecureField(placeholder, text: $text)
-                    .autocapitalization(.none)
-            } else {
-                TextField(placeholder, text: $text)
-                    .autocapitalization(.none)
+            ZStack(alignment: .leading) {
+                if text.isEmpty { Text(placeholder).opacity(0.6) }
+                if isSecureField {
+                    SecureField("", text: $text)
+                        .autocapitalization(.none)
+                } else {
+                    TextField("", text: $text)
+                        .autocapitalization(.none)
+                }
             }
         }
         .padding()

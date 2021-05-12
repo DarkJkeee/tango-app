@@ -30,7 +30,7 @@
 		2A4CA763264767A20074FFA0 /* AccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4CA762264767A20074FFA0 /* AccentButton.swift */; };
 		2A4CA76526476EAC0074FFA0 /* ProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4CA76426476EAC0074FFA0 /* ProfilePage.swift */; };
 		2A666C5526361C1C00FB9309 /* CardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A666C5426361C1C00FB9309 /* CardListView.swift */; };
-		2A88A15F263E40C400A2AAD7 /* SessionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88A15E263E40C400A2AAD7 /* SessionAPI.swift */; };
+		2A88A15F263E40C400A2AAD7 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88A15E263E40C400A2AAD7 /* Session.swift */; };
 		2A9F0285254FA81B00B011D6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F0284254FA81B00B011D6 /* User.swift */; };
 		2A9F9A5C2617DD5F00F6BEF6 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F9A5B2617DD5F00F6BEF6 /* ChatView.swift */; };
 		2AA2C05A2641A7DA00BFDF6C /* TextBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA2C0592641A7DA00BFDF6C /* TextBar.swift */; };
@@ -48,6 +48,8 @@
 		2ADDA8B325F50CA40060EF2C /* Dosis-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2ADDA8B225F50CA40060EF2C /* Dosis-Light.ttf */; };
 		2ADDA8BA25F50E630060EF2C /* Dosis-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2ADDA8B925F50E630060EF2C /* Dosis-Bold.ttf */; };
 		2ADDA8C425F6BBCA0060EF2C /* Dosis-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2ADDA8C325F6BBCA0060EF2C /* Dosis-Regular.ttf */; };
+		2AE53209264957C8007149F8 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE53208264957C8007149F8 /* MessageView.swift */; };
+		2AE5320C264957E6007149F8 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE5320B264957E6007149F8 /* Message.swift */; };
 		2AE8DF69258EEC4F00831558 /* MoviePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE8DF68258EEC4F00831558 /* MoviePage.swift */; };
 		2AF5570D25F97F9500343AA6 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF5570C25F97F9500343AA6 /* BorderedButton.swift */; };
 /* End PBXBuildFile section */
@@ -75,7 +77,7 @@
 		2A4CA762264767A20074FFA0 /* AccentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentButton.swift; sourceTree = "<group>"; };
 		2A4CA76426476EAC0074FFA0 /* ProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePage.swift; sourceTree = "<group>"; };
 		2A666C5426361C1C00FB9309 /* CardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListView.swift; sourceTree = "<group>"; };
-		2A88A15E263E40C400A2AAD7 /* SessionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionAPI.swift; sourceTree = "<group>"; };
+		2A88A15E263E40C400A2AAD7 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		2A9F0284254FA81B00B011D6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2A9F9A5B2617DD5F00F6BEF6 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		2AA2C0592641A7DA00BFDF6C /* TextBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBar.swift; sourceTree = "<group>"; };
@@ -95,6 +97,8 @@
 		2ADDA8B225F50CA40060EF2C /* Dosis-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dosis-Light.ttf"; sourceTree = "<group>"; };
 		2ADDA8B925F50E630060EF2C /* Dosis-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dosis-Bold.ttf"; sourceTree = "<group>"; };
 		2ADDA8C325F6BBCA0060EF2C /* Dosis-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dosis-Regular.ttf"; sourceTree = "<group>"; };
+		2AE53208264957C8007149F8 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		2AE5320B264957E6007149F8 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		2AE8DF68258EEC4F00831558 /* MoviePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePage.swift; sourceTree = "<group>"; };
 		2AF5570C25F97F9500343AA6 /* BorderedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +115,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A058DB6264C67C3000B5846 /* Movies */ = {
+			isa = PBXGroup;
+			children = (
+				2ABABF1A254F46A800F896C7 /* Movie.swift */,
+				2A247DE826349F0500CEFB7B /* Genre.swift */,
+			);
+			path = Movies;
+			sourceTree = "<group>";
+		};
 		2A1CF6AE26361A0100CBED14 /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,7 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				2A0B7DBF25509182002CDCF0 /* MoviesAPI.swift */,
-				2A88A15E263E40C400A2AAD7 /* SessionAPI.swift */,
+				2A88A15E263E40C400A2AAD7 /* Session.swift */,
 				2A4CA760264711580074FFA0 /* ProfileAPI.swift */,
 			);
 			path = API;
@@ -186,9 +199,9 @@
 		2ABABEC8254E375800F896C7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				2ABABF1A254F46A800F896C7 /* Movie.swift */,
+				2A058DB6264C67C3000B5846 /* Movies */,
+				2AE5320A264957D8007149F8 /* Chat */,
 				2A9F0284254FA81B00B011D6 /* User.swift */,
-				2A247DE826349F0500CEFB7B /* Genre.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -283,17 +296,50 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		2AE532052649578A007149F8 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				2A4CA762264767A20074FFA0 /* AccentButton.swift */,
+				2AF5570C25F97F9500343AA6 /* BorderedButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		2AE53206264957A0007149F8 /* Bars */ = {
+			isa = PBXGroup;
+			children = (
+				2AA2C0592641A7DA00BFDF6C /* TextBar.swift */,
+				2A08C15B2637A44400924429 /* SearchBar.swift */,
+			);
+			path = Bars;
+			sourceTree = "<group>";
+		};
+		2AE53207264957AD007149F8 /* Movies */ = {
+			isa = PBXGroup;
+			children = (
+				2A1CF6AB2636187100CBED14 /* PopularityBadge.swift */,
+				2A4936702634E11100DD803E /* Poster.swift */,
+			);
+			path = Movies;
+			sourceTree = "<group>";
+		};
+		2AE5320A264957D8007149F8 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				2AE5320B264957E6007149F8 /* Message.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
 		2AF5570B25F97F8600343AA6 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				2AF5570C25F97F9500343AA6 /* BorderedButton.swift */,
+				2AE53207264957AD007149F8 /* Movies */,
+				2AE53206264957A0007149F8 /* Bars */,
+				2AE532052649578A007149F8 /* Buttons */,
 				2AD4DD6A263345B20057CA78 /* AlertView.swift */,
-				2A4936702634E11100DD803E /* Poster.swift */,
-				2A1CF6AB2636187100CBED14 /* PopularityBadge.swift */,
-				2A08C15B2637A44400924429 /* SearchBar.swift */,
-				2AA2C0592641A7DA00BFDF6C /* TextBar.swift */,
 				2A05185C2645EF0E00D6C446 /* ImagePicker.swift */,
-				2A4CA762264767A20074FFA0 /* AccentButton.swift */,
+				2AE53208264957C8007149F8 /* MessageView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -376,7 +422,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A88A15F263E40C400A2AAD7 /* SessionAPI.swift in Sources */,
+				2A88A15F263E40C400A2AAD7 /* Session.swift in Sources */,
 				2ADBEC56262E07700011008F /* SettingsPage.swift in Sources */,
 				2AA2C05A2641A7DA00BFDF6C /* TextBar.swift in Sources */,
 				2A05185D2645EF0E00D6C446 /* ImagePicker.swift in Sources */,
@@ -385,6 +431,7 @@
 				2A1CF6A92636122900CBED14 /* PublishersExtension.swift in Sources */,
 				2A4936712634E11100DD803E /* Poster.swift in Sources */,
 				2ABABF1B254F46A800F896C7 /* Movie.swift in Sources */,
+				2AE5320C264957E6007149F8 /* Message.swift in Sources */,
 				2A4CA76526476EAC0074FFA0 /* ProfilePage.swift in Sources */,
 				2A247DF12634AABA00CEFB7B /* ImageLoader.swift in Sources */,
 				2AD4DD6B263345B20057CA78 /* AlertView.swift in Sources */,
@@ -406,6 +453,7 @@
 				2A4CA761264711580074FFA0 /* ProfileAPI.swift in Sources */,
 				2A14B5582616247C0084EAE9 /* RegistrationViewModel.swift in Sources */,
 				2A666C5526361C1C00FB9309 /* CardListView.swift in Sources */,
+				2AE53209264957C8007149F8 /* MessageView.swift in Sources */,
 				2A4BCB47260159490016B73E /* UIColorExtension.swift in Sources */,
 				2ABABF0C254F24ED00F896C7 /* RegistrationView.swift in Sources */,
 				2A247DE926349F0500CEFB7B /* Genre.swift in Sources */,

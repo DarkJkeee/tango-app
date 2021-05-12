@@ -13,7 +13,6 @@ struct TangoApp: App {
     @AppStorage("isDarkMode") private var isDarkMode = false
     
     @StateObject var sessionVM = SessionViewModel()
-    @StateObject var profileVM = ProfileViewModel()
     
     var body: some Scene {
         WindowGroup {
@@ -22,18 +21,14 @@ struct TangoApp: App {
                     LoginView()
                 } else {
                     TabbedPageView()
-                        .onAppear() {
-                            profileVM.loadProfileWith(id: sessionVM.userId)
-                        }
                 }
             }
             .environmentObject(sessionVM)
-            .environmentObject(profileVM)
             .preferredColorScheme(isDarkMode ? .dark : .light)
             .accentColor(isDarkMode ? .AccentColorLight : .AccentColorDark)
             .onAppear() {
                 UIApplication.shared.addTapGestureRecognizer()
-                if sessionVM.token != "" {
+                if Session.shared.token != "" {
                     sessionVM.authenticateWithoutPass()
                 }
             }

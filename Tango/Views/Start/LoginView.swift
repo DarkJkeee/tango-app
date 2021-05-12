@@ -41,40 +41,38 @@ struct LoginView: View {
             
             VStack(alignment: .leading, spacing: 15) {
                 TextBar(text: $sessionVM.email, placeholder: "Email", imageName: "envelope.fill", isSecureField: false)
+                    .onChange(of: sessionVM.email) { _ in
+                        sessionVM.errorMsg = ""
+                    }
                 
                 TextBar(text: $sessionVM.password, placeholder: "Password", imageName: "eye.slash.fill", isSecureField: true)
             }
             .padding([.leading, .trailing], 27.5)
-            .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
             
-            AccentButton(title: "Sign Up", height: 60) {
+            AccentButton(title: "Login", height: 60) {
                 sessionVM.login()
             }
-            .foregroundColor(colorScheme == .dark ? Color("AccentLight") : Color("AccentDark"))
+            .foregroundColor(colorScheme == .dark ? .AccentLight : .AccentDark)
             
-            NavigationLink(
-                destination: Text("Hello"),
-                label: {
-                    Text("Forget your password?")
-                        .font(.custom("Dosis-Light", size: 18))
-                        .foregroundColor(colorScheme == .dark ? Color("AccentLight") : Color("AccentDark"))
-                        .opacity(0.7)
-                })
-                .padding()
+            NavigationLink(destination: Text("Hello")) {
+                Text("Forget your password?")
+                    .font(.custom("Dosis-Light", size: 18))
+                    .foregroundColor(colorScheme == .dark ? .AccentLight : .AccentDark)
+                    .opacity(0.7)
+            }
+            .padding()
             
-            NavigationLink(
-                destination: RegistrationView(),
-                label: {
-                    Text("Don't have an account? Sign up")
-                        .font(.custom("Dosis-Light", size: 18))
-                        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
-                        .opacity(0.7)
-                })
-                .padding()
+            NavigationLink(destination: RegistrationView()) {
+                Text("Don't have an account? Sign up")
+                    .font(.custom("Dosis-Light", size: 18))
+                    .opacity(0.7)
+            }
+            .padding()
             
             Spacer()
         }
         .padding(.bottom, keyboardHeight)
+        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
         .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
         .edgesIgnoringSafeArea(.all)
         .navigationBarHidden(true)
@@ -86,7 +84,6 @@ struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
             .environmentObject(SessionViewModel())
-            .environmentObject(ProfileViewModel())
             .preferredColorScheme(.light)
     }
 }

@@ -10,6 +10,7 @@ import SwiftUI
 struct ChatListView: View {
     @Environment(\.colorScheme) var colorScheme
     @State var searchText = ""
+    @State var isShowing = false
     // TODO: VM
     
     var body: some View {
@@ -18,6 +19,20 @@ struct ChatListView: View {
                 topbar
                 content
             }
+            .sheet(isPresented: $isShowing, content: {
+                VStack {
+                    TextBar(text: $searchText, placeholder: "Chat name", imageName: "message", isSecureField: false)
+                        .padding()
+                    
+                    Spacer()
+                    AccentButton(title: "Create", height: 60) {
+                        
+                    }
+                    .foregroundColor(colorScheme == .dark ? .AccentLight : .AccentDark)
+                }
+                .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
+                .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
+            })
             .navigationBarHidden(true)
             .edgesIgnoringSafeArea(.all)
         }
@@ -28,21 +43,18 @@ struct ChatListView: View {
             HStack {
                 Text("Messages")
                     .font(.custom("Dosis-Bold", size: 40))
-                    .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                 Spacer()
 
                 Button(action: {
-
+                    isShowing.toggle()
                 }, label: {
                     Image(systemName: "plus")
                         .resizable()
-                        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                         .frame(width: 30, height: 30)
                 })
             }
             .padding([.trailing, .leading], 20)
-            .padding(.top, UIScreen.main.bounds.height * 0.05)
-            .padding(.bottom, 1)
+            .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
@@ -75,6 +87,7 @@ struct ChatListView: View {
             
             SearchBar(text: $searchText)
         }
+        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
         .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
         .cornerRadius(15)
     }
@@ -83,7 +96,11 @@ struct ChatListView: View {
         ScrollView {
             ForEach(1..<14) { index in
                     NavigationLink(
-                        destination: ChatView(),
+                        destination:
+                            ChatView(messages: [Message(id: 1, sender: .me, content: "Hello!!"),
+                                                Message(id: 2, sender: .other(named: "Vitaliy"), content: "Hi!"),
+                                                Message(id: 3, sender: .me, content: "вфыв!!"),
+                                                Message(id: 4, sender: .other(named: "Vitaliy"), content: "в!")]),
                         label: {
                             CellView()
                         })
@@ -110,18 +127,16 @@ struct CellView: View {
                 Text("Glebadsdasdasdasdasdasd")
                     .lineLimit(1)
                     .font(.custom("Dosis-Bold", size: 20))
-                    .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                 Text("Message...")
                     .lineLimit(2)
                     .font(.custom("Dosis-Regular", size: 15))
-                    .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                     .font(.caption)
             }
             Spacer()
             Text("12/07/2021")
                 .font(.custom("Dosis-Regular", size: 14))
-                .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
         }
+        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
         .padding()
     }
 }

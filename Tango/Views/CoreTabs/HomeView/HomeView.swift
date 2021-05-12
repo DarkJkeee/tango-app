@@ -84,13 +84,12 @@ struct HomeView: View {
         HStack {
             Text("Home")
                 .font(.custom("Dosis-Bold", size: 40))
-                .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
             Spacer()
             // TODO: topbar buttons...
         }
-        .padding(.top, UIScreen.main.bounds.height * 0.05)
+        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
+        .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
         .padding(.leading, 20)
-        .padding(.bottom, 1)
     }
 }
 

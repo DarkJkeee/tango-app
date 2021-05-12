@@ -8,13 +8,21 @@
 import SwiftUI
 
 struct ChatView: View {
+    var messages: [Message]
+    
     var body: some View {
-        Text("Hello, World!")
-    }
-}
-
-struct ChatView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChatView()
+        GeometryReader { geometry in
+            ScrollView {
+                ForEach(self.messages) { message in
+                     MessageView(message: message)
+                        .padding(.horizontal, 8)
+                        .padding(EdgeInsets(
+                                    top: 0,
+                                    leading: message.sender == .me ? geometry.size.width * 0.5 : 0 ,
+                                    bottom: 0,
+                                    trailing: message.sender == .me ? 0 : geometry.size.width * 0.5))
+                }
+            }
+        }
     }
 }

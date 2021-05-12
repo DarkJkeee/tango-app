@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct TabbedPageView: View {
+    @StateObject var profileVM = ProfileViewModel(id: Session.shared.userId)
+    
     var body: some View {
         TabBar()
+            .environmentObject(profileVM)
     }
 }
 

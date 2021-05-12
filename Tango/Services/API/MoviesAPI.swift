@@ -166,6 +166,17 @@ class MoviesAPI {
     
 }
 
+struct MovieResponse: Codable {
+    var page: Int?
+    var results: [Movie]
+    var totalPages: Int?
+    var totalResults: Int?
+}
+
+struct GenreResponse: Codable {
+    var genres: [Genre]
+}
+
 public enum MoviesAPIError: Error {
     case urlError(URLError)
     case responseError(Int)

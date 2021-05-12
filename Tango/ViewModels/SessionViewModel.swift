@@ -8,13 +8,8 @@
 import Foundation
 import LocalAuthentication
 import Combine
-import SwiftUI
 
 class SessionViewModel : ObservableObject {
-    // User defaults storage.
-    @AppStorage("expiration_date") private(set) var expireAt = ""
-    @AppStorage("jwt_token") private(set) var token = ""
-    @AppStorage("user_id") private(set) var userId = -1
     
     @Published var state = State.idle
     @Published var isLogged = false
@@ -26,12 +21,6 @@ class SessionViewModel : ObservableObject {
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-//        if expireAt != "" && formatter.date(from: expireAt) ?? Date() >= Date() {
-//            logout()
-//        }
-        
         $state
             .receive(on: RunLoop.main)
             .map {
@@ -46,7 +35,7 @@ class SessionViewModel : ObservableObject {
     
     func login() {
         state = .logging
-        SessionAPI.shared.login(email: email, password: password)
+        Session.shared.login(email: email, password: password)
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { completion in
                 if case let .failure(error) = completion {
@@ -57,16 +46,12 @@ class SessionViewModel : ObservableObject {
                     case SessionError.custom(let msg):
                         self.errorMsg = msg
                     default:
-                        self.errorMsg = "Something went wrong!"
+                        self.errorMsg = "Something went wrong"
                     }
                 } else {
                     self.state = .loggedIn
                 }
-            }, receiveValue: { res in
-                self.expireAt = res.expiration
-                self.token = res.jwtToken
-                self.userId = res.userId
-            })
+            }, receiveValue: { _ in })
             .store(in: &subscriptions)
         email = ""
         password = ""
@@ -74,10 +59,8 @@ class SessionViewModel : ObservableObject {
     
     func logout() {
         state = .idle
-        userId = -1
         errorMsg = ""
-        token = ""
-        expireAt = ""
+        Session.shared.logout()
     }
     
     func authenticateWithoutPass() {

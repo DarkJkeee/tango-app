@@ -7,13 +7,6 @@
 
 import Foundation
 
-struct MovieResponse: Codable {
-    var page: Int?
-    var results: [Movie]
-    var totalPages: Int?
-    var totalResults: Int?
-}
-
 struct Movie: Codable, Identifiable {
     var id: Int
     var title: String

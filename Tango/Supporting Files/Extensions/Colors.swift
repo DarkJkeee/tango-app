@@ -31,4 +31,12 @@ extension Color {
     public static var BackgroundColor: Color {
         return Color("BackgroundColor")
     }
+    
+    public static var AccentDark: Color {
+        return Color("AccentDark")
+    }
+    
+    public static var AccentLight: Color {
+        return Color("AccentLight")
+    }
 }
