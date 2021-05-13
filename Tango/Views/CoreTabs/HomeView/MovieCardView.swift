@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Kingfisher
+import SDWebImageSwiftUI
 
 struct MovieCardView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -30,28 +30,30 @@ struct MovieCardView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            KFImage(URL(string: "https://image.tmdb.org/t/p/w500" + (movie.posterPath ?? ""))!)
-            .placeholder({ProgressView()})
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 300, height: 170)
-            .clipped()
-            .shadow(color: .white, radius: 2, x: -3, y: -3)
-            .shadow(color: .lairShadowGray, radius: 2, x: 3, y: 3)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-//                    .stroke(colorScheme == .dark ? lairDiagonalLightBorder : lairDiagonalDarkBorder, lineWidth: 1)
-                    .stroke(lairDiagonalDarkBorder, lineWidth: 1)
-            )
-            .background(Color.lairBackgroundGray)
-            .cornerRadius(10)
-            .contextMenu {
-                Button(action: {
-                    
-                }, label: {
-                    Text("Add to wishlist")
-                })
-            }
+            WebImage(url: URL(string: "https://image.tmdb.org/t/p/w500" + (movie.posterPath ?? "")))
+                .placeholder {
+                    ProgressView()
+                }
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 300, height: 170)
+                .clipped()
+                .shadow(color: .white, radius: 2, x: -3, y: -3)
+                .shadow(color: .lairShadowGray, radius: 2, x: 3, y: 3)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+    //                    .stroke(colorScheme == .dark ? lairDiagonalLightBorder : lairDiagonalDarkBorder, lineWidth: 1)
+                        .stroke(lairDiagonalDarkBorder, lineWidth: 1)
+                )
+                .background(Color.lairBackgroundGray)
+                .cornerRadius(10)
+                .contextMenu {
+                    Button(action: {
+                        
+                    }, label: {
+                        Text("Add to wishlist")
+                    })
+                }
             VStack(alignment: .leading, spacing: 5) {
                 Text(movie.title)
                     .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)

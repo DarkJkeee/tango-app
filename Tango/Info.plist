@@ -22,6 +22,8 @@
 	<true/>
 	<key>NSFaceIDUsageDescription</key>
 	<string>We need to authenticate you.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We want to use your photos for setting profile image.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Dosis-Bold.ttf</string>

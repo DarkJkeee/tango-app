@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Kingfisher
+import SDWebImageSwiftUI
 
 struct MovieSearchCard: View {
     let movie: Movie
@@ -14,13 +14,14 @@ struct MovieSearchCard: View {
         NavigationLink(
             destination: MoviePage(movie: movie),
             label: {
-                KFImage(URL(string: "https://image.tmdb.org/t/p/w500" + (movie.posterPath ?? ""))!)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 100, height: 150)
-                .cornerRadius(5)
-                .shadow(radius: 8)
-                .animation(.easeInOut)
+                WebImage(url: URL(string: "https://image.tmdb.org/t/p/w500" + (movie.posterPath ?? "")))
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 100, height: 150)
+                    .cornerRadius(5)
+                    .shadow(radius: 8)
+                    .animation(.easeInOut)
+                
                 VStack {
                     Text(movie.title)
                         .font(.custom("Dosis-Bold", size: 16))

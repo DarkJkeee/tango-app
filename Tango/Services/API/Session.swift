@@ -111,6 +111,11 @@ class Session {
         }
     }
     
+    public func changeToken(token: String, expiration: String) {
+        self.token = token
+        self.expireAt = expiration
+    }
+    
     public func logout() {
         token = ""
         expireAt = ""

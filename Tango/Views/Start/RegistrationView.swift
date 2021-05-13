@@ -24,11 +24,7 @@ struct RegistrationView: View {
                     verificationView
                 })
             if viewModel.isLoading {
-                Rectangle()
-                    .frame(width: 200, height: 100, alignment: .center)
-                    .foregroundColor(colorScheme == .dark ? Color.AccentColorDark : Color.AccentColorLight)
-                    .cornerRadius(10)
-                ProgressView("Loading...")
+                LoadingScreen()
             }
         }
     }

@@ -12,8 +12,9 @@ struct User: Codable {
     var userId: Int
     var username: String
     var email: String
-    var age: Int
-    var userRoles: [Role]
+    var age: Int?
+    var userRoles: [Role]?
+    var avatar: String?
     
 //    var dateOfBirth: Date
 //    var followers: [User]

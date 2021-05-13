@@ -12,18 +12,17 @@ struct SettingsPage: View {
     
     @EnvironmentObject var profileVM: ProfileViewModel
     
-    @State var username = "username"
-    
+    @State var user: User
     
     var body: some View {
         NavigationView {
             VStack {
                 Section(header: Text("Profile").font(.custom("Dosis-Bold", size: 20))) {
-                    NavigationLink(destination: ChangeableField(imageName: "mail.stack", field: "Email", description: "You will get a confirmation message on your new email.", text: $username)) {
+                    NavigationLink(destination: ChangeableField(imageName: "mail.stack", field: "email", description: "You will get a confirmation message on your new email.", text: $user.email)) {
                         SettingsCell(imageName: "mail.stack", title: "Change Email")
                     }
                     
-                    NavigationLink(destination: ChangeableField(imageName: "person", field: "Username", description: "You can change your username. Your username should be at least 3 length.", text: $username)) {
+                    NavigationLink(destination: ChangeableField(imageName: "person", field: "username", description: "You can change your username. Your username should be at least 3 length.", text: $user.username)) {
                         SettingsCell(imageName: "person", title: "Change Username")
                     }
                     
@@ -57,6 +56,9 @@ struct SettingsPage: View {
                 Spacer()
                 
             }
+            .onAppear() {
+                profileVM.updateProfileView()
+            }
             .foregroundColor(isDarkMode ? Color.AccentColorLight : Color.AccentColorDark)
             .background(isDarkMode ? Color.backgroundColorDark : Color.backgroundColorLight)
             .edgesIgnoringSafeArea(.all)
@@ -86,7 +88,9 @@ struct SettingsCell: View {
 }
 
 struct ChangeableField: View {
+    @EnvironmentObject var profileVM: ProfileViewModel
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.presentationMode) var presentationMode
     
     var imageName: String
     var field: String
@@ -94,30 +98,37 @@ struct ChangeableField: View {
     @Binding var text: String
     
     var body: some View {
-        VStack {
-            TextBar(text: $text, placeholder: field, imageName: imageName, isSecureField: false)
-                .padding(.top, 100)
-            Text(description)
-                .opacity(0.6)
-                .padding()
-            
-            AccentButton(title: "Save", width: 100, height: 60) {
+        ZStack {
+            VStack {
+                TextBar(text: $text, placeholder: field, imageName: imageName, isSecureField: false)
+                    .padding(.top, 100)
+                Text(description)
+                    .opacity(0.6)
+                    .padding()
                 
+                switch profileVM.error {
+                    case .none: EmptyView()
+                    case .exist:
+                    Text("This \(field) already exist.").foregroundColor(.red)
+                }
+                
+                AccentButton(title: "Save", width: 100, height: 60) {
+                    profileVM.editProfile(field: field, value: text)
+                }
+                .onChange(of: profileVM.dismiss) { _ in
+                    presentationMode.wrappedValue.dismiss()
+                }
+                .foregroundColor(colorScheme == .dark ? .AccentLight : .AccentDark)
+                Spacer()
             }
-            .foregroundColor(colorScheme == .dark ? .AccentLight : .AccentDark)
-            Spacer()
+            .accentColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
+            .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
+            .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
+            .edgesIgnoringSafeArea(.all)
+            
+            if profileVM.isLoading {
+                LoadingScreen()
+            }
         }
-        .accentColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
-        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
-        .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
-        .edgesIgnoringSafeArea(.all)
     }
 }
-
-struct SettingsPage_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsPage()
-            .preferredColorScheme(.dark)
-    }
-}
-

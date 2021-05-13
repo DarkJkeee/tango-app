@@ -5,6 +5,7 @@
 //  Created by Глеб Бурштейн on 31.10.2020.
 //
 
+import PhotosUI
 import LocalAuthentication
 import SwiftUI
 
@@ -30,6 +31,9 @@ struct TangoApp: App {
                 UIApplication.shared.addTapGestureRecognizer()
                 if Session.shared.token != "" {
                     sessionVM.authenticateWithoutPass()
+                }
+                PHPhotoLibrary.requestAuthorization { status in
+                    guard status == .authorized else { return }
                 }
             }
         }

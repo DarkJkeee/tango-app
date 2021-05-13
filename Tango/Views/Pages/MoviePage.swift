@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Kingfisher
+import SDWebImageSwiftUI
 import AVKit
 
 struct MoviePage: View {
@@ -18,8 +18,10 @@ struct MoviePage: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
                     ZStack(alignment: .bottom) {
-                        KFImage(URL(string: "https://image.tmdb.org/t/p/w500" + (movie.posterPath ?? ""))!)
-                            .placeholder({ProgressView()})
+                        WebImage(url: URL(string: "https://image.tmdb.org/t/p/w500" + (movie.posterPath ?? "")))
+                            .placeholder {
+                                ProgressView()
+                            }
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .cornerRadius(5)

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct ProfileView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -14,24 +13,24 @@ struct ProfileView: View {
     @EnvironmentObject var sessionVM: SessionViewModel
     @EnvironmentObject var profileVM: ProfileViewModel
     
-    @State var avatar: UIImage?
     @State var isShowingSettings = false
-    @State var isShowingImagePicker = false
     let profileLinkNames = ["Favourite movies", "Followers", "Following"]
     
     var body: some View {
         NavigationView {
-            VStack {
-                topbar
-                ProfilePage(id: Session.shared.userId)
-                AccentButton(title: "Logout", height: 60) {
-                    sessionVM.logout()
+            ScrollView {
+                VStack {
+                    topbar
+                    ProfilePage(user: profileVM.mainUser, isChangeable: true)
+                    AccentButton(title: "Logout", height: 60) {
+                        sessionVM.logout()
+                    }
+                    .foregroundColor(colorScheme == .dark ? .AccentLight : .AccentDark)
                 }
-                .foregroundColor(colorScheme == .dark ? .AccentLight : .AccentDark)
             }
             .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
             .sheet(isPresented: $isShowingSettings, content: {
-                SettingsPage()
+                SettingsPage(user: profileVM.mainUser)
             })
             .edgesIgnoringSafeArea(.all)
             .navigationBarHidden(true)
@@ -63,5 +62,6 @@ struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView()
             .environmentObject(SessionViewModel())
+            .environmentObject(ProfileViewModel(id: 3))
     }
 }
