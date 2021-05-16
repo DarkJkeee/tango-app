@@ -17,6 +17,8 @@ class Session {
     @AppStorage("jwt_token") private(set) var token = ""
     @AppStorage("user_id") private(set) var userId = -1
     
+    private var url = "https://tango-server-db-eu.herokuapp.com"
+    
     private var subscriptions = Set<AnyCancellable>()
     private let jsonDecoder: JSONDecoder = {
         let jsonDecoder = JSONDecoder()
@@ -32,7 +34,7 @@ class Session {
         let body = LoginBody(username: email, password: password)
         
         return Future<SessionResponse, SessionError> { promise in
-            guard let url = URL(string: "https://tango-server-db.herokuapp.com/auth/login") else {
+            guard let url = URL(string: "\(self.url)/auth/login") else {
                 return promise(.failure(SessionError.custom(msg: URLError(.unsupportedURL).localizedDescription)))
             }
             
@@ -75,7 +77,7 @@ class Session {
         let body = RegisterBody(email: email, username: username, password: password, roles: ["ROLE_USER"], date_of_birth: "2002-08-19", sub_deadline: "2021-08-19")
         
         return Future<RegistrationResponse, SessionError> { promise in
-            guard let url = URL(string: "https://tango-server-db.herokuapp.com/auth/register") else {
+            guard let url = URL(string: "\(self.url)/auth/register") else {
                 return promise(.failure(.custom(msg: URLError(.unsupportedURL).localizedDescription)))
             }
             
@@ -127,39 +129,38 @@ class Session {
             sub.cancel()
         }
     }
-}
-
-struct SessionResponse: Decodable {
-    var jwtToken: String
-    var user: UserResponse
-    var expiration: String
-    var issuedAt: String
     
-    struct UserResponse: Decodable {
-        var id: Int
+    struct SessionResponse: Decodable {
+        var jwtToken: String
+        var user: UserResponse
+        var expiration: String
+        var issuedAt: String
+        
+        struct UserResponse: Decodable {
+            var id: Int
+        }
+    }
+
+    struct RegistrationResponse: Decodable {
+        var message: String
+        var jwtToken: String
+        var user: User
+    }
+
+    struct LoginBody: Encodable {
+        var username: String
+        var password: String
+    }
+
+    struct RegisterBody: Encodable {
+        var email: String
+        var username: String
+        var password: String
+        var roles: [String]
+        var date_of_birth: String
+        var sub_deadline: String
     }
 }
-
-struct RegistrationResponse: Decodable {
-    var message: String
-    var jwtToken: String
-    var user: User
-}
-
-struct LoginBody: Encodable {
-    var username: String
-    var password: String
-}
-
-struct RegisterBody: Encodable {
-    var email: String
-    var username: String
-    var password: String
-    var roles: [String]
-    var date_of_birth: String
-    var sub_deadline: String
-}
-
 
 public enum SessionError: Error {
     case usernameExist

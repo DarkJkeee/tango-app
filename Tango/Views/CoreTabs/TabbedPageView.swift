@@ -11,8 +11,12 @@ struct TabbedPageView: View {
     @StateObject var profileVM = ProfileViewModel(id: Session.shared.userId)
     
     var body: some View {
-        TabBar()
-            .environmentObject(profileVM)
+        NavigationView {
+            TabBar()
+                .navigationBarHidden(true)
+                .navigationViewStyle(StackNavigationViewStyle())
+        }
+        .environmentObject(profileVM)
     }
 }
 

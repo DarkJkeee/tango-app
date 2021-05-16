@@ -8,6 +8,7 @@
 import PhotosUI
 import LocalAuthentication
 import SwiftUI
+import AVKit
 
 @main
 struct TangoApp: App {
@@ -35,6 +36,7 @@ struct TangoApp: App {
                 PHPhotoLibrary.requestAuthorization { status in
                     guard status == .authorized else { return }
                 }
+                
             }
         }
     }
@@ -54,5 +56,23 @@ extension UIApplication {
 extension UIApplication: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true // set to `false` if you don't want to detect tap during other gestures
+    }
+}
+
+extension UINavigationController {
+    override open var supportedInterfaceOrientations : UIInterfaceOrientationMask     {
+        return .all
+    }
+}
+
+extension UITabBarController {
+    override open var supportedInterfaceOrientations : UIInterfaceOrientationMask     {
+        return .all
+    }
+}
+
+extension AVPlayerViewController {
+    override open var supportedInterfaceOrientations : UIInterfaceOrientationMask     {
+        return .all
     }
 }

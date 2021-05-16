@@ -12,7 +12,6 @@ struct HomeView: View {
     @StateObject var homeVM = MoviesListViewModel()
     
     var body: some View {
-        NavigationView {
             VStack {
                 switch homeVM.state {
                 case .idle:
@@ -39,23 +38,25 @@ struct HomeView: View {
             .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
             .edgesIgnoringSafeArea(.all)
             .navigationBarHidden(true)
-        }
+        
     }
     
-    private func content(movies: [Int: [Movie]]) -> some View {
+    private func content(movies: [MovieDTO]) -> some View {
         return VStack {
             topbar
-            SearchBar(text: $homeVM.searchText)
+            SearchBar(text: $homeVM.searchText, placeholder: "Search")
                 .cornerRadius(15)
             switch homeVM.searchState {
             case .idle:
                 ScrollView {
                     LazyVStack {
                         ForEach(homeVM.genres) { genre in
-                            if movies[genre.id] != nil {
-                                Divider()
-                                CardListView(movies: movies[genre.id] ?? [], genre: genre.name)
-                            }
+//                            if movies[genre.id] != nil {
+//                                Divider()
+//                                CardListView(movies: movies[genre.id] ?? [], genre: genre.genreName)
+//                            }
+                            Divider()
+                            CardListView(movies: movies, genre: genre.genreName)
                         }
                     }
                 }
@@ -65,7 +66,7 @@ struct HomeView: View {
                     LazyVStack {
                         ForEach(movies) { movie in
                             Divider()
-                            MovieSearchCard(movie: movie)
+                            MovieSearchCard(movie: movie.film)
                         }
                     }
                 }

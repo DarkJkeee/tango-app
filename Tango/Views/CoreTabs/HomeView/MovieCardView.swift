@@ -30,7 +30,7 @@ struct MovieCardView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            WebImage(url: URL(string: "https://image.tmdb.org/t/p/w500" + (movie.posterPath ?? "")))
+            WebImage(url: URL(string: movie.descPreview))
                 .placeholder {
                     ProgressView()
                 }
@@ -58,7 +58,7 @@ struct MovieCardView: View {
                 Text(movie.title)
                     .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                     .font(.custom("Dosis-Bold", size: 20))
-                Text(movie.overview)
+                Text(movie.descText)
                     .font(.custom("Dosis-Regular", size: 15))
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.leading)

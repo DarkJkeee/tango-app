@@ -11,8 +11,9 @@ import Combine
 class MoviesAPI {
     public static let shared = MoviesAPI()
     private init() {}
-    private let apiKey = "d41526ac20f18575a8131958e3298822"
-    private let url = "https://api.themoviedb.org/3"
+//    private let apiKey = "d41526ac20f18575a8131958e3298822"
+//    private let url = "https://api.themoviedb.org/3"
+    private let url = "https://tango-server-db-eu.herokuapp.com"
     private var subscriptions = Set<AnyCancellable>()
     private let jsonDecoder: JSONDecoder = {
         let jsonDecoder = JSONDecoder()
@@ -23,14 +24,24 @@ class MoviesAPI {
         return jsonDecoder
     }()
     
-    
-    func getMovies(from genre: Int) -> Future<[Movie], MoviesAPIError> {
-        return Future<[Movie], MoviesAPIError> { [unowned self] promise in
-            guard let url = URL(string: "\(url)/discover/movie?api_key=\(apiKey)&with_genres=\(genre)") else {
+    func GetMovies(from genre: Int?) -> Future<[MovieDTO], MoviesAPIError> {
+        return Future<[MovieDTO], MoviesAPIError> { [unowned self] promise in
+            let urlStr: String
+            
+            if genre != nil {
+                urlStr = "\(url)/api/film/list?page=0&size=10"
+            } else {
+                urlStr = "\(url)/api/film/list?page=0&size=10"
+            }
+            
+            guard let url = URL(string: urlStr) else {
                 return promise(.failure(.urlError(URLError(.unsupportedURL))))
             }
             
-            URLSession.shared.dataTaskPublisher(for: url)
+            var request = URLRequest(url: url)
+            request.setValue("Bearer \(Session.shared.token)", forHTTPHeaderField: "Authorization")
+            
+            URLSession.shared.dataTaskPublisher(for: request)
                 .tryMap { (data, response) -> Data in
                     guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
                         throw MoviesAPIError.responseError((response as? HTTPURLResponse)?.statusCode ?? 500)
@@ -53,27 +64,29 @@ class MoviesAPI {
                         }
                     }
                 }, receiveValue: {
-                    promise(.success($0.results))
+                    promise(.success($0.result))
                 })
                 .store(in: &subscriptions)
         }
     }
     
-    
     func getGenres() -> Future<[Genre], MoviesAPIError> {
         return Future<[Genre], MoviesAPIError> { [unowned self] promise in
-            guard let url = URL(string: "\(url)/genre/movie/list?api_key=\(apiKey)&language=en-US") else {
+            guard let url = URL(string: "\(url)/api/common/genres") else {
                 return promise(.failure(.urlError(URLError(.unsupportedURL))))
             }
             
-            URLSession.shared.dataTaskPublisher(for: url)
+            var request = URLRequest(url: url)
+            request.setValue("Bearer \(Session.shared.token)", forHTTPHeaderField: "Authorization")
+            
+            URLSession.shared.dataTaskPublisher(for: request)
                 .tryMap { (data, response) -> Data in
                     guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
                         throw MoviesAPIError.responseError((response as? HTTPURLResponse)?.statusCode ?? 500)
                     }
                     return data
                 }
-                .decode(type: GenreResponse.self, decoder: jsonDecoder)
+                .decode(type: [Genre].self, decoder: jsonDecoder)
                 .receive(on: RunLoop.main)
                 .sink { (completion) in
                     if case let .failure(error) = completion {
@@ -89,19 +102,22 @@ class MoviesAPI {
                         }
                     }
                 } receiveValue: {
-                    promise(.success($0.genres))
+                    promise(.success($0))
                 }
                 .store(in: &subscriptions)
         }
     }
     
-    func getSearchRepsonse(query: String) -> Future<[Movie], MoviesAPIError> {
+    func getSearchRepsonse(query: String) -> Future<[MovieDTO], MoviesAPIError> {
         
-        return Future<[Movie], MoviesAPIError> { [unowned self] promise in
-            guard let url = URL(string: "\(url)/search/movie?api_key=\(apiKey)&language=en-US&query=\(query)&page=1&include_adult=false")
+        return Future<[MovieDTO], MoviesAPIError> { [unowned self] promise in
+            guard let url = URL(string: "\(url)/api/film/list?page=0&size=10&search=\(query)")
             else { return promise(.failure(.urlError(URLError(.unsupportedURL)))) }
             
-            URLSession.shared.dataTaskPublisher(for: url)
+            var request = URLRequest(url: url)
+            request.setValue("Bearer \(Session.shared.token)", forHTTPHeaderField: "Authorization")
+            
+            URLSession.shared.dataTaskPublisher(for: request)
                 .tryMap { (data, response) -> Data in
                     guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
                         throw MoviesAPIError.responseError((response as? HTTPURLResponse)?.statusCode ?? 500)
@@ -124,7 +140,7 @@ class MoviesAPI {
                         }
                     }
                 } receiveValue: {
-                    promise(.success($0.results))
+                    promise(.success($0.result))
                 }
                 .store(in: &subscriptions)
 
@@ -166,15 +182,12 @@ class MoviesAPI {
     
 }
 
-struct MovieResponse: Codable {
-    var page: Int?
-    var results: [Movie]
-    var totalPages: Int?
-    var totalResults: Int?
-}
-
-struct GenreResponse: Codable {
-    var genres: [Genre]
+struct MovieResponse: Decodable {
+//    var page: Int?
+    var result: [MovieDTO]
+    var pagination: Pagination
+//    var totalPages: Int?
+//    var totalResults: Int?
 }
 
 public enum MoviesAPIError: Error {

@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ProfilePage: View {
     
-    let profileLinkNames = ["Favourite movies", "Followers", "Following"]
     @State var user: User
     var isChangeable: Bool
     
@@ -42,21 +41,25 @@ struct ProfilePage: View {
                 }
                 .padding()
                 
-                ForEach(profileLinkNames, id: \.self) { profileLinkName in
-                    NavigationLink(destination: Text("")) {
-                        VStack {
-                            HStack {
-    //                            Image(systemName: "favorite")
-                                Text(profileLinkName)
-                                    .font(.custom("Dosis-Regular", size: 24))
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .foregroundColor(Color(.systemGray3))
-                                    .font(.system(size: 20))
-                            }
-                            .padding(EdgeInsets(top: 17, leading: 21, bottom: 17, trailing: 21))
-                            Divider()
+                NavigationLink(destination:
+                ScrollView {
+                    VStack {
+                        ForEach(profileVM.mainUser.favorite) { movie in
+                            MovieSearchCard(movie: movie)
                         }
+                    }
+                }) {
+                    VStack {
+                        HStack {
+                            Text("Favourite movies")
+                                .font(.custom("Dosis-Regular", size: 24))
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(Color(.systemGray3))
+                                .font(.system(size: 20))
+                        }
+                        .padding(EdgeInsets(top: 17, leading: 21, bottom: 17, trailing: 21))
+                        Divider()
                     }
                 }
                 

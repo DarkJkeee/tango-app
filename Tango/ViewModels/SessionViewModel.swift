@@ -9,7 +9,7 @@ import Foundation
 import LocalAuthentication
 import Combine
 
-class SessionViewModel : ObservableObject {
+class SessionViewModel: ObservableObject {
     
     @Published var state = State.idle
     @Published var isLogged = false

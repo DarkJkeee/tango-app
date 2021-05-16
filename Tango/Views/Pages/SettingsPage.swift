@@ -107,9 +107,9 @@ struct ChangeableField: View {
                     .padding()
                 
                 switch profileVM.error {
-                    case .none: EmptyView()
                     case .exist:
                     Text("This \(field) already exist.").foregroundColor(.red)
+                    default: EmptyView()
                 }
                 
                 AccentButton(title: "Save", width: 100, height: 60) {

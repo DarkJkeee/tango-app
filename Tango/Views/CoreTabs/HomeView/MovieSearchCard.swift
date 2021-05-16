@@ -9,12 +9,13 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct MovieSearchCard: View {
+    @EnvironmentObject var profileVM: ProfileViewModel
     let movie: Movie
     var body: some View {
         NavigationLink(
-            destination: MoviePage(movie: movie),
+            destination: MoviePage(movie: movie).environmentObject(profileVM),
             label: {
-                WebImage(url: URL(string: "https://image.tmdb.org/t/p/w500" + (movie.posterPath ?? "")))
+                WebImage(url: URL(string: movie.descPreview))
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 100, height: 150)
@@ -25,12 +26,12 @@ struct MovieSearchCard: View {
                 VStack {
                     Text(movie.title)
                         .font(.custom("Dosis-Bold", size: 16))
-                    Text(movie.overview)
+                    Text(movie.descText)
                         .font(.custom("Dosis-Light", size: 12))
                         .lineLimit(3)
                     HStack {
-                        PopularityBadge(score: Int(movie.voteAverage) * 10)
-                        Text(movie.getReleaseDate).font(.custom("Dosis-Light", size: 12))
+                        PopularityBadge(score: Int(movie.descRating) * 10)
+//                        Text(movie.getReleaseDate).font(.custom("Dosis-Light", size: 12))
                     }
                 }
             })

@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct User: Codable {
+struct User: Codable, Identifiable {
+    var id: Int { return userId }
+    
     
     var userId: Int
     var username: String
@@ -15,6 +17,7 @@ struct User: Codable {
     var age: Int?
     var userRoles: [Role]?
     var avatar: String?
+    var favorite: [Movie]
     
 //    var dateOfBirth: Date
 //    var followers: [User]

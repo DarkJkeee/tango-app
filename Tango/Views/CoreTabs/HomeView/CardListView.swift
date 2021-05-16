@@ -9,7 +9,8 @@ import SwiftUI
 
 struct CardListView: View {
     @Environment(\.colorScheme) var colorScheme
-    let movies: [Movie]
+    @EnvironmentObject var profileVM: ProfileViewModel
+    let movies: [MovieDTO]
     let genre: String
     
     var body: some View {
@@ -22,9 +23,9 @@ struct CardListView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(alignment: .top) {
                     ForEach(movies) { movie in
-                        NavigationLink(destination: MoviePage(movie: movie),
+                        NavigationLink(destination: MoviePage(movie: movie.film),
                                        label: {
-                                        MovieCardView(movie: movie)
+                                        MovieCardView(movie: movie.film)
                                             .frame(width: 300)
                                             .padding(.trailing, 30)
                                        })

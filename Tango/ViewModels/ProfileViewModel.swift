@@ -10,9 +10,10 @@ import Foundation
 import Combine
 
 class ProfileViewModel: ObservableObject {
-    @Published var mainUser = User(userId: -1, username: "Unknown", email: "", age: 0, userRoles: [], avatar: "")
+    @Published var mainUser = User(userId: -1, username: "Unknown", email: "", age: 0, userRoles: [], avatar: "", favorite: [])
 //    @Published var currentUser = User(userId: -1, username: "Unknown", email: "", age: 0, userRoles: [], avatar: "")
     
+    @Published var logout = false
     @Published var dismiss = false
     @Published var isLoading = false
     @Published var error = Failed.none
@@ -26,6 +27,7 @@ class ProfileViewModel: ObservableObject {
         self.mainUser.age = user.age
         self.mainUser.userRoles = user.userRoles
         self.mainUser.avatar = user.avatar
+        self.mainUser.favorite = user.favorite
     }
     
     func updateProfileView() {
@@ -42,6 +44,40 @@ class ProfileViewModel: ObservableObject {
                     case .custom(let message):
                         print(message)
                     default: print("Some error")
+                    }
+                }
+            } receiveValue: { user in
+                self.setValuesToUser(user: user)
+            }
+            .store(in: &subscriptions)
+    }
+    
+    func addFilmToFavourite(id: Int) {
+        ProfileAPI.shared.favouriteFilm(id: id, method: "POST")
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    switch error {
+                    case .custom(let msg):
+                        print(msg)
+                    default: print(error.localizedDescription)
+                    }
+                }
+            } receiveValue: { user in
+                self.setValuesToUser(user: user)
+            }
+            .store(in: &subscriptions)
+    }
+    
+    func removeFilmFromFavourite(id: Int) {
+        ProfileAPI.shared.favouriteFilm(id: id, method: "DELETE")
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    switch error {
+                    case .custom(let msg):
+                        print(msg)
+                    default: print(error.localizedDescription)
                     }
                 }
             } receiveValue: { user in
@@ -73,6 +109,29 @@ class ProfileViewModel: ObservableObject {
             .store(in: &subscriptions)
     }
     
+    func changeAvatar(avatar: UIImage) {
+        let imageData = avatar.jpegData(compressionQuality: 1)
+        let imageBase64String = imageData?.base64EncodedString()
+        if let base64img = imageBase64String {
+            editProfile(field: "avatar", value: base64img)
+        }
+    }
+    
+    func deleteUser() {
+        ProfileAPI.shared.deleteUser(id: mainUser.userId)
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                if case .failure(_) = completion {
+                    self.error = .delete
+                }
+            } receiveValue: { value in
+                if value == "OK" {
+                    self.logout = true
+                }
+            }
+            .store(in: &subscriptions)
+    }
+    
 //    func loadProfileWith(id: Int) {
 //        ProfileAPI.shared.loadProfile(with: id)
 //            .receive(on: RunLoop.main)
@@ -94,14 +153,6 @@ class ProfileViewModel: ObservableObject {
 //            .store(in: &subscriptions)
 //    }
     
-    func changeAvatar(avatar: UIImage) {
-        let imageData = avatar.jpegData(compressionQuality: 1)
-        let imageBase64String = imageData?.base64EncodedString()
-        if let base64img = imageBase64String {
-            editProfile(field: "avatar", value: base64img)
-        }
-    }
-    
     deinit {
         for subscription in subscriptions {
             subscription.cancel()
@@ -113,4 +164,5 @@ class ProfileViewModel: ObservableObject {
 enum Failed {
     case none
     case exist
+    case delete
 }

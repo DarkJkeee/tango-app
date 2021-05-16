@@ -13,7 +13,6 @@ struct TextBar: View {
     var imageName: String
     var isSecureField: Bool
     
-    
     var body: some View {
         HStack {
             Image(systemName: imageName)

@@ -14,10 +14,9 @@ struct ProfileView: View {
     @EnvironmentObject var profileVM: ProfileViewModel
     
     @State var isShowingSettings = false
-    let profileLinkNames = ["Favourite movies", "Followers", "Following"]
+    @State var isShowingAlert = false
     
     var body: some View {
-        NavigationView {
             ScrollView {
                 VStack {
                     topbar
@@ -26,15 +25,30 @@ struct ProfileView: View {
                         sessionVM.logout()
                     }
                     .foregroundColor(colorScheme == .dark ? .AccentLight : .AccentDark)
+                    if profileVM.error == .delete {
+                        Text("Error: couldn't delete account!")
+                            .foregroundColor(.red)
+                    }
+                    AccentButton(title: "Delete profile", height: 60) {
+                        isShowingAlert = true
+                    }
+                    .foregroundColor(.red)
                 }
             }
             .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
             .sheet(isPresented: $isShowingSettings, content: {
                 SettingsPage(user: profileVM.mainUser)
             })
+            .alert(isPresented: $isShowingAlert, content: {
+                Alert(title: Text("Are you sure?"), message: Text("You will not be able to recover your account"), primaryButton: .default(Text("Delete"), action: {
+                    profileVM.deleteUser()
+                }), secondaryButton: .cancel())
+            })
+            .onChange(of: profileVM.logout) { _ in
+                sessionVM.logout()
+            }
             .edgesIgnoringSafeArea(.all)
             .navigationBarHidden(true)
-        }
     }
     
     private var topbar: some View {

@@ -8,6 +8,7 @@
 import Foundation
 
 struct Genre: Codable, Identifiable {
-    var id: Int
-    var name: String
+    var id: Int { return genreId }
+    var genreId: Int
+    var genreName: String
 }

@@ -12,17 +12,19 @@ struct SearchBar: View {
     @Binding var text: String
  
     @State private var isEditing = false
+    var placeholder: String
  
     var body: some View {
         HStack {
  
             HStack(spacing: 15) {
                 Image(systemName: "magnifyingglass")
-                    .resizable()
-                    .frame(width: 18, height: 18)
-                    .foregroundColor(colorScheme == .dark ? Color.AccentColorLight.opacity(0.3) : Color.AccentColorDark.opacity(0.3))
                 
-                TextField("Search", text: $text)
+                ZStack(alignment: .leading) {
+                    if text.isEmpty { Text(placeholder).opacity(0.6) }
+                        TextField("", text: $text)
+                            .autocapitalization(.none)
+                }
             }
             .padding()
             .cornerRadius(8)
@@ -39,5 +41,6 @@ struct SearchBar: View {
                 .animation(.default)
             }
         }
+        .foregroundColor(colorScheme == .dark ? Color.AccentColorLight : Color.AccentColorDark)
     }
 }

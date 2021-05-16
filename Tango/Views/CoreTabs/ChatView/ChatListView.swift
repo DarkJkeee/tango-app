@@ -9,9 +9,12 @@ import SwiftUI
 
 struct ChatListView: View {
     @Environment(\.colorScheme) var colorScheme
+    
+    @EnvironmentObject var profileVM: ProfileViewModel
+    @StateObject var chatListVM = ChatListViewModel()
+    
     @State var searchText = ""
-    @State var isShowing = false
-    // TODO: VM
+    @State var showInvitations = false
     
     var body: some View {
         NavigationView {
@@ -19,19 +22,11 @@ struct ChatListView: View {
                 topbar
                 content
             }
-            .sheet(isPresented: $isShowing, content: {
-                VStack {
-                    TextBar(text: $searchText, placeholder: "Chat name", imageName: "message", isSecureField: false)
-                        .padding()
-                    
-                    Spacer()
-                    AccentButton(title: "Create", height: 60) {
-                        
-                    }
-                    .foregroundColor(colorScheme == .dark ? .AccentLight : .AccentDark)
-                }
-                .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
-                .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
+            .onAppear() {
+                chatListVM.getChats()
+            }
+            .sheet(isPresented: $chatListVM.isShowingNewChatTab, content: {
+                NewChat(chatListVM: chatListVM)
             })
             .navigationBarHidden(true)
             .edgesIgnoringSafeArea(.all)
@@ -46,7 +41,7 @@ struct ChatListView: View {
                 Spacer()
 
                 Button(action: {
-                    isShowing.toggle()
+                    chatListVM.isShowingNewChatTab = true
                 }, label: {
                     Image(systemName: "plus")
                         .resizable()
@@ -84,8 +79,7 @@ struct ChatListView: View {
                 }
                 .padding()
             }
-            
-            SearchBar(text: $searchText)
+            SearchBar(text: $searchText, placeholder: "Search")
         }
         .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
         .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
@@ -93,41 +87,69 @@ struct ChatListView: View {
     }
     
     private var content: some View {
-        ScrollView {
-            ForEach(1..<14) { index in
-                    NavigationLink(
-                        destination:
-                            ChatView(messages: [Message(id: 1, sender: .me, content: "Hello!!"),
-                                                Message(id: 2, sender: .other(named: "Vitaliy"), content: "Hi!"),
-                                                Message(id: 3, sender: .me, content: "вфыв!!"),
-                                                Message(id: 4, sender: .other(named: "Vitaliy"), content: "в!")]),
-                        label: {
-                            CellView()
-                        })
+        VStack {
+            if !chatListVM.invitations.isEmpty {
+                Button(action: {
+                    showInvitations = true
+                }, label: {
+                    Text("You have \(chatListVM.invitations.count) new invitation(s)")
+                })
+            }
+            ScrollView {
+                PullToRefresh(coordinateSpaceName: "pullRefresh") {
+                    chatListVM.getChats()
                 }
-            .onDelete(perform: { indexSet in
-                
-            })
+                ForEach(chatListVM.chats) { chat in
+                        NavigationLink(
+                            destination:
+                                ChatView(messages: [Message(id: 1, sender: .me, content: "Hello!!"),
+                                                    Message(id: 2, sender: .other(named: "Vitaliy"), content: "Hi!"),
+                                                    Message(id: 3, sender: .me, content: "вфыв!!"),
+                                                    Message(id: 4, sender: .other(named: "Vitaliy"), content: "в!")]),
+                            label: {
+                                CellView(chat: chat)
+                            })
+                    }
+            }
+            .coordinateSpace(name: "pullRefresh")
         }
+        .sheet(isPresented: $showInvitations, content: {
+            ScrollView {
+                ForEach(chatListVM.chats) { chat in
+                    HStack {
+                        CellView(chat: chat)
+                        Button(action: {
+                            
+                        }, label: {
+                            Text("Accept")
+                        })
+                    }
+                    .padding()
+                }
+            }
+            .background(colorScheme == .dark ? Color.backgroundColorDark: Color.backgroundColorLight)
+            .foregroundColor(colorScheme == .dark ? .AccentColorLight: .AccentColorDark)
+        })
     }
 }
 
 
 struct CellView: View {
+    let chat: Chat
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         HStack(spacing: 12) {
             Image("tango")
                 .resizable()
-                .frame(width: 55, height: 55)
+                .frame(width: 50, height: 50)
                 .clipShape(Circle())
             
             VStack(alignment: .leading, spacing: 6) {
-                Text("Glebadsdasdasdasdasdasd")
+                Text(chat.name)
                     .lineLimit(1)
                     .font(.custom("Dosis-Bold", size: 20))
-                Text("Message...")
+                Text(chat.info)
                     .lineLimit(2)
                     .font(.custom("Dosis-Regular", size: 15))
                     .font(.caption)
