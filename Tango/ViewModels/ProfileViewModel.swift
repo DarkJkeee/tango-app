@@ -87,26 +87,28 @@ class ProfileViewModel: ObservableObject {
     }
     
     func editProfile(field: String, value: String) {
-        isLoading = true
-        ProfileAPI.shared.changeProfile(with: mainUser.userId, field: field, value: value)
-            .receive(on: RunLoop.main)
-            .sink { completion in
-                if case let .failure(error) = completion {
-                    switch error {
-                    case .exist:
-                        self.error = .exist
-                    case .custom(let message):
-                        print(message)
+        if !value.isEmpty {
+            isLoading = true
+            ProfileAPI.shared.changeProfile(with: mainUser.userId, field: field, value: value)
+                .receive(on: RunLoop.main)
+                .sink { completion in
+                    if case let .failure(error) = completion {
+                        switch error {
+                        case .exist:
+                            self.error = .exist
+                        case .custom(let message):
+                            print(message)
+                        }
+                    } else {
+                        self.dismiss.toggle()
+                        self.error = .none
                     }
-                } else {
-                    self.dismiss.toggle()
-                    self.error = .none
+                    self.isLoading = false
+                } receiveValue: { newUser in
+                    self.setValuesToUser(user: newUser)
                 }
-                self.isLoading = false
-            } receiveValue: { newUser in
-                self.setValuesToUser(user: newUser)
-            }
-            .store(in: &subscriptions)
+                .store(in: &subscriptions)
+        }
     }
     
     func changeAvatar(avatar: UIImage) {

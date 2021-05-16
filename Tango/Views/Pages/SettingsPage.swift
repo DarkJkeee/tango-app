@@ -17,23 +17,22 @@ struct SettingsPage: View {
     var body: some View {
         NavigationView {
             VStack {
-                Section(header: Text("Profile").font(.custom("Dosis-Bold", size: 20))) {
+                Section(header: Text("Профиль").font(.custom("Dosis-Bold", size: 20))) {
                     NavigationLink(destination: ChangeableField(imageName: "mail.stack", field: "email", description: "You will get a confirmation message on your new email.", text: $user.email)) {
                         SettingsCell(imageName: "mail.stack", title: "Change Email")
                     }
                     
-                    NavigationLink(destination: ChangeableField(imageName: "person", field: "username", description: "You can change your username. Your username should be at least 3 length.", text: $user.username)) {
+                    NavigationLink(destination: ChangeableField(imageName: "person", field: "username", description: "You can change your username.", text: $user.username)) {
                         SettingsCell(imageName: "person", title: "Change Username")
                     }
                     
-                    NavigationLink(destination: Text("Destination")) {
-                        SettingsCell(imageName: "pencil", title: "Change Password")
-                    }
+//                    NavigationLink(destination: Text("Destination")) {
+//                        SettingsCell(imageName: "pencil", title: "Change Password")
+//                    }
                 }
                 .padding()
                 
                 Section(header: Text("Subscription").font(.custom("Dosis-Bold", size: 20))) {
-                    
                     NavigationLink(
                         destination: Text("Destination"),
                         label: {
