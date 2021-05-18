@@ -36,6 +36,7 @@
 		2A7D808A264D88C2001A57B2 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 2A7D8089264D88C2001A57B2 /* SocketIO */; };
 		2A88A15F263E40C400A2AAD7 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A88A15E263E40C400A2AAD7 /* Session.swift */; };
 		2A95C30D26510E7F009E5664 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A95C30C26510E7F009E5664 /* SocketIOManager.swift */; };
+		2A9AF20826534622006CD192 /* MoviePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9AF20726534622006CD192 /* MoviePageViewModel.swift */; };
 		2A9F0285254FA81B00B011D6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F0284254FA81B00B011D6 /* User.swift */; };
 		2A9F9A5C2617DD5F00F6BEF6 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F9A5B2617DD5F00F6BEF6 /* ChatView.swift */; };
 		2AA2C05A2641A7DA00BFDF6C /* TextBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA2C0592641A7DA00BFDF6C /* TextBar.swift */; };
@@ -62,9 +63,11 @@
 		2AE5320C264957E6007149F8 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE5320B264957E6007149F8 /* Message.swift */; };
 		2AE8DF69258EEC4F00831558 /* MoviePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE8DF68258EEC4F00831558 /* MoviePage.swift */; };
 		2AF5570D25F97F9500343AA6 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF5570C25F97F9500343AA6 /* BorderedButton.swift */; };
+		3235FE1D4F11EA712A1A877B /* Pods_Tango.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AECDA7C4487884B9F8F27793 /* Pods_Tango.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		043AF8E6A8DFD2FC642C7A7E /* Pods-Tango.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tango.debug.xcconfig"; path = "Target Support Files/Pods-Tango/Pods-Tango.debug.xcconfig"; sourceTree = "<group>"; };
 		2A05185C2645EF0E00D6C446 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		2A08C15B2637A44400924429 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		2A0B7DBF25509182002CDCF0 /* MoviesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesAPI.swift; sourceTree = "<group>"; };
@@ -92,6 +95,8 @@
 		2A666C5426361C1C00FB9309 /* CardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListView.swift; sourceTree = "<group>"; };
 		2A88A15E263E40C400A2AAD7 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		2A95C30C26510E7F009E5664 /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
+		2A9AF20726534622006CD192 /* MoviePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePageViewModel.swift; sourceTree = "<group>"; };
+		2A9B72A467509F4DC5B96D48 /* Pods-Tango.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tango.release.xcconfig"; path = "Target Support Files/Pods-Tango/Pods-Tango.release.xcconfig"; sourceTree = "<group>"; };
 		2A9F0284254FA81B00B011D6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2A9F9A5B2617DD5F00F6BEF6 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		2AA2C0592641A7DA00BFDF6C /* TextBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBar.swift; sourceTree = "<group>"; };
@@ -120,6 +125,7 @@
 		2AE5320B264957E6007149F8 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		2AE8DF68258EEC4F00831558 /* MoviePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePage.swift; sourceTree = "<group>"; };
 		2AF5570C25F97F9500343AA6 /* BorderedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
+		AECDA7C4487884B9F8F27793 /* Pods_Tango.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tango.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +135,7 @@
 			files = (
 				2A2AA827264CF5F90087E847 /* SDWebImageSwiftUI in Frameworks */,
 				2A7D808A264D88C2001A57B2 /* SocketIO in Frameworks */,
+				3235FE1D4F11EA712A1A877B /* Pods_Tango.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +223,7 @@
 				2A4CA75E26470F000074FFA0 /* ProfileViewModel.swift */,
 				2A2AA828264D183D0087E847 /* ChatViewModel.swift */,
 				2A4052F2264DEBCB00944E73 /* ChatListViewModel.swift */,
+				2A9AF20726534622006CD192 /* MoviePageViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -267,6 +275,8 @@
 			children = (
 				2AD1F1C6254DB1EF0045E236 /* Tango */,
 				2AD1F1C5254DB1EF0045E236 /* Products */,
+				9654B0350B04A326A06D12AF /* Pods */,
+				F383F9C2C33EA62E1482E9CE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 0;
@@ -373,6 +383,23 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		9654B0350B04A326A06D12AF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				043AF8E6A8DFD2FC642C7A7E /* Pods-Tango.debug.xcconfig */,
+				2A9B72A467509F4DC5B96D48 /* Pods-Tango.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F383F9C2C33EA62E1482E9CE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AECDA7C4487884B9F8F27793 /* Pods_Tango.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -380,9 +407,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2AD1F1D3254DB1F00045E236 /* Build configuration list for PBXNativeTarget "Tango" */;
 			buildPhases = (
+				91C4453B73C8E469F46F550C /* [CP] Check Pods Manifest.lock */,
 				2AD1F1C0254DB1EF0045E236 /* Sources */,
 				2AD1F1C1254DB1EF0045E236 /* Frameworks */,
 				2AD1F1C2254DB1EF0045E236 /* Resources */,
+				F4B845512C5D62997FC4E697 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -448,6 +477,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		91C4453B73C8E469F46F550C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Tango-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F4B845512C5D62997FC4E697 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tango/Pods-Tango-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tango/Pods-Tango-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tango/Pods-Tango-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2AD1F1C0254DB1EF0045E236 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -500,6 +571,7 @@
 				2A12D9B425CD6DEF00242260 /* ProfileView.swift in Sources */,
 				2AE8DF69258EEC4F00831558 /* MoviePage.swift in Sources */,
 				2A2AA829264D183D0087E847 /* ChatViewModel.swift in Sources */,
+				2A9AF20826534622006CD192 /* MoviePageViewModel.swift in Sources */,
 				2A4CA75F26470F000074FFA0 /* ProfileViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -625,6 +697,7 @@
 		};
 		2AD1F1D4254DB1F00045E236 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 043AF8E6A8DFD2FC642C7A7E /* Pods-Tango.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -649,6 +722,7 @@
 		};
 		2AD1F1D5254DB1F00045E236 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A9B72A467509F4DC5B96D48 /* Pods-Tango.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

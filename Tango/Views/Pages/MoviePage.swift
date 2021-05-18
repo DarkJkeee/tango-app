@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import SwiftUI
 import SDWebImageSwiftUI
 import AVKit
@@ -13,6 +14,10 @@ import AVKit
 struct MoviePage: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) var colorScheme
+    
+    @State private var keyboardHeight: CGFloat = 0
+    @StateObject var movieVM = MoviePageViewModel()
+    
     var movie: Movie
     @State var isShowingVideo = false
     @State var player: AVPlayer?
@@ -34,7 +39,45 @@ struct MoviePage: View {
                             .blur(radius: 10)
                     }
                     MovieDescription(movie: movie, isShowingVideo: $isShowingVideo, player: $player)
+                    
+                    Section(header: Text("Comments").font(.custom("Dosis-Bold", size: 24))) {
+                        VStack {
+                            TextBar(text: $movieVM.review, placeholder: "Review...", imageName: "pencil", isSecureField: false)
+                            AccentButton(title: "Post a comment") {
+                                movieVM.addCommment(id: movie.id)
+                            }
+                            .frame(height: 100)
+                        }
+                    }
+                    .padding()
+                    
+                    ForEach(movieVM.currentComments) { comment in
+                        HStack {
+                            Spacer()
+                            VStack {
+                                Text(comment.writer.username)
+                                    .font(.custom("Dosis-Bold", size: 20))
+                                Text(comment.text)
+                                    .font(.custom("Dosis-Regular", size: 16))
+                            }
+                            if comment.writer.id == Session.shared.userId {
+                                Spacer()
+                                AccentButton(title: "Delete") {
+                                    movieVM.deleteComment(id: comment.id)
+                                }
+                                .frame(width: 100, height: 70)
+                                .foregroundColor(.red)
+                            }
+                        }
+                        .frame(height: 100)
+                    }
+                    .padding()
+                    
                 }
+                .padding(.bottom, keyboardHeight)
+            }
+            .onAppear() {
+                movieVM.getComments(id: movie.id)
             }
             .sheet(isPresented: $isShowingVideo, content: {
                 AVPlayerView(avPlayer: $player)
@@ -45,6 +88,7 @@ struct MoviePage: View {
                         player?.pause()
                     }
             })
+            .onReceive(Publishers.keyboardHeight) { self.keyboardHeight = $0 }
             .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
             .edgesIgnoringSafeArea(.all)
     }

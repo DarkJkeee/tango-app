@@ -8,12 +8,8 @@
 import Foundation
 
 struct Message: Hashable, Identifiable {
-     enum Sender: Hashable {
-          case me
-          case other(named: String)
-     }
 
-     let id: Int
-     let sender: Sender
+     let id = UUID()
+     let sender: String
      let content: String
 }

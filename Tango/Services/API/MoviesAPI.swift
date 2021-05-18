@@ -147,40 +147,153 @@ class MoviesAPI {
         }
     }
     
+    func getComments(id: Int) -> Future<[Comment], MoviesAPIError> {
+        return Future<[Comment], MoviesAPIError> { [unowned self] promise in
+            guard let url = URL(string: "\(url)/api/comment/\(id)/list?page=0&size=10")
+            else { return promise(.failure(.urlError(URLError(.unsupportedURL)))) }
+            
+            var request = URLRequest(url: url)
+            request.setValue("Bearer \(Session.shared.token)", forHTTPHeaderField: "Authorization")
+            
+            URLSession.shared.dataTaskPublisher(for: request)
+                .tryMap { (data, response) -> Data in
+                    guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
+                        throw MoviesAPIError.responseError((response as? HTTPURLResponse)?.statusCode ?? 500)
+                    }
+                    return data
+                }
+                .decode(type: CommentResponse.self, decoder: jsonDecoder)
+                .receive(on: RunLoop.main)
+                .sink { completion in
+                    if case let .failure(error) = completion {
+                        switch error {
+                        case let urlError as URLError:
+                            promise(.failure(.urlError(urlError)))
+                        case let decodingError as DecodingError:
+                            promise(.failure(.decodingError(decodingError)))
+                        case let apiError as MoviesAPIError:
+                            promise(.failure(apiError))
+                        default:
+                            promise(.failure(.genericError))
+                        }
+                    }
+                } receiveValue: {
+                    promise(.success($0.result))
+                }
+                .store(in: &subscriptions)
+
+        }
+    }
+    
+    func leaveComment(filmId: Int, userId: Int, text: String) -> Future<Comment, MoviesAPIError> {
+        struct Body: Encodable {
+            var text: String
+            var spoiler: Bool
+        }
+        
+        let body = Body(text: text, spoiler: false)
+        
+        return Future<Comment, MoviesAPIError> { [unowned self] promise in
+            guard let url = URL(string: "\(url)/api/comment/\(filmId)/\(userId)")
+            else { return promise(.failure(.urlError(URLError(.unsupportedURL)))) }
+            
+            var request = URLRequest(url: url)
+            request.setValue("Bearer \(Session.shared.token)", forHTTPHeaderField: "Authorization")
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = try? JSONEncoder().encode(body)
+            request.httpMethod = "POST"
+            
+            URLSession.shared.dataTaskPublisher(for: request)
+                .tryMap { (data, response) -> Data in
+                    guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
+                        throw MoviesAPIError.responseError((response as? HTTPURLResponse)?.statusCode ?? 500)
+                    }
+                    return data
+                }
+                .decode(type: Comment.self, decoder: jsonDecoder)
+                .receive(on: RunLoop.main)
+                .sink { completion in
+                    if case let .failure(error) = completion {
+                        switch error {
+                        case let urlError as URLError:
+                            promise(.failure(.urlError(urlError)))
+                        case let decodingError as DecodingError:
+                            promise(.failure(.decodingError(decodingError)))
+                        case let apiError as MoviesAPIError:
+                            promise(.failure(apiError))
+                        default:
+                            promise(.failure(.genericError))
+                        }
+                    }
+                } receiveValue: {
+                    promise(.success($0))
+                }
+                .store(in: &subscriptions)
+
+        }
+    }
+    
+    public func deleteComment(id: Int) -> Future<String, ProfileError> {
+        
+        return Future<String, ProfileError> { promise in
+            guard let url = URL(string: "\(self.url)/api/comment/\(id)") else {
+                return promise(.failure(ProfileError.custom(message: URLError(.unsupportedURL).localizedDescription)))
+            }
+            
+            var request = URLRequest(url: url)
+            request.setValue("Bearer \(Session.shared.token)", forHTTPHeaderField: "Authorization")
+            request.httpMethod = "DELETE"
+            
+            URLSession.shared.dataTaskPublisher(for: request)
+                .tryMap({ (data, response) -> Data in
+                    guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
+//                        print(String(data: data, encoding: String.Encoding.utf8))
+                        throw ProfileError.custom(message: "Bad response: \((response as? HTTPURLResponse)?.statusCode ?? 500)")
+                    }
+                    return data
+                })
+                .decode(type: DeleteResponse.self, decoder: self.jsonDecoder)
+                .receive(on: RunLoop.main)
+                .sink { completion in
+                    if case let .failure(error) = completion {
+                        if let error = error as? ProfileError {
+                            promise(.failure(error))
+                        } else {
+                            promise(.failure(.custom(message: error.localizedDescription)))
+                        }
+                    }
+                } receiveValue: { value in
+                    promise(.success(value.status))
+                }
+                .store(in: &self.subscriptions)
+        }
+    }
+    
     deinit {
         for subscription in subscriptions {
             subscription.cancel()
         }
     }
     
-//    func setMovieToWishlist(movie: Movie) {
-//
-//        struct Body: Codable {
-//            var media_type = "movie"
-//            var media_id: Int
-//            var watchlist = true
-//        }
-//
-//        let body = Body(media_id: movie.id)
-//
-//        guard let encoded = try? JSONEncoder().encode(body) else {
-//            print("Failed to encode order")
-//            return
-//        }
-//
-//        let url = URL(string: "https://api.themoviedb.org/3/account/1/watchlist?api_key=d41526ac20f18575a8131958e3298822")!
-//        var request = URLRequest(url: url)
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.httpMethod = "POST"
-//        request.httpBody = encoded
-//
-//        URLSession.shared.dataTask(with: request) { data, response, error in
-//
-//        }.resume()
-//
-//    }
-    
 }
+
+struct DeleteResponse: Decodable {
+    var status: String
+}
+
+struct CommentResponse: Decodable {
+    var result: [Comment]
+    var pagination: Pagination
+}
+
+struct Comment: Decodable, Identifiable {
+    var id: Int { return commentId }
+    
+    var writer: User
+    var commentId: Int
+    var text: String
+}
+
 
 struct MovieResponse: Decodable {
 //    var page: Int?

@@ -58,21 +58,3 @@ extension UIApplication: UIGestureRecognizerDelegate {
         return true // set to `false` if you don't want to detect tap during other gestures
     }
 }
-
-extension UINavigationController {
-    override open var supportedInterfaceOrientations : UIInterfaceOrientationMask     {
-        return .all
-    }
-}
-
-extension UITabBarController {
-    override open var supportedInterfaceOrientations : UIInterfaceOrientationMask     {
-        return .all
-    }
-}
-
-extension AVPlayerViewController {
-    override open var supportedInterfaceOrientations : UIInterfaceOrientationMask     {
-        return .all
-    }
-}
