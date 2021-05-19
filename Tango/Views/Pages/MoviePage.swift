@@ -240,6 +240,13 @@ struct AVPlayerView: UIViewControllerRepresentable {
     }
     
     func makeUIViewController(context: Context) -> AVPlayerViewController {
-        return AVPlayerViewController()
+        return LandscapeAVPlayerController()
+    }
+}
+
+class LandscapeAVPlayerController: AVPlayerViewController {
+
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .all
     }
 }

@@ -49,7 +49,9 @@ struct ProfilePage: View {
                     VStack {
                         if isChangeable {
                             ForEach(profileVM.mainUser.favorite) { movie in
-                                MovieSearchCard(movie: movie)
+                                NavigationLink(destination: MoviePage(movie: movie)) {
+                                    MovieSearchCard(movie: movie)
+                                }
                             }
                         } else {
                             ForEach(user.favorite) { movie in

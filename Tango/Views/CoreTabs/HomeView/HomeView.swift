@@ -66,7 +66,9 @@ struct HomeView: View {
                     LazyVStack {
                         ForEach(movies) { movie in
                             Divider()
-                            MovieSearchCard(movie: movie.film)
+                            NavigationLink(destination: MoviePage(movie: movie.film)) {
+                                MovieSearchCard(movie: movie.film)
+                            }
                         }
                     }
                 }
