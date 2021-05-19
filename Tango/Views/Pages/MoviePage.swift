@@ -24,6 +24,16 @@ struct MoviePage: View {
     
     var body: some View {
         ScrollView {
+            NavigationLink(destination:
+                            AVPlayerView(avPlayer: $player)
+                            .onAppear() {
+                                player?.play()
+                            }
+                            .onDisappear() {
+                                player?.pause()
+                            }, isActive: $isShowingVideo, label: {
+                                EmptyView()
+                            })
             VStack(alignment: .leading, spacing: 10) {
                 ZStack(alignment: .bottom) {
                     WebImage(url: URL(string: movie.descImage))
@@ -51,7 +61,6 @@ struct MoviePage: View {
                         BorderedButton(text: "Post a comment", color: colorScheme == .dark ? .AccentColorLight : .AccentColorDark, isOn: false) {
                             movieVM.addCommment(id: movie.id)
                         }
-                        .frame(height: 80)
                     }
                 }
                 .padding()
@@ -68,15 +77,6 @@ struct MoviePage: View {
         .onAppear() {
             movieVM.getComments(id: movie.id)
         }
-        .sheet(isPresented: $isShowingVideo, content: {
-            AVPlayerView(avPlayer: $player)
-                .onAppear() {
-                    player?.play()
-                }
-                .onDisappear() {
-                    player?.pause()
-                }
-        })
         .onReceive(Publishers.keyboardHeight) { self.keyboardHeight = $0 }
         .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
         .edgesIgnoringSafeArea(.all)
@@ -234,7 +234,7 @@ struct AVPlayerView: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ playerController: AVPlayerViewController, context: Context) {
-        playerController.modalPresentationStyle = .fullScreen
+        playerController.modalPresentationStyle = .pageSheet
         playerController.player = player
         playerController.player?.play()
     }

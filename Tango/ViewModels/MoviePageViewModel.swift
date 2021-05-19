@@ -32,6 +32,8 @@ class MoviePageViewModel: ObservableObject {
             .sink { completion in
                 if case .failure(let error) = completion {
                     print(error)
+                } else {
+                    self.review = ""
                 }
             } receiveValue: { result in
                 self.currentComments.insert(result, at: 0)
