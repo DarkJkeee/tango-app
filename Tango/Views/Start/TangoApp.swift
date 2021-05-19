@@ -21,6 +21,11 @@ struct TangoApp: App {
             VStack {
                 if !sessionVM.isLogged {
                     LoginView()
+                        .onAppear() {
+                            if Session.shared.token != "" {
+                                sessionVM.authenticateWithoutPass()
+                            }
+                        }
                 } else {
                     TabbedPageView()
                 }
@@ -30,9 +35,6 @@ struct TangoApp: App {
             .accentColor(isDarkMode ? .AccentColorLight : .AccentColorDark)
             .onAppear() {
                 UIApplication.shared.addTapGestureRecognizer()
-                if Session.shared.token != "" {
-                    sessionVM.authenticateWithoutPass()
-                }
                 PHPhotoLibrary.requestAuthorization { status in
                     guard status == .authorized else { return }
                 }

@@ -49,7 +49,7 @@ struct ProfilePage: View {
                     VStack {
                         if isChangeable {
                             ForEach(profileVM.mainUser.favorite) { movie in
-                                NavigationLink(destination: MoviePage(movie: movie)) {
+                                NavigationLink(destination: MoviePage(movie: movie).environmentObject(profileVM)) {
                                     MovieSearchCard(movie: movie)
                                 }
                             }
@@ -76,14 +76,14 @@ struct ProfilePage: View {
                 
                 Spacer()
             }
-            .sheet(isPresented: $isShowingImagePicker, content: {
-                ImagePicker(sourceType: .photoLibrary) { image in
-                    profileVM.changeAvatar(avatar: image)
-                }
-            })
-            if profileVM.isLoading {
-                LoadingScreen()
+        }
+        .sheet(isPresented: $isShowingImagePicker, content: {
+            ImagePicker(sourceType: .photoLibrary) { image in
+                profileVM.changeAvatar(avatar: image)
             }
+        })
+        if profileVM.isLoading {
+            LoadingScreen()
         }
     }
 }

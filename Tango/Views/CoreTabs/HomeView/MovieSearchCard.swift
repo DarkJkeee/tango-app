@@ -9,7 +9,6 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct MovieSearchCard: View {
-    @EnvironmentObject var profileVM: ProfileViewModel
     let movie: Movie
     var body: some View {
         HStack {
