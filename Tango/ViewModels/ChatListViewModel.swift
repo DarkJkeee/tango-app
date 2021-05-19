@@ -51,7 +51,7 @@ class ChatListViewModel: ObservableObject {
             .sink { completion in
                 if case let .failure(error) = completion {
                     switch error {
-                    case .custom(let msg):
+                    case .custom(let msg, _):
                         print(msg)
                     default: print("Some error")
                     }

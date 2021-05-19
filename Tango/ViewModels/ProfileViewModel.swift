@@ -41,8 +41,10 @@ class ProfileViewModel: ObservableObject {
             .sink { completion in
                 if case let .failure(error) = completion {
                     switch error {
-                    case .custom(let message):
-                        print(message)
+                    case .custom(_, let code):
+                        if code == 401 {
+                            Session.shared.logout()
+                        }
                     default: print("Some error")
                     }
                 }
@@ -58,7 +60,7 @@ class ProfileViewModel: ObservableObject {
             .sink { completion in
                 if case let .failure(error) = completion {
                     switch error {
-                    case .custom(let msg):
+                    case .custom(let msg, _):
                         print(msg)
                     default: print(error.localizedDescription)
                     }
@@ -75,7 +77,7 @@ class ProfileViewModel: ObservableObject {
             .sink { completion in
                 if case let .failure(error) = completion {
                     switch error {
-                    case .custom(let msg):
+                    case .custom(let msg, _):
                         print(msg)
                     default: print(error.localizedDescription)
                     }
@@ -96,8 +98,8 @@ class ProfileViewModel: ObservableObject {
                         switch error {
                         case .exist:
                             self.error = .exist
-                        case .custom(let message):
-                            print(message)
+                        case .custom(let msg, _):
+                            print(msg)
                         }
                     } else {
                         self.dismiss.toggle()

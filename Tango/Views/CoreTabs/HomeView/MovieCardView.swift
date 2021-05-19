@@ -54,16 +54,18 @@ struct MovieCardView: View {
                         Text("Add to wishlist")
                     })
                 }
-            VStack(alignment: .leading, spacing: 5) {
-                Text(movie.title)
-                    .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
-                    .font(.custom("Dosis-Bold", size: 20))
-                Text(movie.descText)
-                    .font(.custom("Dosis-Regular", size: 15))
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(2)
-                    .frame(height: 40)
+            HStack {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(movie.title)
+                        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
+                        .font(.custom("Dosis-Bold", size: 20))
+                    Text(movie.descText)
+                        .font(.custom("Dosis-Regular", size: 15))
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(2)
+                        .frame(height: 40)
+                }
             }
         }
     }

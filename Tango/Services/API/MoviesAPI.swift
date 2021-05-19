@@ -237,7 +237,7 @@ class MoviesAPI {
         
         return Future<String, ProfileError> { promise in
             guard let url = URL(string: "\(self.url)/api/comment/\(id)") else {
-                return promise(.failure(ProfileError.custom(message: URLError(.unsupportedURL).localizedDescription)))
+                return promise(.failure(ProfileError.custom(message: URLError(.unsupportedURL).localizedDescription, status: 500)))
             }
             
             var request = URLRequest(url: url)
@@ -248,7 +248,7 @@ class MoviesAPI {
                 .tryMap({ (data, response) -> Data in
                     guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
 //                        print(String(data: data, encoding: String.Encoding.utf8))
-                        throw ProfileError.custom(message: "Bad response: \((response as? HTTPURLResponse)?.statusCode ?? 500)")
+                        throw ProfileError.custom(message: "Bad response: \((response as? HTTPURLResponse)?.statusCode ?? 500)", status: (response as? HTTPURLResponse)?.statusCode ?? 500)
                     }
                     return data
                 })
@@ -259,7 +259,7 @@ class MoviesAPI {
                         if let error = error as? ProfileError {
                             promise(.failure(error))
                         } else {
-                            promise(.failure(.custom(message: error.localizedDescription)))
+                            promise(.failure(.custom(message: error.localizedDescription, status: 500)))
                         }
                     }
                 } receiveValue: { value in
@@ -292,15 +292,14 @@ struct Comment: Decodable, Identifiable {
     var writer: User
     var commentId: Int
     var text: String
+    var likes: Int
+    var dislikes: Int
 }
 
 
 struct MovieResponse: Decodable {
-//    var page: Int?
     var result: [MovieDTO]
     var pagination: Pagination
-//    var totalPages: Int?
-//    var totalResults: Int?
 }
 
 public enum MoviesAPIError: Error {

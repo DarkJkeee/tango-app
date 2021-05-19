@@ -61,7 +61,7 @@ public enum StompAckMode {
 
 // Fundamental Protocols
 @objc
-public protocol StompClientLibDelegate: class {
+public protocol StompClientLibDelegate: AnyObject {
     func stompClient(client: StompClientLib!, didReceiveMessageWithJSONBody jsonBody: AnyObject?, akaStringBody stringBody: String?, withHeader header:[String:String]?, withDestination destination: String)
     
     func stompClientDidDisconnect(client: StompClientLib!)
@@ -206,7 +206,7 @@ public class StompClientLib: NSObject, SRWebSocketDelegate {
         
         if let delegate = delegate {
             DispatchQueue.main.async(execute: {
-                delegate.serverDidSendError(client: self, withErrorMessage: error.localizedDescription, detailedErrorMessage: error as? String)
+                delegate.serverDidSendError(client: self, withErrorMessage: error.localizedDescription, detailedErrorMessage: error.localizedDescription)
             })
         }
     }

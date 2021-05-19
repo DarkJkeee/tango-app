@@ -14,7 +14,6 @@ struct TabbedPageView: View {
         NavigationView {
             TabBar()
                 .navigationBarHidden(true)
-                .navigationViewStyle(StackNavigationViewStyle())
         }
         .environmentObject(profileVM)
     }

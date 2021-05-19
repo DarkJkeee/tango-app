@@ -17,7 +17,7 @@ struct SettingsPage: View {
     var body: some View {
         NavigationView {
             VStack {
-                Section(header: Text("Профиль").font(.custom("Dosis-Bold", size: 20))) {
+                Section(header: Text("Profile").font(.custom("Dosis-Bold", size: 20))) {
                     NavigationLink(destination: ChangeableField(imageName: "mail.stack", field: "email", description: "You will get a confirmation message on your new email.", text: $user.email)) {
                         SettingsCell(imageName: "mail.stack", title: "Change Email")
                     }

@@ -21,18 +21,20 @@ struct ProfileView: View {
                 VStack {
                     topbar
                     ProfilePage(user: profileVM.mainUser, isChangeable: true)
-                    AccentButton(title: "Logout", height: 60) {
-                        sessionVM.logout()
+                    HStack {
+                        BorderedButton(text: "Logout", color: colorScheme == .dark ? .AccentLight : .AccentDark, isOn: false) {
+                            sessionVM.logout()
+                        }
+                        .frame(width: 200)
+                        BorderedButton(text: "Delete user", color: .red, isOn: false) {
+                            isShowingAlert = true
+                        }
+                        .frame(width: 200)
                     }
-                    .foregroundColor(colorScheme == .dark ? .AccentLight : .AccentDark)
                     if profileVM.error == .delete {
                         Text("Error: couldn't delete account!")
                             .foregroundColor(.red)
                     }
-                    AccentButton(title: "Delete profile", height: 60) {
-                        isShowingAlert = true
-                    }
-                    .foregroundColor(.red)
                 }
             }
             .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
@@ -76,6 +78,5 @@ struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView()
             .environmentObject(SessionViewModel())
-            .environmentObject(ProfileViewModel(id: 3))
     }
 }

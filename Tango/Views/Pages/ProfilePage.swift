@@ -9,6 +9,7 @@ import SDWebImageSwiftUI
 import SwiftUI
 
 struct ProfilePage: View {
+    @Environment(\.colorScheme) var colorScheme
     
     @State var user: User
     var isChangeable: Bool
@@ -35,8 +36,10 @@ struct ProfilePage: View {
                     }
                 })
                 
-                HStack {
+                VStack {
                     Text(isChangeable ? profileVM.mainUser.username : user.username)
+                        .font(.custom("Dosis-Bold", size: 24))
+                    Text(isChangeable ? profileVM.mainUser.email : "")
                         .font(.custom("Dosis-Bold", size: 24))
                 }
                 .padding()
@@ -44,8 +47,14 @@ struct ProfilePage: View {
                 NavigationLink(destination:
                 ScrollView {
                     VStack {
-                        ForEach(profileVM.mainUser.favorite) { movie in
-                            MovieSearchCard(movie: movie)
+                        if isChangeable {
+                            ForEach(profileVM.mainUser.favorite) { movie in
+                                MovieSearchCard(movie: movie)
+                            }
+                        } else {
+                            ForEach(user.favorite) { movie in
+                                MovieSearchCard(movie: movie)
+                            }
                         }
                     }
                 }) {

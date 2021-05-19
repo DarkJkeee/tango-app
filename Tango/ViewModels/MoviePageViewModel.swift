@@ -55,29 +55,29 @@ class MoviePageViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    public func like(id: Int) {
-        MoviesAPI.shared.getComments(id: id)
-            .sink { completion in
-                if case .failure(let error) = completion {
-                    print(error)
-                }
-            } receiveValue: { result in
-                self.currentComments = result
-            }
-            .store(in: &cancellables)
-    }
+//    public func like(id: Int) {
+//        MoviesAPI.shared.getComments(id: id)
+//            .sink { completion in
+//                if case .failure(let error) = completion {
+//                    print(error)
+//                }
+//            } receiveValue: { result in
+//                self.currentComments = result
+//            }
+//            .store(in: &cancellables)
+//    }
     
-    public func dislike(id: Int) {
-        MoviesAPI.shared.getComments(id: id)
-            .sink { completion in
-                if case .failure(let error) = completion {
-                    print(error)
-                }
-            } receiveValue: { result in
-                self.currentComments = result
-            }
-            .store(in: &cancellables)
-    }
+//    public func dislike(id: Int) {
+//        MoviesAPI.shared.getComments(id: id)
+//            .sink { completion in
+//                if case .failure(let error) = completion {
+//                    print(error)
+//                }
+//            } receiveValue: { result in
+//                self.currentComments = result
+//            }
+//            .store(in: &cancellables)
+//    }
     
     deinit {
         for cancellable in cancellables {

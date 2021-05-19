@@ -22,7 +22,7 @@ class ProfileAPI {
     public func favouriteFilm(id: Int, method: String) -> Future<User, ProfileError> {
         return Future<User, ProfileError> { promise in
             guard let url = URL(string: "\(self.url)/api/film/\(id)/favorite/\(Session.shared.userId)") else {
-                return promise(.failure(ProfileError.custom(message: URLError(.unsupportedURL).localizedDescription)))
+                return promise(.failure(ProfileError.custom(message: URLError(.unsupportedURL).localizedDescription, status: 500)))
             }
             
             var request = URLRequest(url: url)
@@ -33,7 +33,7 @@ class ProfileAPI {
                 .tryMap({ (data, response) -> Data in
                     guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
 //                        print(String(data: data, encoding: String.Encoding.utf8))
-                        throw ProfileError.custom(message: "Bad response: \((response as? HTTPURLResponse)?.statusCode ?? 500)")
+                        throw ProfileError.custom(message: "Bad response: \((response as? HTTPURLResponse)?.statusCode ?? 500)", status: (response as? HTTPURLResponse)?.statusCode ?? 500)
                     }
                     return data
                 })
@@ -44,7 +44,7 @@ class ProfileAPI {
                         if let error = error as? ProfileError {
                             promise(.failure(error))
                         } else {
-                            promise(.failure(.custom(message: error.localizedDescription)))
+                            promise(.failure(.custom(message: error.localizedDescription, status: 500)))
                         }
                     }
                 } receiveValue: { value in
@@ -57,7 +57,7 @@ class ProfileAPI {
     public func loadProfile(with id: Int) -> Future<User, ProfileError> {
         return Future<User, ProfileError> { promise in
             guard let url = URL(string: "\(self.url)/api/user/\(id)/info") else {
-                return promise(.failure(ProfileError.custom(message: URLError(.unsupportedURL).localizedDescription)))
+                return promise(.failure(ProfileError.custom(message: URLError(.unsupportedURL).localizedDescription, status: 500)))
             }
             
             var request = URLRequest(url: url)
@@ -66,7 +66,7 @@ class ProfileAPI {
             URLSession.shared.dataTaskPublisher(for: request)
                 .tryMap({ (data, response) -> Data in
                     guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
-                        throw ProfileError.custom(message: "Bad response: \((response as? HTTPURLResponse)?.statusCode ?? 500)")
+                        throw ProfileError.custom(message: "Bad response: \((response as? HTTPURLResponse)?.statusCode ?? 500)", status: (response as? HTTPURLResponse)?.statusCode ?? 500)
                     }
                     return data
                 })
@@ -77,7 +77,7 @@ class ProfileAPI {
                         if let error = error as? ProfileError {
                             promise(.failure(error))
                         } else {
-                            promise(.failure(.custom(message: error.localizedDescription)))
+                            promise(.failure(.custom(message: error.localizedDescription, status: 500)))
                         }
                     }
                 } receiveValue: { user in
@@ -104,7 +104,7 @@ class ProfileAPI {
         
         return Future<User, ProfileError> { promise in
             guard let url = URL(string: "\(self.url)/api/user/\(id)") else {
-                return promise(.failure(ProfileError.custom(message: URLError(.unsupportedURL).localizedDescription)))
+                return promise(.failure(ProfileError.custom(message: URLError(.unsupportedURL).localizedDescription, status: 500)))
             }
             
             var request = URLRequest(url: url)
@@ -123,7 +123,7 @@ class ProfileAPI {
                         if (response as? HTTPURLResponse)?.statusCode == 400 {
                             throw ProfileError.exist
                         }
-                        throw ProfileError.custom(message: "Bad response: \((response as? HTTPURLResponse)?.statusCode ?? 500)")
+                        throw ProfileError.custom(message: "Bad response: \((response as? HTTPURLResponse)?.statusCode ?? 500)", status: (response as? HTTPURLResponse)?.statusCode ?? 500)
                     }
                     return data
                 })
@@ -134,7 +134,7 @@ class ProfileAPI {
                         if let error = error as? ProfileError {
                             promise(.failure(error))
                         } else {
-                            promise(.failure(.custom(message: error.localizedDescription)))
+                            promise(.failure(.custom(message: error.localizedDescription, status: 500)))
                         }
                     }
                 } receiveValue: { res in
@@ -149,7 +149,7 @@ class ProfileAPI {
         
         return Future<String, ProfileError> { promise in
             guard let url = URL(string: "\(self.url)/api/user/\(id)") else {
-                return promise(.failure(ProfileError.custom(message: URLError(.unsupportedURL).localizedDescription)))
+                return promise(.failure(ProfileError.custom(message: URLError(.unsupportedURL).localizedDescription, status: 500)))
             }
             
             var request = URLRequest(url: url)
@@ -160,7 +160,7 @@ class ProfileAPI {
                 .tryMap({ (data, response) -> Data in
                     guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
 //                        print(String(data: data, encoding: String.Encoding.utf8))
-                        throw ProfileError.custom(message: "Bad response: \((response as? HTTPURLResponse)?.statusCode ?? 500)")
+                        throw ProfileError.custom(message: "Bad response: \((response as? HTTPURLResponse)?.statusCode ?? 500)", status: (response as? HTTPURLResponse)?.statusCode ?? 500)
                     }
                     return data
                 })
@@ -171,7 +171,7 @@ class ProfileAPI {
                         if let error = error as? ProfileError {
                             promise(.failure(error))
                         } else {
-                            promise(.failure(.custom(message: error.localizedDescription)))
+                            promise(.failure(.custom(message: error.localizedDescription, status: 500)))
                         }
                     }
                 } receiveValue: { value in
@@ -184,7 +184,7 @@ class ProfileAPI {
     public func searchUsers(query: String) -> Future<[User], ProfileError> {
         return Future<[User], ProfileError> { promise in
             guard let url = URL(string: "\(self.url)/api/user/list?page=0&size=5&search=\(query)") else {
-                return promise(.failure(ProfileError.custom(message: URLError(.unsupportedURL).localizedDescription)))
+                return promise(.failure(ProfileError.custom(message: URLError(.unsupportedURL).localizedDescription, status: 500)))
             }
             
             var request = URLRequest(url: url)
@@ -193,7 +193,7 @@ class ProfileAPI {
             URLSession.shared.dataTaskPublisher(for: request)
                 .tryMap { (data, response) -> Data in
                     guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
-                        throw ProfileError.custom(message: "Bad response: \((response as? HTTPURLResponse)?.statusCode ?? 500)")
+                        throw ProfileError.custom(message: "Bad response: \((response as? HTTPURLResponse)?.statusCode ?? 500)", status: (response as? HTTPURLResponse)?.statusCode ?? 500)
                     }
                     return data
                 }
@@ -201,7 +201,7 @@ class ProfileAPI {
                 .receive(on: RunLoop.main)
                 .sink { completion in
                     if case let . failure(error) = completion {
-                        promise(.failure(.custom(message: error.localizedDescription)))
+                        promise(.failure(.custom(message: error.localizedDescription, status: 500)))
                     }
                 } receiveValue: { res in
                     promise(.success(res.result))
@@ -250,5 +250,5 @@ struct Pagination: Decodable {
 
 enum ProfileError: Error {
     case exist
-    case custom(message: String)
+    case custom(message: String, status: Int)
 }

@@ -23,74 +23,63 @@ struct MoviePage: View {
     @State var player: AVPlayer?
     
     var body: some View {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 10) {
-                    ZStack(alignment: .bottom) {
-                        WebImage(url: URL(string: movie.descImage))
-                            .placeholder {
-                                ProgressView()
-                            }
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .cornerRadius(5)
-                        Rectangle()
-                            .frame(height: 80)
-                            .opacity(0.25)
-                            .blur(radius: 10)
-                    }
-                    MovieDescription(movie: movie, isShowingVideo: $isShowingVideo, player: $player)
-                    
-                    Section(header: Text("Comments").font(.custom("Dosis-Bold", size: 24))) {
-                        VStack {
-                            TextBar(text: $movieVM.review, placeholder: "Review...", imageName: "pencil", isSecureField: false)
-                            AccentButton(title: "Post a comment") {
-                                movieVM.addCommment(id: movie.id)
-                            }
-                            .frame(height: 100)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 10) {
+                ZStack(alignment: .bottom) {
+                    WebImage(url: URL(string: movie.descImage))
+                        .placeholder {
+                            ProgressView()
                         }
-                    }
-                    .padding()
-                    
-                    ForEach(movieVM.currentComments) { comment in
-                        HStack {
-                            Spacer()
-                            VStack {
-                                Text(comment.writer.username)
-                                    .font(.custom("Dosis-Bold", size: 20))
-                                Text(comment.text)
-                                    .font(.custom("Dosis-Regular", size: 16))
-                            }
-                            if comment.writer.id == Session.shared.userId {
-                                Spacer()
-                                AccentButton(title: "Delete") {
-                                    movieVM.deleteComment(id: comment.id)
-                                }
-                                .frame(width: 100, height: 70)
-                                .foregroundColor(.red)
-                            }
-                        }
-                        .frame(height: 100)
-                    }
-                    .padding()
-                    
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .cornerRadius(5)
+                    Rectangle()
+                        .frame(height: 80)
+                        .opacity(0.25)
+                        .blur(radius: 10)
                 }
-                .padding(.bottom, keyboardHeight)
-            }
-            .onAppear() {
-                movieVM.getComments(id: movie.id)
-            }
-            .sheet(isPresented: $isShowingVideo, content: {
-                AVPlayerView(avPlayer: $player)
-                    .onAppear() {
-                        player?.play()
+                MovieDescription(movie: movie, isShowingVideo: $isShowingVideo, player: $player)
+                
+                Section(header: Text("Comments").font(.custom("Dosis-Bold", size: 24))) {
+                    VStack {
+                        TextBar(text: $movieVM.review, placeholder: "Comment", imageName: "pencil", isSecureField: false)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 6)
+                                    .stroke(colorScheme == .dark ? Color.AccentColorLight : Color.AccentColorDark, lineWidth: 1)
+                            )
+
+                        BorderedButton(text: "Post a comment", color: colorScheme == .dark ? .AccentColorLight : .AccentColorDark, isOn: false) {
+                            movieVM.addCommment(id: movie.id)
+                        }
+                        .frame(height: 80)
                     }
-                    .onDisappear() {
-                        player?.pause()
-                    }
-            })
-            .onReceive(Publishers.keyboardHeight) { self.keyboardHeight = $0 }
-            .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
-            .edgesIgnoringSafeArea(.all)
+                }
+                .padding()
+                
+                ForEach(movieVM.currentComments) { comment in
+                    Divider()
+                    CommentView(movieVM: movieVM, comment: comment)
+                }
+                .padding()
+                
+            }
+            .padding(.bottom, keyboardHeight)
+        }
+        .onAppear() {
+            movieVM.getComments(id: movie.id)
+        }
+        .sheet(isPresented: $isShowingVideo, content: {
+            AVPlayerView(avPlayer: $player)
+                .onAppear() {
+                    player?.play()
+                }
+                .onDisappear() {
+                    player?.pause()
+                }
+        })
+        .onReceive(Publishers.keyboardHeight) { self.keyboardHeight = $0 }
+        .background(colorScheme == .dark ? Color.backgroundColorDark : Color.backgroundColorLight)
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
@@ -157,7 +146,7 @@ struct MovieDescription: View {
             HStack {
                 Spacer()
                 AccentButton(title: "Watch", width: 100, height: 30) {
-
+                    
                     let url = URL(string: movie.filmLink)!
                     VimeoVideoDecoder.fetchVideoURLFrom(url: url, completion: { (video: HCVimeoVideo?, error: Error?) -> Void in
                         if let err = error {
@@ -191,20 +180,65 @@ struct MovieDescription: View {
     }
 }
 
+struct CommentView: View {
+    @State var isShowing = false
+    @Environment(\.colorScheme) var colorScheme
+    @ObservedObject var movieVM: MoviePageViewModel
+    
+    var comment: Comment
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            NavigationLink(destination: ProfilePage(user: comment.writer, isChangeable: false),
+                           isActive: $isShowing, label: { EmptyView() })
+            HStack {
+                Button(action: {
+                    isShowing = true
+                }, label: {
+                    WebImage(url: URL(string: comment.writer.avatar ?? ""))
+                        .placeholder {
+                            Image("avatar")
+                        }
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 50, height: 50)
+                        .clipShape(Circle())
+                })
+                VStack(alignment: .leading) {
+                    Text("\(comment.writer.username)")
+                        .font(.custom("Dosis-Bold", size: 20))
+                        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
+                    Text("\(comment.text)")
+                        .font(.custom("Dosis-Regular", size: 16))
+                        .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
+                }
+                .padding()
+            }
+            .padding()
+            if comment.writer.id == Session.shared.userId {
+                BorderedButton(text: "Delete", color: .red, isOn: false) {
+                    movieVM.deleteComment(id: comment.id)
+                }
+                .padding()
+            }
+        }
+    }
+}
+
 struct AVPlayerView: UIViewControllerRepresentable {
-
+    
     @Binding var avPlayer: AVPlayer?
-
+    
     private var player: AVPlayer {
         return avPlayer!
     }
-
+    
     func updateUIViewController(_ playerController: AVPlayerViewController, context: Context) {
         playerController.modalPresentationStyle = .fullScreen
         playerController.player = player
         playerController.player?.play()
     }
-
+    
     func makeUIViewController(context: Context) -> AVPlayerViewController {
         return AVPlayerViewController()
     }

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TextBar: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     @Binding var text: String
     var placeholder: String
     var imageName: String

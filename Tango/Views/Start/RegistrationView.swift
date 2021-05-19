@@ -76,11 +76,11 @@ struct RegistrationView: View {
     
     private var verificationView: some View {
         VStack {
-            Text("Continue with email")
+            Text("You are succesfully registered.")
                 .font(.custom("Dosis-Bold", size: 28))
                 .padding()
             
-            Text("You will get an email. Follow the link in the letter to register an account.")
+            Text("You can login now in your account.")
                 .font(.custom("Dosis-Regular", size: 24))
                 .padding()
             
@@ -95,10 +95,10 @@ struct RegistrationView: View {
             
             Spacer()
             
-            Image("email")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .padding()
+//            Image("email")
+//                .resizable()
+//                .aspectRatio(contentMode: .fit)
+//                .padding()
             
             //                    HStack {
             //                        ForEach(0..<6, id: \.self) { index in
