@@ -24,7 +24,7 @@
 		2A35DA6D26176E3500FF7D31 /* ChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35DA6C26176E3500FF7D31 /* ChatListView.swift */; };
 		2A4052F3264DEBCB00944E73 /* ChatListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4052F2264DEBCB00944E73 /* ChatListViewModel.swift */; };
 		2A4052F5264DFC8300944E73 /* UserCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4052F4264DFC8300944E73 /* UserCard.swift */; };
-		2A4052F8264EA0C900944E73 /* NewChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4052F7264EA0C900944E73 /* NewChat.swift */; };
+		2A4052F8264EA0C900944E73 /* ChatSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4052F7264EA0C900944E73 /* ChatSettings.swift */; };
 		2A4BCB47260159490016B73E /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4BCB43260159490016B73E /* UIColorExtension.swift */; };
 		2A4BCB48260159490016B73E /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4BCB44260159490016B73E /* ColorExtension.swift */; };
 		2A4BCB4A260159490016B73E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4BCB46260159490016B73E /* Colors.swift */; };
@@ -84,7 +84,7 @@
 		2A35DA6C26176E3500FF7D31 /* ChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListView.swift; sourceTree = "<group>"; };
 		2A4052F2264DEBCB00944E73 /* ChatListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewModel.swift; sourceTree = "<group>"; };
 		2A4052F4264DFC8300944E73 /* UserCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCard.swift; sourceTree = "<group>"; };
-		2A4052F7264EA0C900944E73 /* NewChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChat.swift; sourceTree = "<group>"; };
+		2A4052F7264EA0C900944E73 /* ChatSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSettings.swift; sourceTree = "<group>"; };
 		2A4BCB43260159490016B73E /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		2A4BCB44260159490016B73E /* ColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		2A4BCB46260159490016B73E /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -166,7 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				2A35DA6C26176E3500FF7D31 /* ChatListView.swift */,
-				2A4052F7264EA0C900944E73 /* NewChat.swift */,
+				2A4052F7264EA0C900944E73 /* ChatSettings.swift */,
 			);
 			path = ChatView;
 			sourceTree = "<group>";
@@ -531,7 +531,7 @@
 				2ABB2C1E2650099200EA4F49 /* VimeoVideoDecoder.swift in Sources */,
 				2ABABF18254F44C400F896C7 /* MoviesListViewModel.swift in Sources */,
 				2ABABF07254F24DD00F896C7 /* LoginView.swift in Sources */,
-				2A4052F8264EA0C900944E73 /* NewChat.swift in Sources */,
+				2A4052F8264EA0C900944E73 /* ChatSettings.swift in Sources */,
 				2A1CF6A92636122900CBED14 /* PublishersExtension.swift in Sources */,
 				2ABABF1B254F46A800F896C7 /* Movie.swift in Sources */,
 				2AE5320C264957E6007149F8 /* Message.swift in Sources */,

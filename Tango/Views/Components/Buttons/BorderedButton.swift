@@ -13,6 +13,8 @@ public struct BorderedButton : View {
     public var systemImageName: String?
     public let color: Color
     public let isOn: Bool
+    public var width: CGFloat?
+    public var height: CGFloat?
     public let action: () -> Void
     
     public var body: some View {
@@ -25,6 +27,7 @@ public struct BorderedButton : View {
                 }
                 Text(text)
             }
+            .frame(width: width, height: height)
             .foregroundColor(isOn ? colorScheme == .dark ? .AccentColorDark : .AccentColorLight : color)
             })
             .buttonStyle(BorderlessButtonStyle())

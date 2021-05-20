@@ -112,6 +112,10 @@ class ChatListViewModel: ObservableObject {
             .store(in: &subscriptions)
     }
     
+    public func editChat() {
+        
+    }
+    
     deinit {
         for subscription in subscriptions {
             subscription.cancel()

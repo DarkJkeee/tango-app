@@ -11,7 +11,7 @@ import StompClientLib
 class SocketIOManager: ObservableObject, StompClientLibDelegate {
     private var username: String = "Unknown"
     
-    private func JSONStringify(value: MessageRes) -> String {
+    private func JSONStringify<T: Codable>(value: T) -> String {
         var jsonString = ""
         do {
             let jsonData = try JSONEncoder().encode(value)
@@ -27,7 +27,9 @@ class SocketIOManager: ObservableObject, StompClientLibDelegate {
         
         let message = try? JSONDecoder().decode(MessageRes.self, from: stringBody?.data(using: .utf8) ?? Data())
         if let message = message {
-            messages.append(Message(sender: message.sender, content: message.content ?? ""))
+            if message.body.message != "" {
+                messages.append(Message(sender: message.body.username, content: message.body.message))
+            }
         }
         
     }
@@ -42,8 +44,8 @@ class SocketIOManager: ObservableObject, StompClientLibDelegate {
         
         client.subscribe(destination: "/topic/public")
         
-        let jsonstr = JSONStringify(value: MessageRes(type: "JOIN", content: nil, sender: username))
-        
+        let jsonstr = "{\"type\":\"JOIN\",\"sender\":\"\(username)\"}"
+        print(jsonstr)
         client.sendMessage(message: jsonstr, toDestination: "/app/chat.addUser", withHeaders: nil, withReceipt: nil)
         
     }
@@ -73,23 +75,33 @@ class SocketIOManager: ObservableObject, StompClientLibDelegate {
         socket.openSocketWithURLRequest(request: request, delegate: self)
     }
     
-    public func sendMessage(message: Message) {
+    public func sendMessage(message: Message, user: User) {
         
-        let sentMessage = MessageRes(type: "CHAT", content: message.content, sender: username)
+        let sentMessage = MessageBody(messageType: "CHAT", message: message.content, chatUserId: 1, chatId: 1, posted: "2021-05-20T09:28:40.648Z")
         socket.sendMessage(message: JSONStringify(value: sentMessage), toDestination: "/app/chat.sendMessage", withHeaders: nil, withReceipt: nil)
         
     }
     
 }
 
-struct UserBody: Encodable {
-    var type: String
-    var sender: String
-}
-
 struct MessageRes: Codable {
-    var type: String
-    var content: String?
-    var sender: String
+    var body: Body
 }
 
+struct Body: Codable {
+    var messageType: String
+    var message: String
+    
+    var posted: String
+    var username: String
+    var avatar: String
+    
+}
+
+struct MessageBody: Codable {
+    var messageType: String
+    var message: String
+    var chatUserId: Int
+    var chatId: Int
+    var posted: String
+}

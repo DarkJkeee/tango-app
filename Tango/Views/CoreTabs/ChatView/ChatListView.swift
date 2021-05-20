@@ -17,20 +17,18 @@ struct ChatListView: View {
     @State var showInvitations = false
     
     var body: some View {
-        NavigationView {
-            VStack {
-                topbar
-                content
-            }
-            .onAppear() {
-                chatListVM.getChats()
-            }
-            .sheet(isPresented: $chatListVM.isShowingNewChatTab, content: {
-                NewChat(chatListVM: chatListVM)
-            })
-            .navigationBarHidden(true)
-            .edgesIgnoringSafeArea(.all)
+        VStack {
+            topbar
+            content
         }
+        .onAppear() {
+            chatListVM.getChats()
+        }
+        .sheet(isPresented: $chatListVM.isShowingNewChatTab, content: {
+            ChatSettings(chatListVM: chatListVM)
+        })
+        .navigationBarHidden(true)
+        .edgesIgnoringSafeArea(.all)
     }
     
     private var topbar: some View {
@@ -100,13 +98,13 @@ struct ChatListView: View {
                     chatListVM.getChats()
                 }
                 ForEach(chatListVM.chats) { chat in
-                        NavigationLink(
-                            destination:
-                                ChatView(),
-                            label: {
-                                CellView(chat: chat)
-                            })
-                    }
+                    NavigationLink(
+                        destination:
+                            ChatView(chatListVM: chatListVM),
+                        label: {
+                            CellView(chat: chat)
+                        })
+                }
             }
             .coordinateSpace(name: "pullRefresh")
         }

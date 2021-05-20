@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NewChat: View {
+struct ChatSettings: View {
     @Environment(\.colorScheme) var colorScheme
     
     @EnvironmentObject var profileVM: ProfileViewModel

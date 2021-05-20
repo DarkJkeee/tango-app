@@ -50,7 +50,7 @@ struct MoviePage: View {
                 }
                 MovieDescription(movie: movie, isShowingVideo: $isShowingVideo, player: $player)
                 
-                Section(header: Text("Comments").font(.custom("Dosis-Bold", size: 24))) {
+                Section(header: Text("Comments").font(.custom("Dosis-Bold", size: 24)).foregroundColor(colorScheme == .dark ? .AccentColorLight: .AccentColorDark)) {
                     VStack {
                         TextBar(text: $movieVM.review, placeholder: "Comment", imageName: "pencil", isSecureField: false)
                             .overlay(
@@ -58,10 +58,11 @@ struct MoviePage: View {
                                     .stroke(colorScheme == .dark ? Color.AccentColorLight : Color.AccentColorDark, lineWidth: 1)
                             )
 
-                        BorderedButton(text: "Post a comment", color: colorScheme == .dark ? .AccentColorLight : .AccentColorDark, isOn: false) {
+                        BorderedButton(text: "Post", color: colorScheme == .dark ? .AccentColorLight : .AccentColorDark, isOn: false, width: 80, height: 40) {
                             movieVM.addCommment(id: movie.id)
                         }
                     }
+                    .padding()
                 }
                 .padding()
                 
@@ -145,8 +146,7 @@ struct MovieDescription: View {
             
             HStack {
                 Spacer()
-                AccentButton(title: "Watch", width: 100, height: 30) {
-                    
+                BorderedButton(text: "Watch", systemImageName: "play.fill", color: colorScheme == .dark ? .AccentColorLight : .AccentColorDark, isOn: false, width: 120, height: 50) {
                     let url = URL(string: movie.filmLink)!
                     VimeoVideoDecoder.fetchVideoURLFrom(url: url, completion: { (video: HCVimeoVideo?, error: Error?) -> Void in
                         if let err = error {
@@ -189,8 +189,6 @@ struct CommentView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            NavigationLink(destination: ProfilePage(user: comment.writer, isChangeable: false),
-                           isActive: $isShowing, label: { EmptyView() })
             HStack {
                 Button(action: {
                     isShowing = true
@@ -212,15 +210,15 @@ struct CommentView: View {
                         .font(.custom("Dosis-Regular", size: 16))
                         .foregroundColor(colorScheme == .dark ? .AccentColorLight : .AccentColorDark)
                 }
-                .padding()
-            }
-            .padding()
-            if comment.writer.id == Session.shared.userId {
-                BorderedButton(text: "Delete", color: .red, isOn: false) {
-                    movieVM.deleteComment(id: comment.id)
+                Spacer()
+                if comment.writer.id == Session.shared.userId {
+                    BorderedButton(text: "Delete", systemImageName: "trash.fill", color: .red, isOn: false) {
+                        movieVM.deleteComment(id: comment.id)
+                    }
                 }
-                .padding()
             }
+            NavigationLink(destination: ProfilePage(user: comment.writer, isChangeable: false),
+                           isActive: $isShowing, label: { EmptyView() })
         }
     }
 }
@@ -245,7 +243,6 @@ struct AVPlayerView: UIViewControllerRepresentable {
 }
 
 class LandscapeAVPlayerController: AVPlayerViewController {
-
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .all
     }

@@ -76,15 +76,15 @@ struct ProfilePage: View {
                 
                 Spacer()
             }
+            if profileVM.isLoading {
+                LoadingScreen()
+            }
         }
         .sheet(isPresented: $isShowingImagePicker, content: {
             ImagePicker(sourceType: .photoLibrary) { image in
                 profileVM.changeAvatar(avatar: image)
             }
         })
-        if profileVM.isLoading {
-            LoadingScreen()
-        }
     }
 }
 
