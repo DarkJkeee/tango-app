@@ -12,7 +12,7 @@ class Chat: Codable, Identifiable {
     
     var chatId: Int
     var name: String
-    var info: String
+    var info: String?
     var avatar: String?
     
 }

@@ -144,7 +144,7 @@ struct CellView: View {
                 Text(chat.name)
                     .lineLimit(1)
                     .font(.custom("Dosis-Bold", size: 20))
-                Text(chat.info)
+                Text(chat.info ?? "")
                     .lineLimit(2)
                     .font(.custom("Dosis-Regular", size: 15))
                     .font(.caption)

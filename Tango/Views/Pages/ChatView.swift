@@ -6,13 +6,16 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ChatView: View {
+    
     @EnvironmentObject var profileVM: ProfileViewModel
     @ObservedObject var chatListVM: ChatListViewModel
     @StateObject var socketManager = SocketIOManager()
     @State var isShowing = false
     @State var typingMessage = ""
+    @State private var keyboardHeight: CGFloat = 0
     
     var body: some View {
         GeometryReader { geometry in
@@ -31,9 +34,9 @@ struct ChatView: View {
                             .padding(.horizontal, 8)
                             .padding(EdgeInsets(
                                         top: 0,
-                                        leading: message.sender == profileVM.mainUser.username ? geometry.size.width * 0.5 : 0 ,
+                                        leading: message.username == profileVM.mainUser.username ? geometry.size.width * 0.5 : 0 ,
                                         bottom: 0,
-                                        trailing: message.sender == profileVM.mainUser.username ? 0 : geometry.size.width * 0.5))
+                                        trailing: message.username == profileVM.mainUser.username ? 0 : geometry.size.width * 0.5))
                         
                     }
                 }
@@ -41,7 +44,6 @@ struct ChatView: View {
                 HStack {
                     TextField("Message...", text: $typingMessage)
                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                       .frame(minHeight: CGFloat(30))
                     Button(action: {
                         socketManager.sendMessage(message: Message(sender: profileVM.mainUser.username, content: typingMessage), user: profileVM.mainUser)
                         typingMessage = ""
@@ -51,10 +53,10 @@ struct ChatView: View {
                             .frame(width: 30, height: 30)
                     }
                  }
-                .frame(minHeight: CGFloat(50))
                 .padding()
             }
         }
+        .onReceive(Publishers.keyboardHeight) { self.keyboardHeight = $0 }
         .sheet(isPresented: $isShowing) {
             ChatSettings(chatListVM: chatListVM)
         }

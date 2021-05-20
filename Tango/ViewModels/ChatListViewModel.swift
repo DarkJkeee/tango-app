@@ -14,6 +14,7 @@ class ChatListViewModel: ObservableObject {
     
     @Published var invitations = [Chat]()
     @Published var chats = [Chat]()
+    @Published var currentHistory = [MessageDTO]()
     
     @Published var searchingText = ""
     @Published var isShowingNewChatTab = false
@@ -110,10 +111,6 @@ class ChatListViewModel: ObservableObject {
                 self.chats.append(chat)
             }
             .store(in: &subscriptions)
-    }
-    
-    public func editChat() {
-        
     }
     
     deinit {

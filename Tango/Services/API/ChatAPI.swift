@@ -100,8 +100,38 @@ class ChatAPI {
         }
     }
     
-    public func acceptInvitation() {
-        
+    public func getHistory(id: Int) -> Future<[MessageDTO], ChatError> {
+        return Future<[MessageDTO], ChatError> { promise in
+            guard let url = URL(string: "\(self.url)/api/chats/history/\(id)?page=0&size=100") else {
+                return promise(.failure(ChatError.custom(msg: URLError(.unsupportedURL).localizedDescription)))
+            }
+            
+            var request = URLRequest(url: url)
+            request.setValue("Bearer \(Session.shared.token)", forHTTPHeaderField: "Authorization")
+            
+            URLSession.shared.dataTaskPublisher(for: request)
+                .tryMap({ (data, response) -> Data in
+                    guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
+                        throw ChatError.custom(msg: "Bad response: \((response as? HTTPURLResponse)?.statusCode ?? 500)")
+                    }
+                    return data
+                })
+                .decode(type: HistoryResponse.self, decoder: self.jsonDecoder)
+                .receive(on: RunLoop.main)
+                .sink { completion in
+                    if case let .failure(error) = completion {
+                        if let error = error as? ChatError {
+                            promise(.failure(error))
+                        } else {
+                            promise(.failure(.custom(msg: error.localizedDescription)))
+                        }
+                    }
+                } receiveValue: { res in
+                    promise(.success(res.result))
+                }
+                .store(in: &self.subscriptions)
+                
+        }
     }
     
     
