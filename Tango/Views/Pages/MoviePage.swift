@@ -52,7 +52,7 @@ struct MoviePage: View {
                 
                 Section(header: Text("Comments").font(.custom("Dosis-Bold", size: 24)).foregroundColor(colorScheme == .dark ? .AccentColorLight: .AccentColorDark)) {
                     VStack {
-                        TextBar(text: $movieVM.review, placeholder: "Comment", imageName: "pencil", isSecureField: false)
+                        TextBar(text: $movieVM.review, placeholder: "Comment...", imageName: "pencil", isSecureField: false)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 6)
                                     .stroke(colorScheme == .dark ? Color.AccentColorLight : Color.AccentColorDark, lineWidth: 1)
@@ -147,7 +147,7 @@ struct MovieDescription: View {
             HStack {
                 Spacer()
                 BorderedButton(text: "Watch", systemImageName: "play.fill", color: colorScheme == .dark ? .AccentColorLight : .AccentColorDark, isOn: false, width: 120, height: 50) {
-                    let url = URL(string: movie.filmLink)!
+                    let url = URL(string: "https://vimeo.com/553003870")!
                     VimeoVideoDecoder.fetchVideoURLFrom(url: url, completion: { (video: HCVimeoVideo?, error: Error?) -> Void in
                         if let err = error {
                             print("Error = \(err.localizedDescription)")
