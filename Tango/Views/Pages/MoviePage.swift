@@ -147,7 +147,7 @@ struct MovieDescription: View {
             HStack {
                 Spacer()
                 BorderedButton(text: "Watch", systemImageName: "play.fill", color: colorScheme == .dark ? .AccentColorLight : .AccentColorDark, isOn: false, width: 120, height: 50) {
-                    let url = URL(string: "https://vimeo.com/553003870")!
+                    let url = URL(string: movie.filmLink)!
                     VimeoVideoDecoder.fetchVideoURLFrom(url: url, completion: { (video: HCVimeoVideo?, error: Error?) -> Void in
                         if let err = error {
                             print("Error = \(err.localizedDescription)")
