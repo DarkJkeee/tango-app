@@ -100,7 +100,7 @@ struct ChatListView: View {
                 ForEach(chatListVM.chats) { chat in
                     NavigationLink(
                         destination:
-                            ChatView(chatListVM: chatListVM),
+                            ChatView(chatListVM: chatListVM, chat: chat),
                         label: {
                             CellView(chat: chat)
                         })

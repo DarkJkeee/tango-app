@@ -148,28 +148,38 @@ struct MovieDescription: View {
                 Spacer()
                 BorderedButton(text: "Watch", systemImageName: "play.fill", color: colorScheme == .dark ? .AccentColorLight : .AccentColorDark, isOn: false, width: 120, height: 50) {
                     let url = URL(string: movie.filmLink)!
-                    VimeoVideoDecoder.fetchVideoURLFrom(url: url, completion: { (video: HCVimeoVideo?, error: Error?) -> Void in
-                        if let err = error {
-                            print("Error = \(err.localizedDescription)")
-                            return
-                        }
-                        
-                        guard video != nil else {
-                            print("Invalid video object")
-                            return
-                        }
-                        
-                        do {
-                            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
-                        }
-                        catch {
-                            print("Setting category to AVAudioSessionCategoryPlayback failed.")
-                        }
-                        
-                        self.player = AVPlayer(url: video?.videoURL[.quality1080p] ?? URL(string: "")!)
-                        
-                        self.isShowingVideo = true
-                    })
+                    
+                    do {
+                        try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+                    }
+                    catch {
+                        print("Setting category to AVAudioSessionCategoryPlayback failed.")
+                    }
+                    
+                    self.player = AVPlayer(url: url)
+                    self.isShowingVideo = true
+//                    VimeoVideoDecoder.fetchVideoURLFrom(url: url, completion: { (video: HCVimeoVideo?, error: Error?) -> Void in
+//                        if let err = error {
+//                            print("Error = \(err.localizedDescription)")
+//                            return
+//                        }
+//
+//                        guard video != nil else {
+//                            print("Invalid video object")
+//                            return
+//                        }
+//
+//                        do {
+//                            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+//                        }
+//                        catch {
+//                            print("Setting category to AVAudioSessionCategoryPlayback failed.")
+//                        }
+//
+//                        self.player = AVPlayer(url: video?.videoURL[.quality1080p] ?? URL(string: "")!)
+//
+//                        self.isShowingVideo = true
+//                    })
                 }
                 Spacer()
             }

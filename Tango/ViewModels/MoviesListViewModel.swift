@@ -15,6 +15,7 @@ final class MoviesListViewModel: ObservableObject {
     
     @Published var searchText: String = ""
     @Published var genres = [Genre]()
+    private var movies = [Int: [MovieDTO]]()
     
 //    private var movies = [Int: [Movie]]()
     
@@ -40,13 +41,15 @@ final class MoviesListViewModel: ObservableObject {
     }
     
     private func getMovies(from genre: Int?) {
-        MoviesAPI.shared.GetMovies(from: nil)
+        MoviesAPI.shared.GetMovies(from: genre)
             .sink(receiveCompletion: { completion in
                 if case let .failure(error) = completion {
                     self.state = .error(error)
+                } else {
+                    self.state = .loaded(self.movies)
                 }
             }, receiveValue: { movies in
-                self.state = .loaded(movies)
+                self.movies[genre ?? 0] = movies
             })
             .store(in: &cancellables)
     }
@@ -71,7 +74,9 @@ final class MoviesListViewModel: ObservableObject {
                 if case let .failure(error) = completion {
                     self.state = .error(error)
                 } else {
-                    self.getMovies(from: nil)
+                    for genre in self.genres {
+                        self.getMovies(from: genre.id)
+                    }
                 }
             }) { genres in
                 self.genres = genres
@@ -113,7 +118,7 @@ extension MoviesListViewModel {
     enum State {
         case idle
         case loading
-        case loaded([MovieDTO])
+        case loaded([Int: [MovieDTO]])
         case error(Error)
     }
     enum SearchState {

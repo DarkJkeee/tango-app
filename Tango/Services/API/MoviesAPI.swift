@@ -29,7 +29,7 @@ class MoviesAPI {
             let urlStr: String
             
             if genre != nil {
-                urlStr = "\(url)/api/film/list?page=0&size=10"
+                urlStr = "\(url)/api/film/list?page=0&size=10&genre=\(genre!)"
             } else {
                 urlStr = "\(url)/api/film/list?page=0&size=10"
             }

@@ -10,7 +10,9 @@ import StompClientLib
 import Combine
 
 class SocketIOManager: ObservableObject, StompClientLibDelegate {
+    
     private var subscription: AnyCancellable?
+    private var chatUserId: Int = -1
     private var username: String = "Unknown"
     private var decoder: JSONDecoder = {
         let jsonDecoder = JSONDecoder()
@@ -72,24 +74,26 @@ class SocketIOManager: ObservableObject, StompClientLibDelegate {
     
     private var socket = StompClientLib()
     
-    public func connect(username: String) {
-        self.username = username
+    public func connect(user: User, chatId: Int) {
+        getHistory(id: chatId)
+        getChatUserId(userId: user.id, chatId: chatId)
+        
+        self.username = user.username
         
         let url = URL(string: "wss://tango-server-db-eu.herokuapp.com/ws/websocket")!
         let request = NSURLRequest(url: url)
         
         socket.openSocketWithURLRequest(request: request, delegate: self)
-        getHistory(id: 1)
     }
     
     public func sendMessage(message: Message, user: User) {
         
-        let sentMessage = MessageBody(messageType: "CHAT", message: message.content, chatUserId: 2, chatId: 1, posted: "2021-05-20")
+        let sentMessage = MessageBody(messageType: "CHAT", message: message.content, chatUserId: chatUserId, chatId: 1, posted: "2021-05-20")
         socket.sendMessage(message: JSONStringify(value: sentMessage), toDestination: "/app/chat.sendMessage", withHeaders: nil, withReceipt: nil)
         
     }
     
-    public func getHistory(id: Int) {
+    private func getHistory(id: Int) {
         subscription = ChatAPI.shared.getHistory(id: id)
             .receive(on: RunLoop.main)
             .sink { completion in
@@ -102,6 +106,12 @@ class SocketIOManager: ObservableObject, StompClientLibDelegate {
             } receiveValue: { history in
                 self.messages = history
             }
+    }
+    
+    private func getChatUserId(userId: Int, chatId: Int) {
+        ChatAPI.shared.getChatUserId(userId: userId, chatId: chatId) { res in
+            self.chatUserId = res
+        }
     }
     
 }
@@ -119,7 +129,7 @@ struct MessageDTO: Codable, Identifiable {
     
     var posted: String
     var username: String
-    var avatar: String
+    var avatar: String?
     
 }
 

@@ -41,7 +41,7 @@ struct HomeView: View {
         
     }
     
-    private func content(movies: [MovieDTO]) -> some View {
+    private func content(movies: [Int: [MovieDTO]]) -> some View {
         return VStack {
             topbar
             SearchBar(text: $homeVM.searchText, placeholder: "Search")
@@ -56,7 +56,9 @@ struct HomeView: View {
 //                                CardListView(movies: movies[genre.id] ?? [], genre: genre.genreName)
 //                            }
                             Divider()
-                            CardListView(movies: movies, genre: genre.genreName)
+                            if movies[genre.id] != nil {
+                                CardListView(movies: movies[genre.id] ?? [], genre: genre.genreName)
+                            }
                         }
                     }
                 }

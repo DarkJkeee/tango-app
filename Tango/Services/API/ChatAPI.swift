@@ -134,12 +134,38 @@ class ChatAPI {
         }
     }
     
+    public func getChatUserId(userId: Int, chatId: Int, completionHandler: @escaping (Int) -> Void) {
+        guard let url = URL(string: "\(self.url)/api/chats/user/\(userId)/from/\(chatId)") else {
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(Session.shared.token)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if error != nil || data == nil {
+                print("Client error!")
+                return
+            }
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Server error!")
+                return
+            }
+            
+            let res = try? JSONDecoder().decode(ChatUserId.self, from: data!)
+            
+            completionHandler(res?.chat_user_id ?? -1)
+        }.resume()
+    }
+    
     
     deinit {
         for sub in subscriptions {
             sub.cancel()
         }
     }
+    
+    
     
     struct CreateChatBody: Encodable {
         var userId: Int
@@ -152,6 +178,10 @@ class ChatAPI {
     struct GetResponse: Decodable {
         var result: [Chat]
         var pagination: Pagination
+    }
+    
+    struct ChatUserId: Decodable {
+        var chat_user_id: Int
     }
     
     enum Endpoint {

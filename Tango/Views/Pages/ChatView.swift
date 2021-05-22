@@ -16,6 +16,7 @@ struct ChatView: View {
     @State var isShowing = false
     @State var typingMessage = ""
     @State private var keyboardHeight: CGFloat = 0
+    var chat: Chat
     
     var body: some View {
         GeometryReader { geometry in
@@ -61,7 +62,7 @@ struct ChatView: View {
             ChatSettings(chatListVM: chatListVM)
         }
         .onAppear() {
-            socketManager.connect(username: profileVM.mainUser.username)
+            socketManager.connect(user: profileVM.mainUser, chatId: chat.chatId)
         }
     }
 }
